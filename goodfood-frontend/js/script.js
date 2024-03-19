@@ -1,4 +1,6 @@
 const $msgError = document.querySelector('#msgError');
+const $emailError = document.querySelector('#emailError');
+const $passwordError = document.querySelector('#passwordError');
 
 function login() {
     let emailUser = document.getElementById("inputEmail").value;
@@ -27,11 +29,21 @@ function login() {
 function register() {
 
     // let nameUser = document.getElementById("inputName").value;
-    // let emailUser = document.getElementById("inputEmail").value;
-    // let passwordUser = document.getElementById("inputPassword").value;
-    // let confirmPasswordlUser = document.getElementById("inputConfirmPassword").value;
+    let emailUser = document.getElementById("inputEmail").value;
+    let passwordUser = document.getElementById("inputPassword").value;
+    let confirmPasswordlUser = document.getElementById("inputConfirmPassword").value;
     let categoryUser;
     let newUser;
+
+    if (validateEmail(emailUser)) {
+        $emailError.textContent = "*Email já cadastrado!";
+        return;
+    }
+
+    if (!validatePassword(passwordUser, confirmPasswordlUser)) {
+        $passwordError.textContent = "*As senhas são diferentes!";
+        return;
+    }
 
     if (document.getElementById("flexRadioClient").checked) {
         categoryUser = "Cliente";
@@ -67,15 +79,34 @@ function register() {
         contentType: "application/json",
         data: JSON.stringify(newUser),
         success: (newUser) => {
-            alert("Cadastrou com Sucesso");
+            alert("Cadastrou com Sucesso!");
         }
-    }); 
+    });
 }
 
-function validatePassword() {
-
+function validatePassword(password, confirmPassword) {
+    if (password == confirmPassword) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
-function validateEmail() {
-    
+// Precisa de Ajuste
+function validateEmail(emailValidation) {
+
+    $.ajax({
+        url: "http://localhost:8080/users",
+        type: "GET",
+        async: false,
+        success: (response) => {
+            for (let user of response) {
+                if (user.email == emailValidation) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    });
 }
