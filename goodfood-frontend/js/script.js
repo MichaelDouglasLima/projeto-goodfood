@@ -2,6 +2,20 @@ const $msgError = document.querySelector('#msgError');
 const $emailError = document.querySelector('#emailError');
 const $passwordError = document.querySelector('#passwordError');
 
+let emails = [];
+
+// Onload
+loadEmails();
+
+function loadEmails() {
+    $.getJSON("http://localhost:8080/users", (response) => {
+        for (let user of response) {
+            emails.push(user.email);
+            console.log(user.email);
+        }
+    });
+}
+
 function login() {
     let emailUser = document.getElementById("inputEmail").value;
     let passwordUser = document.getElementById("inputPassword").value;
@@ -12,8 +26,13 @@ function login() {
         for (let user of response) {
             if (user.email == emailUser && user.password == passwordUser) {
                 validUser = true;
-                // window.open('teste.html');
-                window.location.href = 'teste.html';
+
+                if (user.category.name == "Cliente") {
+                    window.location.href = 'home-client.html';
+                } else if (user.category.name == "Nutricionista") {
+                    window.location.href = 'home-nutritionist.html';
+                }
+                
                 break;
             } else {
                 continue;
@@ -35,7 +54,7 @@ function register() {
     let categoryUser;
     let newUser;
 
-    if (validateEmail(emailUser)) {
+    if (validateEmail(emailUser, emails)) {
         $emailError.textContent = "*Email já cadastrado!";
         return;
     }
@@ -80,6 +99,8 @@ function register() {
         data: JSON.stringify(newUser),
         success: (newUser) => {
             alert("Cadastrou com Sucesso!");
+            emails.push(newUser.email);
+            window.location.href = 'index.html';
         }
     });
 }
@@ -92,21 +113,6 @@ function validatePassword(password, confirmPassword) {
     }
 }
 
-// Precisa de Ajuste
-function validateEmail(emailValidation) {
-
-    $.ajax({
-        url: "http://localhost:8080/users",
-        type: "GET",
-        async: false,
-        success: (response) => {
-            for (let user of response) {
-                if (user.email == emailValidation) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-    });
+function validateEmail(emailValidation, arrayEmails) {
+    return arrayEmails.includes(emailValidation);
 }
