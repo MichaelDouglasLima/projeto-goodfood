@@ -25,6 +25,12 @@ public class User {
     @Column(nullable = false, length = 255)
     private String password;
 
+    @Column(nullable = true, length = 1024)
+    private String description;
+
+    @Column(nullable = true, length = 1024)
+    private String telephone;
+
     @ManyToOne
     private Category category;
 
@@ -60,8 +66,24 @@ public class User {
         return password;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     public Category getCategory() {

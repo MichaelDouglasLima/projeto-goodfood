@@ -5,7 +5,10 @@ const $passwordError = document.querySelector('#passwordError');
 let emails = [];
 
 // Onload
-loadEmails();
+// loadEmails();
+// loadNutritionists();
+// loadNutritionists();
+// loadNutritionists();
 
 function loadEmails() {
     $.getJSON("http://localhost:8080/users", (response) => {
@@ -115,4 +118,27 @@ function validatePassword(password, confirmPassword) {
 
 function validateEmail(emailValidation, arrayEmails) {
     return arrayEmails.includes(emailValidation);
+}
+
+function loadNutritionists() {
+    $.getJSON("http://localhost:8080/users", (response) => 
+    {   
+        for (var n of response) {
+            if (n.category.name == "Nutricionista") {
+                document.getElementById("nutritionistProfiles").innerHTML += 
+
+            `
+                <div class="card m-auto mt-4 p-3 pt-1 col-3" style="width: 18rem;">
+                    <div class="card-body text-center">
+                        <i class="bi bi-person-circle fs-1"></i>
+                        <h5 class="card-title">${n.name}</h5>
+                        <p>${n.description}</p>
+                        <i class="bi bi-whatsapp"> ${n.telephone}</i>
+                    </div>
+                </div>
+            `;
+            }
+        }      
+    }
+ );
 }

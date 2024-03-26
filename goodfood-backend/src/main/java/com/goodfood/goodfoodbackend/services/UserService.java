@@ -46,9 +46,10 @@ public class UserService {
         
         Category category = categoryService.getById(userUpdate.getCategory().getId());
 
-        user.setEmail(userUpdate.getName());
+        user.setName(userUpdate.getName());
         user.setEmail(userUpdate.getEmail());
-        user.setEmail(userUpdate.getPassword());
+        user.setPassword(userUpdate.getPassword());
+        user.setDescription(userUpdate.getDescription());
         user.setCategory(category);
 
         userRepository.save(user);
@@ -58,4 +59,5 @@ public class UserService {
         User user = getById(id);
         userRepository.delete(user);
     }
+
 }
