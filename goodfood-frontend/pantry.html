@@ -45,7 +45,7 @@
         </div>
     </nav>
 
-    <header class="display-4 text-center mt-2">
+    <header class="display-4 text-center">
         Despensa
     </header>
 
@@ -71,9 +71,15 @@
                                 <input type="text" class="form-control" id="inputCalories" required>
                             </div>
 
-                            <label for="inputCarbohydrates" class="col-sm-2 col-form-label">Carboidratos:</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="inputCarbohydrates" required>
+                            <span class="col-sm-2 col-form-label">Categoria:</span>
+                            <div class="col-sm-4" id="selectCategories">
+                                <select class="form-select" aria-label="Select Categories">
+                                    <option value="" selected>Escolha:</option>
+                                    <option value="1">Legume</option>
+                                    <option value="2">Vegetal</option>
+                                    <option value="3">Fruta</option>
+                                    <option value="3">Carne</option>
+                                  </select>
                             </div>
                         </div>
 
@@ -99,8 +105,8 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Nome</th>
+                                <th scope="col">Categoria</th>
                                 <th scope="col">Calorias</th>
-                                <th scope="col">Carboidratos</th>
                             </tr>
                         </thead>
                         <tbody>
