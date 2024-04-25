@@ -6,7 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,14 +15,14 @@ public class Product {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_diet;
+    private Long id_product;
 
     @Column(nullable = true, length = 1024)
     private String description;
 
     private Double calories;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "CATEGORY_ID")
     private Category category_id;
 
@@ -30,12 +30,12 @@ public class Product {
         
     }
 
-    public Long getId_diet() {
-        return id_diet;
+    public Long getId_product() {
+        return id_product;
     }
 
-    public void setId_diet(Long id_diet) {
-        this.id_diet = id_diet;
+    public void setId_product(Long id_product) {
+        this.id_product = id_product;
     }
 
     public String getDescription() {
