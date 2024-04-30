@@ -8,7 +8,7 @@
 **/.dockerignore
 **/.env
 **/.git
-**/.gitignore
+../.idea/.gitignore
 **/.project
 **/.settings
 **/.toolstarget
