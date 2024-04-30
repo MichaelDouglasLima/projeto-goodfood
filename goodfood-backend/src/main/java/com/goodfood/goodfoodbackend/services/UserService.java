@@ -40,17 +40,11 @@ public class UserService {
     public void update(@PathVariable int id, @RequestBody User userUpdate) {
         User user = getById(id);
 
-        if (userUpdate.getCategory() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category can not be empty");
-        }
-        
-        Category category = categoryService.getById(userUpdate.getCategory().getId());
-
         user.setName(userUpdate.getName());
         user.setEmail(userUpdate.getEmail());
         user.setPassword(userUpdate.getPassword());
         user.setDescription(userUpdate.getDescription());
-        user.setCategory(category);
+
 
         userRepository.save(user);
     }

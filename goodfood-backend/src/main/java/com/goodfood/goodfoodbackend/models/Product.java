@@ -15,7 +15,7 @@ public class Product {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_product;
+    private Long id;
 
     @Column(nullable = true, length = 1024)
     private String description;
@@ -23,19 +23,19 @@ public class Product {
     private Double calories;
 
     @ManyToOne
-    @JoinColumn(name = "CATEGORY_ID")
-    private Category category_id;
+    @JoinColumn(name = "ID_CATEGORY")
+    private Category id_category;
 
     public Product() {
         
     }
 
-    public Long getId_product() {
-        return id_product;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_product(Long id_product) {
-        this.id_product = id_product;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -54,12 +54,12 @@ public class Product {
         this.calories = calories;
     }
 
-    public Category getCategory_id() {
-        return category_id;
+    public Category getId_category() {
+        return id_category;
     }
 
-    public void setCategory_id(Category category_id) {
-        this.category_id = category_id;
+    public void setId_category(Category id_category) {
+        this.id_category = id_category;
     }
     
 }

@@ -35,7 +35,7 @@ public class CategoryService {
 
     public void update(@PathVariable int id, @RequestBody Category categoryUpdate) {
         Category category = getById(id);
-        category.setName(categoryUpdate.getName());
+        category.setDescription(categoryUpdate.getDescription());
         categoryRepository.save(category);
     }
 

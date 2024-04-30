@@ -1,11 +1,12 @@
 package com.goodfood.goodfoodbackend.models;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,13 +27,16 @@ public class User {
     private String password;
 
     @Column(nullable = true, length = 1024)
-    private String description;
+    private String cellphone;
 
     @Column(nullable = true, length = 1024)
-    private String telephone;
+    private String description;
 
-    @ManyToOne
-    private Category category;
+    @Column(nullable = true)
+    private LocalDate dateBirth;
+
+    @Column(nullable = true)
+    private String gender;
 
     public User() {
 
@@ -66,32 +70,40 @@ public class User {
         return password;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getCellphone() {
+        return cellphone;
+    }
+
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public LocalDate getDateBirth() {
+        return dateBirth;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setDateBirth(LocalDate dateBirth) {
+        this.dateBirth = dateBirth;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getGender() {
+        return gender;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
-
+  
 }
