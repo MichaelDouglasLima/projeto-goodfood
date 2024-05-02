@@ -5,9 +5,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
+    url: jdbc:mariadb://goodfood-db:3306/goodfood
+    username: user
+    password: 123456
   jpa:
     open-in-view: false
     defer-datasource-initialization: true

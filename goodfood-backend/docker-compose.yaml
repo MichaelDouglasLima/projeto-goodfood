@@ -1,0 +1,38 @@
+services:
+  goodfood-api:
+    container_name: goodfood-api
+    build:
+      context: .
+      target: development
+    ports:
+      - 8080:8080
+      - 5005:5005
+    develop:
+      watch:
+        - action: rebuild
+          path: .
+    depends_on:
+      goodfood-db:
+        condition: service_healthy
+
+  goodfood-db:
+    container_name: goodfood-db
+    image: mariadb:latest
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=goodfood
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=123456
+    volumes:
+      - goodfood-data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  goodfood-data:
