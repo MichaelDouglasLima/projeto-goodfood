@@ -35,15 +35,8 @@ public class NutritionistService {
 
     public void update(@PathVariable int id, @RequestBody Nutritionist nutritionistUpdate) {
         Nutritionist nutritionist = getById(id);
-
-        nutritionist.setName(nutritionistUpdate.getName());
-        nutritionist.setEmail(nutritionistUpdate.getEmail());
-        nutritionist.setPassword(nutritionistUpdate.getPassword());
-        nutritionist.setDescription(nutritionistUpdate.getDescription());
-        nutritionist.setCellphone(nutritionistUpdate.getCellphone());
-        nutritionist.setDateBirth(nutritionistUpdate.getDateBirth());
+        nutritionist.setUser(nutritionistUpdate.getUser());
         nutritionist.setCfm(nutritionistUpdate.getCfm());
-
         nutritionistRepository.save(nutritionist);
     }
     

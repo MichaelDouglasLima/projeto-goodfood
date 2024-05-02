@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,7 +17,7 @@ public class Diet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_diet;
+    private Long id;
 
     @Column(nullable = false, length = 255)
     private String diet_type;
@@ -33,16 +35,20 @@ public class Diet {
     @Column(nullable = true, length = 1024)
     private String observation;
 
+    @OneToOne
+    @JoinColumn(name = "ID_NUTRITIONIST_CLIENT")
+    private Nutritionist_Client id_nutritionist_client;
+
     public Diet() {
         
     }
 
-    public Long getId_diet() {
-        return id_diet;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_diet(Long id_diet) {
-        this.id_diet = id_diet;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDiet_type() {
@@ -91,6 +97,14 @@ public class Diet {
 
     public void setObservation(String observation) {
         this.observation = observation;
+    }
+
+    public Nutritionist_Client getId_nutritionist_client() {
+        return id_nutritionist_client;
+    }
+
+    public void setId_nutritionist_client(Nutritionist_Client id_nutritionist_client) {
+        this.id_nutritionist_client = id_nutritionist_client;
     }
 
 }

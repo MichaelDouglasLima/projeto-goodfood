@@ -28,7 +28,7 @@ public class NutritionistController {
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(nutritionist.getId_nutritionist())
+                .buildAndExpand(nutritionist.getId())
                 .toUri();
 
         return ResponseEntity.created(location).body(nutritionist);

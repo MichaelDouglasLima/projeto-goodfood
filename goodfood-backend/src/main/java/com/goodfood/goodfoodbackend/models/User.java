@@ -1,11 +1,12 @@
 package com.goodfood.goodfoodbackend.models;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,11 +32,12 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    private String cellphone;
+
     @Column(length = 1024)
     private String description;
 
-    private String telephone;
+    private LocalDate dateBirth;
 
-    @ManyToOne
-    private Category category;
+    private String gender;
 }
