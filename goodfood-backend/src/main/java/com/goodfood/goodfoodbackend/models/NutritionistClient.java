@@ -5,26 +5,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalTime;
-import java.util.List;
-
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "meal")
-public class Meal {
+@Table(name = "nutritionist_client")
+public class NutritionistClient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private LocalTime estimatedTime;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "nutritionist_id")
+    private Nutritionist nutritionist;
 
-    @Column(length = 1024)
-    private String description;
-
-    @ManyToMany(mappedBy = "meals")
-    private List<Diet> diets;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "client_id")
+    private Client client;
 }

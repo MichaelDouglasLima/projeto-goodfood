@@ -1,16 +1,12 @@
 package com.goodfood.goodfoodbackend.models;
 
-import java.time.LocalDate;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.goodfood.goodfoodbackend.models.enums.Gender;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @Getter
@@ -32,12 +28,14 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    private String cellphone;
+    @Column(length = 24)
+    private String phoneNumber;
 
     @Column(length = 1024)
     private String description;
 
-    private LocalDate dateBirth;
+    private LocalDate birthDate;
 
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 }

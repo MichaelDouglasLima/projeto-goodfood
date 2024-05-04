@@ -1,66 +1,31 @@
 package com.goodfood.goodfoodbackend.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.List;
+
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
-@Table(name="TBL_CLIENT")
+@Table(name = "client")
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = true)
-    private double height;
-
-    @Column(nullable = true)
-    private double weight;
+    private Double height;
+    private Double weight;
 
     @OneToOne
-    @JoinColumn(name = "ID_USER")
+    @JoinColumn(name = "user_id")
     private User user;
 
-    public Client() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
+    @ManyToMany
+    @JoinTable(name = "client_product")
+    private List<Product> products;
 }
