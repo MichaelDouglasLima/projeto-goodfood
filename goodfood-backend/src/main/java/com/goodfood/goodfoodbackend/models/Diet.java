@@ -42,6 +42,9 @@ public class Diet {
     private NutritionistClient nutritionistClient;
 
     @ManyToMany
-    @JoinTable(name = "diet_meal")
+    @JoinTable(
+            name = "diet_meal",
+            joinColumns = @JoinColumn(name = "diet_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "meal_id", referencedColumnName = "id"))
     private List<Meal> meals;
 }
