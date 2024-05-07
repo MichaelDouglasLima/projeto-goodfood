@@ -83,10 +83,19 @@
 
           <div class="row mb-3 mt-3">
             <label for="inputDatebirth" class="col-sm-3 col-form-label">Data de Nascimento:</label>
-            <div class="col-sm-9">
-              <input type="date" class="form-control" name="dateBirth" id="inputDatebirth">
+            <div class="col-sm-3">
+                <input type="date" class="form-control" name="dateBirth" id="inputDatebirth">
             </div>
-          </div>
+
+            <span class="col-sm-2 col-form-label">Sexo:</span>
+            <div class="col-sm-4" id="selectCategories">
+                <select class="form-select" aria-label="Select Gender">
+                    <option value="" selected>Escolha:</option>
+                    <option value="1">Masculino</option>
+                    <option value="2">Feminino</option>
+                </select>
+            </div>
+        </div>
 
           <div class="row mb-3 mt-3">
             <label for="inputDescription" class="col-sm-2 col-form-label">Descrição:</label>
