@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.goodfood.goodfoodbackend.models.Category;
 import com.goodfood.goodfoodbackend.models.User;
 import com.goodfood.goodfoodbackend.repositories.UserRepository;
 
@@ -29,7 +28,7 @@ public class UserService {
     public User getById(int id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-        
+
         return user;
     }
 
@@ -45,10 +44,9 @@ public class UserService {
         user.setPassword(userUpdate.getPassword());
         user.setDescription(userUpdate.getDescription());
 
-
         userRepository.save(user);
     }
-    
+
     public void deleteById(int id) {
         User user = getById(id);
         userRepository.delete(user);

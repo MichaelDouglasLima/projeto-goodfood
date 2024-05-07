@@ -16,7 +16,7 @@ public class Nutritionist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String cfm;
+    private String cfn;
 
     @OneToOne
     @JoinColumn(name = "user_id")
