@@ -1,18 +1,20 @@
 package com.goodfood.goodfoodbackend.models;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalTime;
+import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
-@Table(name="TBL_MEAL")
+@Table(name = "meal")
 public class Meal {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,35 +22,11 @@ public class Meal {
     @Column(nullable = false)
     private LocalTime estimatedTime;
 
-    @Column(nullable = true, length = 1024)
-    private String comment;
+    @Column(length = 1024)
+    private String description;
 
-    public Meal() {
+    private String period;
 
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalTime getEstimatedTime() {
-        return estimatedTime;
-    }
-
-    public void setEstimatedTime(LocalTime estimatedTime) {
-        this.estimatedTime = estimatedTime;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
+    @ManyToMany(mappedBy = "meals")
+    private List<Diet> diets;
 }

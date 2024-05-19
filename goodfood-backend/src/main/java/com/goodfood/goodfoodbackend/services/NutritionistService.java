@@ -36,7 +36,7 @@ public class NutritionistService {
     public void update(@PathVariable int id, @RequestBody Nutritionist nutritionistUpdate) {
         Nutritionist nutritionist = getById(id);
         nutritionist.setUser(nutritionistUpdate.getUser());
-        nutritionist.setCfm(nutritionistUpdate.getCfm());
+        nutritionist.setCfn(nutritionistUpdate.getCfn());
         nutritionistRepository.save(nutritionist);
     }
     

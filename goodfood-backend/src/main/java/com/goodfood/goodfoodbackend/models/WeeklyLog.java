@@ -2,31 +2,29 @@ package com.goodfood.goodfoodbackend.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.time.LocalDate;
 
-@NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "product")
-public class Product {
+@Table(name = "weekly_log")
+public class WeeklyLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Double rating;
+    private Double weight;
+
+    private LocalDate endDate;
+
     @Column(length = 1024)
     private String description;
 
-    private Double calories;
-
     @ManyToOne(optional = false)
-    @JoinColumn(name = "category_id")
-    private Category category;
-
-    @ManyToMany(mappedBy = "products")
-    private List<Client> clients;
+    @JoinColumn(name = "diet_id")
+    private Diet diet;
 }
