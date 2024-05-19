@@ -37,7 +37,7 @@ public class Diet {
     @Column(length = 1024)
     private String description;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "nutritionist_client_id")
     private NutritionistClient nutritionistClient;
 

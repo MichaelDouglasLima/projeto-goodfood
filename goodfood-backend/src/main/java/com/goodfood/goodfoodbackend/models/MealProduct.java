@@ -22,11 +22,11 @@ public class MealProduct {
     private String unit;
     private String period;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "meal_id")
     private Meal meal;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "product_id")
     private Product product;
 }

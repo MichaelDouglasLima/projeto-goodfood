@@ -23,7 +23,7 @@ public class Product {
 
     private Double calories;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "category_id")
     private Category category;
 

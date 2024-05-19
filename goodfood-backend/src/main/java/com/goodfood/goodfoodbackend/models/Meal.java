@@ -25,6 +25,8 @@ public class Meal {
     @Column(length = 1024)
     private String description;
 
+    private String period;
+
     @ManyToMany(mappedBy = "meals")
     private List<Diet> diets;
 }

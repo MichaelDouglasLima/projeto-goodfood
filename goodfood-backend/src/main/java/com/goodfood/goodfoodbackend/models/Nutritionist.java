@@ -18,7 +18,7 @@ public class Nutritionist {
 
     private String cfn;
 
-    @OneToOne
+    @OneToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
 }

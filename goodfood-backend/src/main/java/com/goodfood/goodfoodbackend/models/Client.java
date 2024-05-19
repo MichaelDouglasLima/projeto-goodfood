@@ -21,7 +21,7 @@ public class Client {
     private Double height;
     private Double weight;
 
-    @OneToOne
+    @OneToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
 
