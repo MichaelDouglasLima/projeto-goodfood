@@ -12,5 +12,10 @@ spring:
       mode: always
       encoding: UTF-8
 
+goodfood:
+  app:
+    jwtSecret: 99af6388826d2373129098037aca1afc
+    jwtExpirationMs: 86400000
+
 springdoc:
   show-actuator: true
