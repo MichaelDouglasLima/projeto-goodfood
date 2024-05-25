@@ -1,42 +1,33 @@
 package com.goodfood.goodfoodbackend.services;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.server.ResponseStatusException;
-
 import com.goodfood.goodfoodbackend.models.User;
 import com.goodfood.goodfoodbackend.repositories.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@AllArgsConstructor
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private CategoryService categoryService;
+    private final UserRepository userRepository;
 
     public User save(User user) {
         return userRepository.save(user);
     }
 
-    public User getById(int id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-
-        return user;
+    public User getById(long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 
     public List<User> getAll() {
         return userRepository.findAll();
     }
 
-    public void update(@PathVariable int id, @RequestBody User userUpdate) {
+    public void update(long id, User userUpdate) {
         User user = getById(id);
 
         user.setName(userUpdate.getName());
@@ -47,7 +38,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void deleteById(int id) {
+    public void deleteById(long id) {
         User user = getById(id);
         userRepository.delete(user);
     }

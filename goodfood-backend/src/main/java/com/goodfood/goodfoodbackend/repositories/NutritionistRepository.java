@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.goodfood.goodfoodbackend.models.Nutritionist;
 
-public interface NutritionistRepository extends JpaRepository <Nutritionist,Integer> {
+public interface NutritionistRepository extends JpaRepository <Nutritionist, Long> {
     
 }
