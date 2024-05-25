@@ -1,14 +1,16 @@
 package com.goodfood.goodfoodbackend.models;
 
 import com.goodfood.goodfoodbackend.models.enums.Gender;
+import com.goodfood.goodfoodbackend.models.enums.Role;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.Email;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
@@ -22,11 +24,18 @@ public class User {
     @Column(nullable = false)
     private String name;
 
+    @Email
     @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
+    private String username;
+
+    @Column(nullable = false)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(length = 24)
     private String phoneNumber;
