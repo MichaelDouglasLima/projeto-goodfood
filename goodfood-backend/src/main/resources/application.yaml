@@ -1,8 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mariadb://goodfood-db:3306/goodfood
+    url: jdbc:mariadb://localhost:3306/goodfood
     username: user
     password: 123456
+    driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     open-in-view: false
     hibernate:
