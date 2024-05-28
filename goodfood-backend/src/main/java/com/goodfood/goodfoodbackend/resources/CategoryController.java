@@ -3,7 +3,7 @@ package com.goodfood.goodfoodbackend.resources;
 import com.goodfood.goodfoodbackend.models.Category;
 import com.goodfood.goodfoodbackend.services.CategoryService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,18 +11,17 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
-@RequestMapping("/categories")
+@RequestMapping("/api/categories")
 @Tag(name = "category", description = "the Category API")
 @CrossOrigin
 public class CategoryController {
 
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
     @PostMapping
     public ResponseEntity<Category> save(@RequestBody Category category) {
-
         category = categoryService.save(category);
 
         URI location = ServletUriComponentsBuilder
@@ -31,11 +30,11 @@ public class CategoryController {
                 .buildAndExpand(category.getId())
                 .toUri();
 
-        return ResponseEntity.created(location).body(category);
+        return ResponseEntity.created(location).build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategory(@PathVariable int id) {
+    public ResponseEntity<Category> getCategory(@PathVariable long id) {
         Category category = categoryService.getById(id);
         return ResponseEntity.ok(category);
     }
@@ -46,13 +45,13 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateCategory(@PathVariable int id, @RequestBody Category categoryUpdate) {
+    public ResponseEntity<Void> updateCategory(@PathVariable long id, @RequestBody Category categoryUpdate) {
         categoryService.update(id, categoryUpdate);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> removeCategory(@PathVariable int id) {
+    public ResponseEntity<Void> removeCategory(@PathVariable long id) {
         categoryService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

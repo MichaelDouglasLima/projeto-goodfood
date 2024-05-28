@@ -1,46 +1,40 @@
 package com.goodfood.goodfoodbackend.services;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.server.ResponseStatusException;
-
 import com.goodfood.goodfoodbackend.models.Nutritionist;
 import com.goodfood.goodfoodbackend.repositories.NutritionistRepository;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@AllArgsConstructor
 @Service
 public class NutritionistService {
 
-    @Autowired
-    private NutritionistRepository nutritionistRepository;
+    private final NutritionistRepository nutritionistRepository;
 
     public Nutritionist save(Nutritionist nutritionist) {
         return nutritionistRepository.save(nutritionist);
     }
 
-    public Nutritionist getById(int id) {
-        Nutritionist nutritionist = nutritionistRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Nutritionist not found"));
-        
-        return nutritionist;
+    public Nutritionist getById(long id) {
+        return nutritionistRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Nutritionist not found"));
     }
 
     public List<Nutritionist> getAll() {
         return nutritionistRepository.findAll();
     }
 
-    public void update(@PathVariable int id, @RequestBody Nutritionist nutritionistUpdate) {
+    public void update(long id, Nutritionist nutritionistUpdate) {
         Nutritionist nutritionist = getById(id);
         nutritionist.setUser(nutritionistUpdate.getUser());
         nutritionist.setCfn(nutritionistUpdate.getCfn());
         nutritionistRepository.save(nutritionist);
     }
-    
-    public void deleteById(int id) {
+
+    public void deleteById(long id) {
         Nutritionist nutritionist = getById(id);
         nutritionistRepository.delete(nutritionist);
     }
