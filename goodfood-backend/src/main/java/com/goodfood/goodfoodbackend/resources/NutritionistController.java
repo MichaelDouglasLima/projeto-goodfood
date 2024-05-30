@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/nutritionists")
-@Tag(name = "nutritionist", description = "the Nutritionist API")
+@Tag(name = "Nutritionist", description = "the Nutritionist API")
 @CrossOrigin
 public class NutritionistController {
 

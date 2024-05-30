@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/categories")
-@Tag(name = "category", description = "the Category API")
+@Tag(name = "Category", description = "the Category API")
 @CrossOrigin
 public class CategoryController {
 
