@@ -1,5 +1,6 @@
 package com.goodfood.goodfoodbackend.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 public class LoginRequestDto {
 
     @NotBlank
+    @Email
     private String username;
 
     @NotBlank
