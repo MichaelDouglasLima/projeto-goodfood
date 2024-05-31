@@ -15,7 +15,7 @@ spring:
 
 goodfood:
   app:
-    jwtSecret: 99af6388826d2373129098037aca1afc
+    jwtSecret: b0bcc54d941472995ae5fad499adccbf640f9bca5f444126c8e37b31893405cfa447be42adf4d5c306209b00f87d48223606c4a2dc487b1f03c68f356c69416e
     jwtExpirationMs: 86400000
 
 springdoc:

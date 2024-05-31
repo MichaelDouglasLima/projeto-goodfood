@@ -4,7 +4,6 @@ import com.goodfood.goodfoodbackend.models.User;
 import com.goodfood.goodfoodbackend.services.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -15,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/users")
-@Tag(name = "user", description = "the User API")
+@Tag(name = "User", description = "the User API")
 @CrossOrigin
 public class UserController {
 
