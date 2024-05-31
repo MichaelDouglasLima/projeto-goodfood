@@ -30,7 +30,7 @@ A aplicação estará disponível em: http://localhost:8080
 
 ### Swagger
 
-- Página do Swagger UI disponível em: http://localhost:8080/swagger-ui.html
+- Página do Swagger UI disponível em: localhost:8080/swagger-ui/index.html
 - Página de descrição OpenAPI em: http://localhost:8080/v3/api-docs
 
 ## Frontend
