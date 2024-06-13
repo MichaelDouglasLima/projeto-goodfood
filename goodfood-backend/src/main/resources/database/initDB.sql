@@ -1,0 +1,9 @@
+CREATE DATABASE IF NOT EXISTS goodfood;
+
+ALTER DATABASE goodfood
+  DEFAULT CHARACTER SET utf8
+  DEFAULT COLLATE utf8_general_ci;
+
+GRANT ALL PRIVILEGES ON goodfood.* TO user@localhost IDENTIFIED BY '123456';
+
+USE goodfood;
