@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dieta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #0DB614;">
+        <div class="container-fluid">
+            <img src="assets/goodfoodlogo.png" alt="Logo da GoodFood" width="70" class="me-2">
+            <a class="navbar-brand" href="#">Cliente</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="home-client.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="pantry.html">Despensa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="diet-client.html">Dieta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="history.html">Histórico</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="experience.html">Experiência</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="nutritionists.html">Nutricionistas</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <a class="btn btn-light fw-semibold" href="profile-client.html">Perfil</a>
+                    <a class="btn btn-light fw-semibold ms-2" href="index.html">Sair</a>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <header class="display-4 text-center">
+        Dieta
+    </header>
+
+    <main class="container">
+
+        <div class="row mt-4">
+            <div class="col-md-10 offset-md-1">
+                <form>
+                    <section class="mb-4">
+                        <div class="row mb-3 mt-3">
+                            <label for="inputTypeDiet" class="col-sm-2 col-form-label">Tipo Dieta:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="typeDiet" id="inputTypeDiet" value="Dieta Balanceada" readonly>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3 mt-3">
+                            <label for="inputDateStart" class="col-sm-2 col-form-label">Data de Início:</label>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control" name="dateStart" id="inputDateStart"  value="2024-01-01" readonly>
+                            </div>
+
+                            <label for="inputDateEnd" class="col-sm-2 col-form-label">Data de Fim:</label>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control" name="dateEnd" id="inputDateEnd" value="2024-12-30" readonly>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3 mt-3">
+                            <label for="inputSitution" class="col-sm-2 col-form-label">Situação:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="situation" id="inputSituation" value="Em Andamento" readonly>
+                            </div>
+
+                            <label for="inputTotalMeals" class="col-sm-2 col-form-label">Refeições Diárias:</label>
+                            <div class="col-sm-4">
+                                <input type="number" value="3" class="form-control" name="TotalMeals"
+                                    id="inputTotalMeals" readonly>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3 mt-3">
+                            <label for="txtAreaObservation" class="col-sm-2 col-form-label">Observação:</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" name="observation" id="txtAreaObservation" cols="30"
+                                    rows="6">Refeições balanceadas ao longo do dia</textarea>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <hr>
+
+                    <section>
+                        <div class="display-6 mt-2 mb-4">
+                            Refeição Sugerida:
+                        </div>
+
+                        <div id="mealsList">
+
+                            <div class="p-3 border rounded-2 mt-3 mb-3 mealItem">
+                                <div class="row mb-3 mt-3">
+                                    <span class="col-sm-2 col-form-label">Perído da Refeição:</span>
+                                    <div class="col-sm-4">
+                                        <select class="form-select" formControlName="period" aria-label="Select Period" readonly>
+                                            <option value="">Escolha:</option>
+                                            <option value="Café Da Manhã" selected>Café da Manhã</option>
+                                            <option value="Almoço">Almoço</option>
+                                            <option value="Lanche">Lanche</option>
+                                            <option value="Jantar">Jantar</option>
+                                        </select>
+                                    </div>
+
+                                    <label for="inputTime" class="col-sm-2 col-form-label">Horário da Refeição:</label>
+                                    <div class="col-sm-4">
+                                        <input type="time" class="form-control" name="time" id="inputTime"
+                                            value="08:00">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 mt-3">
+                                    <label for="txtAreaComment" class="col-sm-2 col-form-label">Comentário:</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" name="comment" id="txtAreaComment" cols="30"
+                                            rows="3" readonly>Incluir uma porção de frutas
+                                        </textarea>
+                                    </div>
+                                </div>
+
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Nome</th>
+                                            <th scope="col">Quantidade</th>
+                                            <th scope="col">Unidade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Maçã</td>
+                                            <td>1</td>
+                                            <td>unidade</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Banana</td>
+                                            <td>1</td>
+                                            <td>unidade</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td>Iogurte</td>
+                                            <td>200</td>
+                                            <td>ml</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">4</th>
+                                            <td>Granola</td>
+                                            <td>30</td>
+                                            <td>g</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            
+
+                            <div class="p-3 border rounded-2 mt-3 mb-3 mealItem">
+                                <div class="row mb-3 mt-3">
+                                    <span class="col-sm-2 col-form-label">Perído da Refeição:</span>
+                                    <div class="col-sm-4">
+                                        <select class="form-select" formControlName="period" aria-label="Select Period" readonly>
+                                            <option value="">Escolha:</option>
+                                            <option value="Café Da Manhã">Café da Manhã</option>
+                                            <option value="Almoço selected" selected>Almoço</option>
+                                            <option value="Lanche">Lanche</option>
+                                            <option value="Jantar">Jantar</option>
+                                        </select>
+                                    </div>
+
+                                    <label for="inputTime" class="col-sm-2 col-form-label">Horário da Refeição:</label>
+                                    <div class="col-sm-4">
+                                        <input type="time" class="form-control" name="time" id="inputTime"
+                                            value="12:00" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 mt-3">
+                                    <label for="txtAreaComment" class="col-sm-2 col-form-label">Comentário:</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" name="comment" id="txtAreaComment" cols="30"
+                                            rows="3">Inclua uma salada de folhas verdes.</textarea>
+                                    </div>
+                                </div>
+
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Nome</th>
+                                            <th scope="col">Quantidade</th>
+                                            <th scope="col">Unidade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Arroz</td>
+                                            <td>100</td>
+                                            <td>g</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Feijão</td>
+                                            <td>100</td>
+                                            <td>g</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td>Peito de Frango</td>
+                                            <td>150</td>
+                                            <td>g</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">4</th>
+                                            <td>Salada Mista</td>
+                                            <td>150</td>
+                                            <td>g</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="p-3 border rounded-2 mt-3 mb-3 mealItem">
+                                <div class="row mb-3 mt-3">
+                                    <span class="col-sm-2 col-form-label">Perído da Refeição:</span>
+                                    <div class="col-sm-4">
+                                        <select class="form-select" formControlName="period" aria-label="Select Period" readonly>
+                                            <option value="" selected>Escolha:</option>
+                                            <option value="Café Da Manhã">Café da Manhã</option>
+                                            <option value="Almoço">Almoço</option>
+                                            <option value="Lanche">Lanche</option>
+                                            <option value="Jantar" selected>Jantar</option>
+                                        </select>
+                                    </div>
+
+                                    <label for="inputTime" class="col-sm-2 col-form-label">Horário da Refeição:</label>
+                                    <div class="col-sm-4">
+                                        <input type="time" class="form-control" name="time" id="inputTime"
+                                            value="19:00" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 mt-3">
+                                    <label for="txtAreaComment" class="col-sm-2 col-form-label">Comentário:</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" name="comment" id="txtAreaComment" cols="30"
+                                            rows="3">Refeição balanceada para o jantar.</textarea>
+                                    </div>
+                                </div>
+
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Nome</th>
+                                            <th scope="col">Quantidade</th>
+                                            <th scope="col">Unidade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Sopa de Legumes</td>
+                                            <td>300</td>
+                                            <td>ml</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Torrada Integral</td>
+                                            <td>2</td>
+                                            <td>unidades</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td>Fruta</td>
+                                            <td>1</td>
+                                            <td>unidade</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+<br><br><br><br>
+            </div>
+            </section>
+
+            </form>
+        </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
