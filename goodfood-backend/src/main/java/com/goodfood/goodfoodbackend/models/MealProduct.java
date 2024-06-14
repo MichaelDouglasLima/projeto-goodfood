@@ -20,7 +20,7 @@ public class MealProduct {
 
     // TODO: adicionar enum para estes campos com possíveis valores
     private String unit;
-    private String period;
+    private String period; // Acho que o periodo não deveria estar aqui
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "meal_id")

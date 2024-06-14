@@ -28,5 +28,5 @@ public class Product {
     private Category category;
 
     @ManyToMany(mappedBy = "products")
-    private List<Client> clients;
+    private List<Client> clients; // Não entendi o papel deste atributo.
 }

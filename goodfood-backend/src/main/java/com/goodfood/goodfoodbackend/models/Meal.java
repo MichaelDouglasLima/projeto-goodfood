@@ -15,6 +15,8 @@ import java.util.List;
 @Table(name = "meal")
 public class Meal {
 
+    // Esta Classe é o equivalente a Refeição Real no DER
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,10 +25,10 @@ public class Meal {
     private LocalTime estimatedTime;
 
     @Column(length = 1024)
-    private String description;
+    private String description; // O nome deste atributo no DER é comment
 
     private String period;
 
     @ManyToMany(mappedBy = "meals")
-    private List<Diet> diets;
+    private List<Diet> diets; // Não entendi o papel deste atributo
 }

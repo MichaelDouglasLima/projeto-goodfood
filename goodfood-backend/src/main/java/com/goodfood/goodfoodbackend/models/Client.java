@@ -30,5 +30,5 @@ public class Client {
             name = "client_product",
             joinColumns = @JoinColumn(name = "client_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"))
-    private List<Product> products;
+    private List<Product> products; // Esse atributo seria a Entidade LISTA_PRODUTOS_DESPENSA?
 }

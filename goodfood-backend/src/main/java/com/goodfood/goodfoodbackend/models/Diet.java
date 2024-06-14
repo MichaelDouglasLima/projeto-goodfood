@@ -20,7 +20,7 @@ public class Diet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // TODO: mudar para enum com os possíveis valores
+    // TODO: mudar para enum com os possíveis valores -- DietType é um nome mesmo.
     @Column(nullable = false)
     private String dietType;
 
@@ -35,7 +35,7 @@ public class Diet {
     private Integer totalMeals;
 
     @Column(length = 1024)
-    private String description;
+    private String description; // O nome no DER deste atributo deveria ser observation
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "nutritionist_client_id")
@@ -46,5 +46,5 @@ public class Diet {
             name = "diet_meal",
             joinColumns = @JoinColumn(name = "diet_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "meal_id", referencedColumnName = "id"))
-    private List<Meal> meals;
+    private List<Meal> meals; // Esse atributo seria a Entidade POSSUI?
 }

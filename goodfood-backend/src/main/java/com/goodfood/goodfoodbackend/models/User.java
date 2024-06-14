@@ -29,7 +29,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    private String username;
+    private String username; // Este atributo não aparece no DER, mas tudo bem.
 
     @Column(nullable = false)
     private String password;
