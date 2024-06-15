@@ -31,4 +31,8 @@ public class Client {
             joinColumns = @JoinColumn(name = "client_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"))
     private List<Product> products; // Esse atributo seria a Entidade LISTA_PRODUTOS_DESPENSA?
+
+    // Testando como recuperar alimentos
+    // @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    // private List<Food> foods;
 }
