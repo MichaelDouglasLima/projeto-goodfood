@@ -23,7 +23,7 @@ import lombok.Setter;
 @Table(name = "real_meal")
 public class RealMeal {
 
-    // Esta classe está diferente do DER mesmo
+    // Esta classe está diferente do DER mesmo, está liga com o histórico no frontend
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +33,5 @@ public class RealMeal {
 
     private LocalTime registerTime;
 
-    private String followedDiet; // Não sei se posso por um booleano aqui.
-    
+    private String followedDiet; //TODO Não sei se posso por um booleano aqui.
 }

@@ -12,11 +12,14 @@ import java.time.LocalDate;
 @Table(name = "weekly_log")
 public class WeeklyLog {
 
+    // Esta classe é referente a tela experiência semanal no FrontEnd
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Double rating;
+
     private Double weight;
 
     private LocalDate endDate;

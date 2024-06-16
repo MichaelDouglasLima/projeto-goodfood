@@ -35,6 +35,13 @@ public class UserService {
         user.setPassword(userUpdate.getPassword());
         user.setDescription(userUpdate.getDescription());
 
+        //TODO Adicionar estes atributos no update de user causara algum erro?
+        // user.setUsername(userUpdate.getUsername());
+        // user.setRole(userUpdate.getRole());
+        // user.setPhoneNumber(userUpdate.getPhoneNumber());
+        // user.setBirthDate(userUpdate.getBirthDate());
+        // user.setGender(userUpdate.getGender());
+
         userRepository.save(user);
     }
 

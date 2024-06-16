@@ -1,5 +1,7 @@
 package com.goodfood.goodfoodbackend.models;
 
+import com.goodfood.goodfoodbackend.models.enums.Unit;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,9 +20,8 @@ public class MealProduct {
 
     private Double quantity;
 
-    // TODO: adicionar enum para estes campos com possíveis valores
-    private String unit;
-    private String period; // Acho que o periodo não deveria estar aqui
+    @Enumerated(EnumType.STRING)
+    private Unit unit;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "meal_id")

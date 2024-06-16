@@ -35,7 +35,7 @@ public class Diet {
     private Integer totalMeals;
 
     @Column(length = 1024)
-    private String description; // O nome no DER deste atributo deveria ser observation
+    private String observation;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "nutritionist_client_id")

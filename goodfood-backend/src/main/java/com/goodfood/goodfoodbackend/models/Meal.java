@@ -8,6 +8,8 @@ import lombok.Setter;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.goodfood.goodfoodbackend.models.enums.Period;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -25,9 +27,10 @@ public class Meal {
     private LocalTime estimatedTime;
 
     @Column(length = 1024)
-    private String description; // O nome deste atributo no DER é comment
+    private String comment;
 
-    private String period;
+    @Enumerated(EnumType.STRING)
+    private Period period;
 
     @ManyToMany(mappedBy = "meals")
     private List<Diet> diets; // Não entendi o papel deste atributo

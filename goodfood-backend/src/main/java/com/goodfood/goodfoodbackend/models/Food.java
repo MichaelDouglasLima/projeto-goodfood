@@ -13,6 +13,8 @@ import lombok.Setter;
 
 public class Food {
 
+    // Entidade utilizada para testes no frontend
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,11 +25,10 @@ public class Food {
     private Double calories;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "client_id")
-    private Client client;
-
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }
