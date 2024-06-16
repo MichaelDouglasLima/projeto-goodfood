@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +25,7 @@ import lombok.Setter;
 @Table(name = "real_meal")
 public class RealMeal {
 
-    // Esta classe está diferente do DER mesmo, está liga com o histórico no frontend
+    // Esta classe está diferente do DER mesmo, está ligada com o histórico no frontend
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +36,9 @@ public class RealMeal {
     private LocalTime registerTime;
 
     private String followedDiet; //TODO Não sei se posso por um booleano aqui.
+
+    //TODO Rever este relacionamento
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "diet_id")
+    private Diet diet;
 }

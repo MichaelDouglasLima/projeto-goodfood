@@ -2,8 +2,10 @@ package com.goodfood.goodfoodbackend.services;
 
 import com.goodfood.goodfoodbackend.models.Category;
 import com.goodfood.goodfoodbackend.repositories.CategoryRepository;
+
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,17 +1,17 @@
 package com.goodfood.goodfoodbackend.services;
 
-import java.util.List;
+import com.goodfood.goodfoodbackend.models.Food;
+import com.goodfood.goodfoodbackend.repositories.FoodRepository;
+import com.goodfood.goodfoodbackend.models.Category;
+
+import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.goodfood.goodfoodbackend.models.Category;
-import com.goodfood.goodfoodbackend.models.Food;
-import com.goodfood.goodfoodbackend.repositories.FoodRepository;
-
-import jakarta.persistence.EntityNotFoundException;
-import lombok.AllArgsConstructor;
+import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -54,5 +54,4 @@ public class FoodService {
         Food food = getById(id);
         foodRepository.delete(food);
     }
-    
 }
