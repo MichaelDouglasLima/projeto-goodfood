@@ -13,7 +13,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/weeklyLogs")
+@RequestMapping("/api/weekly-logs")
 @Tag(name = "WeeklyLog", description = "the WeeklyLog API")
 @CrossOrigin
 public class WeeklyLogController {

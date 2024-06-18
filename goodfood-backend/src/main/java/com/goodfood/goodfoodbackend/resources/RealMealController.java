@@ -13,7 +13,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/realMeals")
+@RequestMapping("/api/real-meals")
 @Tag(name = "RealMeal", description = "the RealMeal API")
 @CrossOrigin
 public class RealMealController {

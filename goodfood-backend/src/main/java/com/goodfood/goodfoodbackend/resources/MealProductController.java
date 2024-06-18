@@ -13,7 +13,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/mealProducts")
+@RequestMapping("/api/meal-products")
 @Tag(name = "MealProduct", description = "the MealProduct API")
 @CrossOrigin
 public class MealProductController {

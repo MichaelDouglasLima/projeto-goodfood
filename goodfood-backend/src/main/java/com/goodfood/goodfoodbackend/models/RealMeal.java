@@ -35,7 +35,7 @@ public class RealMeal {
 
     private LocalTime registerTime;
 
-    private String followedDiet; //TODO Não sei se posso por um booleano aqui.
+    private Boolean followedDiet; //TODO Não sei se posso por um booleano aqui, acho que sim
 
     //TODO Rever este relacionamento
     @ManyToOne(optional = false)

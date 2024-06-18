@@ -13,16 +13,16 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/nutritionistNutritionistClients")
+@RequestMapping("/api/nutritionist-clients")
 @Tag(name = "NutritionistClient", description = "the NutritionistClient API")
 @CrossOrigin
 public class NutritionistClientController {
 
-    private final NutritionistClientService nutritionistNutritionistClientService;
+    private final NutritionistClientService nutritionistClientService;
 
     @PostMapping
     public ResponseEntity<NutritionistClient> save(@RequestBody NutritionistClient nutritionistNutritionistClient) {
-        nutritionistNutritionistClient = nutritionistNutritionistClientService.save(nutritionistNutritionistClient);
+        nutritionistNutritionistClient = nutritionistClientService.save(nutritionistNutritionistClient);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -35,24 +35,24 @@ public class NutritionistClientController {
 
     @GetMapping("/{id}")
     public ResponseEntity<NutritionistClient> getNutritionistClient(@PathVariable long id) {
-        NutritionistClient nutritionistNutritionistClient = nutritionistNutritionistClientService.getById(id);
+        NutritionistClient nutritionistNutritionistClient = nutritionistClientService.getById(id);
         return ResponseEntity.ok(nutritionistNutritionistClient);
     }
 
     @GetMapping
     public ResponseEntity<List<NutritionistClient>> getNutritionistClients() {
-        return ResponseEntity.ok(nutritionistNutritionistClientService.getAll());
+        return ResponseEntity.ok(nutritionistClientService.getAll());
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateNutritionistClient(@PathVariable long id, @RequestBody NutritionistClient nutritionistNutritionistClientUpdate) {
-        nutritionistNutritionistClientService.update(id, nutritionistNutritionistClientUpdate);
+        nutritionistClientService.update(id, nutritionistNutritionistClientUpdate);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> removeNutritionistClient(@PathVariable long id) {
-        nutritionistNutritionistClientService.deleteById(id);
+        nutritionistClientService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }
