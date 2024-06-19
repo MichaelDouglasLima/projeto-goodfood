@@ -1,0 +1,50 @@
+<div>
+    <header class="display-4 text-center">
+        Dieta
+    </header>
+
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <form [formGroup]="formGroupDietForm">
+                <div class="row mb-3 mt-3">
+                    <label for="inputDietType" class="col-sm-2 col-form-label">Tipo Dieta:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" formControlName="typeDiet" name="typeDiet" id="inputDietType">
+                    </div>
+                </div>
+
+                <div class="row mb-3 mt-3">
+                    <label for="inputStartDate" class="col-sm-2 col-form-label">Data de Início:</label>
+                    <div class="col-sm-4">
+                        <input type="date" class="form-control" formControlName="startDate" name="startDate" id="inputStartDate">
+                    </div>
+
+                    <label for="inputEndDate" class="col-sm-2 col-form-label">Data de Fim:</label>
+                    <div class="col-sm-4">
+                        <input type="date" class="form-control" formControlName="endDate" name="endDate" id="inputEndDate">
+                    </div>
+                </div>
+
+                <div class="row mb-3 mt-3">
+                    <label for="inputStatus" class="col-sm-2 col-form-label">Situação:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" formControlName="status" name="status" id="inputStatus">
+                    </div>
+
+                    <label for="inputTotalMeals" class="col-sm-2 col-form-label">Refeições Diárias:</label>
+                    <div class="col-sm-4">
+                        <input type="number" value="2" class="form-control" formControlName="totalMeals" name="TotalMeals" id="inputTotalMeals">
+                    </div>
+                </div>
+
+                <div class="row mb-3 mt-3">
+                    <label for="txtAreaObservation" class="col-sm-2 col-form-label">Observação:</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" formControlName="observation" name="observation" id="txtAreaObservation" cols="30"
+                            rows="6"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

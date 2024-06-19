@@ -1,0 +1,11 @@
+<app-navbar-nutritionist></app-navbar-nutritionist>
+<div class="container">
+    <header class="display-4 text-center mt-2">
+        Seus Clientes
+    </header>
+
+    <div class="row" id="clientCards">
+        <app-client-card *ngFor="let client of clients" [client]="client"></app-client-card>
+    </div>
+
+</div>

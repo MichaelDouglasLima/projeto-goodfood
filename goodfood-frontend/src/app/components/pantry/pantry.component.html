@@ -1,0 +1,56 @@
+<app-navbar-client></app-navbar-client>
+<div class="container">
+
+    <header class="display-4 text-center">
+        Despensa
+    </header>
+
+    <app-pantry-form [food]="food" [user]="user" [categories]="categories" (saveEmitter)="saveFood($event)"></app-pantry-form>
+
+    <div class="display-6">
+        Alimentos Cadastrados:
+    </div>
+    
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <table class="table" id="foodsTable">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Calorias</th>
+                        <th scope="col" class="d-none d-md-table-cell text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let food of foods">
+                        <td>{{food?.id}}</td>
+                        <td>{{food?.description}}</td>
+                        <td>{{food?.category?.description}}</td>
+                        <td>{{food?.calories}}</td>
+                        <td class="text-end">
+                            <button class="btn p-1" (click)="edit(food)"><i class="bi bi-pencil"></i></button>
+                            <button class="btn p-1" (click)="delete(confirmModal, food)"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <ng-template #confirmModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title">Remover Produto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.close()"></button>
+          </div>
+          <div class="modal-body">
+             <p>Deseja remover o Alimento # {{this.deleteFood.description}}?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="modal.close(true)">Confirmar</button>
+            <button type="button" class="btn btn-primary" (click)="modal.close()">Cancelar</button>
+          </div>
+    </ng-template>
+</div>

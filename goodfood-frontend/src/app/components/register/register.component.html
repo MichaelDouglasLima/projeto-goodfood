@@ -1,0 +1,88 @@
+<div class="container-fluid" style="background-color: #0DB614;">
+    <div class="container">
+        <div class="row justify-content-center align-items-center vh-100">
+            <div class="col-12 col-md-6">
+                <figure>
+                    <img src="../assets/goodfoodlogo.png" class="img-fluid" alt="Logo GoodFood" height="100%">
+                </figure>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="bg-light rounded-4 p-3 mb-3 mt-3">
+                    <form [formGroup]="formGroupRegister" #ngFormRegister="ngForm" (ngSubmit)="onSubmit()">
+                        <div class="row mb-3 mt-3">
+                            <label for="inputName" class="form-label">Nome:</label>
+                            <div>
+                                <input type="text" class="form-control" id="inputName" name="name" formControlName="name" aria-describedby="nameHelp" placeholder="Seu nome">
+                                <div *ngIf="ngFormRegister.submitted">
+                                    <small *ngIf="pfgName?.errors?.['required']" class="form-text text-danger">*Nome é requirido!</small>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="row mb-3 mt-3">
+                            <label for="inputEmail" class="form-label">Email:</label>
+                            <div>
+                                <input type="email" class="form-control" id="inputEmail" name="email" formControlName="email" aria-describedby="emailHelp" placeholder="Seu email">
+                                <div *ngIf="ngFormRegister.submitted">
+                                    <small *ngIf="pfgEmail?.errors?.['required']" class="form-text text-danger">*Email é requirido!</small>
+                                    <small *ngIf="pfgEmail?.errors?.['email']" class="form-text text-danger">*Email inválido!</small>
+                                    <small *ngIf="emailInUse" class="form-text text-danger">*Este email já está em uso!</small>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="row mb-3 mt-3">
+                            <label for="inputPassword" class="form-label">Senha:</label>
+                            <div>
+                                <input type="password" class="form-control" id="inputPassword" name="password" formControlName="password" placeholder="Sua senha">
+                                <div *ngIf="ngFormRegister.submitted">
+                                    <small *ngIf="pfgPassword?.errors?.['required']" class="form-text text-danger">*Senha é requirida!</small>
+                                    <small *ngIf="pfgPassword?.errors?.['minlength']" class="form-text text-danger">*Senha precisa de pelo menos 6 caracteres!</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3 mt-3">
+                            <label for="inputConfirmPassword" class="form-label">Confirmar Senha:</label>
+                            <div>
+                                <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Digite sua senha" [(ngModel)]="confirmPassword" name="confirmPassword" required [ngModelOptions]="{standalone: true}">
+                                <div *ngIf="ngFormRegister.submitted && confirmPassword !== formGroupRegister.value.password">
+                                    <small class="form-text text-danger">*As senhas não coincidem!</small>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="row mb-3 mt-3">
+                            <span class="form-label">Selecione sua categoria:</span>
+
+                            <div>
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input col-2" type="radio" name="role" id="flexRadioClient" formControlName="role" value="CLIENT">
+                                    <label for="flexRadioClient" class="form-check-label col-10">Cliente</label>
+                                </div>
+        
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input col-2" type="radio" name="role" id="flexRadioNutritionist" formControlName="role" value="NUTRITIONIST">
+                                    <label for="flexRadioNutritionist" class="form-check-label col-10" >Nutricionista</label>
+                                </div>
+        
+                                <div *ngIf="ngFormRegister.submitted && pfgRole?.errors?.['required']">
+                                    <small class="form-text text-danger">*Categoria é requerida!</small>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="row mb-3 mt-3 justify-content-center">
+                            <button type="submit" class="btn btn-success col-4">Cadastrar</button>
+                        </div>
+
+                        <div class="row mb-3 mt-3 text-center">
+                            <span>Você já tem uma conta? <a routerLink="/login">Entrar.</a></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

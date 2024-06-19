@@ -1,0 +1,25 @@
+<div class="mb-2 mt-2 p-2 bg-secondary-subtle border border-2 rounded-2">
+    <div class="row mb-3 mt-3">
+      <span class="col-sm-1 col-form-label">Nota:</span>
+      <div class="col-sm-2">
+        <input type="number" class="form-control" value="{{weeklyLog.rating}}" readonly>
+      </div>
+  
+      <span class="col-sm-1 col-form-label">Peso:</span>
+      <div class="col-sm-2">
+        <input type="number" class="form-control" value="{{weeklyLog.weight}}" readonly>
+      </div>
+  
+      <span class="col-sm-2 col-form-label">Data Final:</span>
+      <div class="col-sm-4">
+        <input type="date" class="form-control" value="{{weeklyLog.endDate}}" readonly>
+      </div>
+    </div>
+  
+    <div class="row mb-3 mt-3">
+      <span class="col-sm-1 col-form-label">Comentário:</span>
+      <div class="col-sm-11">
+        <textarea class="form-control" cols="30" rows="3" readonly>{{weeklyLog.description}}</textarea>
+      </div>
+    </div>
+  </div>

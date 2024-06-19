@@ -1,0 +1,34 @@
+<app-navbar-client></app-navbar-client>
+<div class="container">
+    <header class="display-4 text-center mt-2">
+        Nutricionistas da GoodFood
+    </header>
+
+    <main class="mb-3 mt-3">
+        <div class="p-4" style="background-color: #D1E7DD;">
+            <div>
+                <p class="display-2 text-center fw-bold p-4"><br></p>
+                <p class="display-5 text-center">Seu Nutricionista:</p>
+            </div>
+            <div class="display-6 text-center">
+                Atualmente você não têm um Nutricionista
+            </div>
+        </div>
+
+        <hr>
+
+        <div>
+            <div class="display-6">
+                Nutricionistas Disponíveis:
+            </div>
+
+            <div class="row" id="nutritionistCards">
+                <div class="col-4" *ngFor="let nutritionist of nutritionists">
+                    <app-nutritionist-card [nutritionist]="nutritionist"></app-nutritionist-card>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</div>

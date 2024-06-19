@@ -1,0 +1,30 @@
+<div class="card mb-3 mt-3">
+    <div class="row g-0">
+        <div class="col-md-2">
+            <div class="text-center">
+                <br>
+                <i class="bi bi-person-circle display-1"></i>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h2 class="card-title">{{client.user.name}}</h2>
+                <p class="card-text">
+                    {{client.user.description}}
+                </p>
+                <p class="card-text">
+                    <button class="btn btn-success"><i class="bi bi-whatsapp"> {{client.user.phoneNumber}}</i></button>
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-2 d-flex flex-column justify-content-center">
+            <div class="d-grid gap-2 p-2 ">
+                <button class="btn btn-success btn-sm">Dieta</button>
+                <button class="btn btn-success btn-sm">Despensa</button>
+                <button class="btn btn-success btn-sm">Histórico</button>
+                <button class="btn btn-success btn-sm">Experiência</button>
+            </div>
+        </div>
+    </div>
+</div>

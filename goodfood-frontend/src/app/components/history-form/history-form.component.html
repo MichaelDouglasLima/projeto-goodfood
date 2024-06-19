@@ -1,0 +1,74 @@
+<div class="">
+    <div class="row p-3 mt-5 mb-3 border border-2 rounded-2 border-success bg-success-subtle">
+        <div class="col-md-10 offset-md-1">
+            <form [formGroup]="formGroupRealMeal" ngFormRealMeal="ngForm">
+                <div class="display-6 text-center">
+                    Registro das Refeições
+                </div>
+
+                <div class="row mb-3 mt-3">
+                    <label for="inputTypeDiet" class="col-sm-2 col-form-label">Tipo Dieta:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="inputTypeDiet">
+                    </div>
+
+                    <span class="col-sm-2 col-form-label">Período da Refeição:</span>
+                    <div class="col-sm-4">
+                        <select class="form-select" formControlName="period" aria-label="Select Period">
+                            <option value="" selected>Escolha:</option>
+                            <option value="1">Café da Manhã</option>
+                            <option value="2">Almoço</option>
+                            <option value="3">Jantar</option>
+                            <option value="4">Lanche</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3 mt-3">
+                    <label for="inputNameNutritionist" class="col-sm-2 col-form-label">Nutricionista:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputNameNutritionist">
+                    </div>
+                </div>
+
+                <div class="row mb-3 mt-3">
+                    <label for="inputDateDiet" class="col-sm-2 col-form-label">Data do Registro:</label>
+                    <div class="col-sm-4">
+                        <input type="date" class="form-control" formControlName="registerDate" name="dateDiet" id="inputDateDiet">
+                    </div>
+
+                    <label for="inputTimeRegister" class="col-sm-2 col-form-label">Horário de Registro:</label>
+                    <div class="col-sm-4">
+                        <input type="time" class="form-control" formControlName="registerTime" name="time" id="inputTimeRegister" value="00:00">
+                    </div>
+                </div>
+
+                <div class="row mb-3 mt-3">
+                    <span class="col-sm-2 col-form-label">Seguiu a Dieta?</span>
+                    <div class="col-sm-4" id="selectOptions">
+                        <select class="form-select" formControlName="followedDiet" aria-label="Select Option">
+                            <option value="" selected>Escolha:</option>
+                            <option value="1">Sim</option>
+                            <option value="2">Não</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3 mt-3">
+                    <label for="txtAreaComment" class="col-sm-2 col-form-label">Comentário:</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" formControlName="comment" name="comment" id="txtAreaComment" cols="30" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-6">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success" type="button" (click)="save()">Registrar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

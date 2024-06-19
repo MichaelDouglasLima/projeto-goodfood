@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #0DB614;">
+    <div class="container-fluid">
+        <img src="../assets/goodfoodlogo.png" alt="Logo da GoodFood" width="70" class="me-2">
+        <a class="navbar-brand" href="#">Nutricionista</a>
+        <button 
+            class="navbar-toggler"
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation"
+            [attr.aria-expanded]="!collapsed"
+            (click)="collapsed = !collapsed"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" [class.collapse]="collapsed">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" routerLink="/home-nutritionist" [routerLinkActive]="['active']">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" routerLink="/clients" [routerLinkActive]="['active']">Clientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" routerLink="/requests" [routerLinkActive]="['active']">Pedidos</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <a class="btn btn-light" routerLink="/profile-nutritionist">Perfil</a>
+                <a class="btn btn-light ms-2" routerLink="/login">Sair</a>
+            </form>
+        </div>
+    </div>
+</nav>

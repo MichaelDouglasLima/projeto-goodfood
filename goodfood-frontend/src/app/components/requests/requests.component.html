@@ -1,0 +1,12 @@
+<app-navbar-nutritionist></app-navbar-nutritionist>
+<div class="container">
+    <header class="display-4 text-center mt-2">
+        Solicitações de Clientes
+    </header>
+
+    <div class="row" id="clientRequestCards">
+        <div class="col-4" *ngFor="let client of clients">
+            <app-request-client-card [client]="client"></app-request-client-card>
+        </div>
+    </div>
+</div>
