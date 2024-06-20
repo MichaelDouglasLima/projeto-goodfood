@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { WeeklyLog } from '../../interfaces/WeeklyLog';
-import { WeeklylogService } from '../../services/weeklylog.service';
 import { Diet } from '../../interfaces/Diet';
+import { User } from '../../interfaces/User';
+import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
+import { WeeklyLogService } from '../../services/weekly-log.service';
 
 @Component({
   selector: 'app-weeklylogs',
@@ -11,31 +14,55 @@ import { Diet } from '../../interfaces/Diet';
 export class WeeklylogsComponent {
 
   weeklyLog: WeeklyLog = {} as WeeklyLog;
-
   weeklyLogs: WeeklyLog[] = [];
+  user: User = {} as User;
 
-  constructor (private weeklyLogService: WeeklylogService) {}
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private weeklyLogService: WeeklyLogService
+  ) { }
 
   ngOnInit(): void {
-    this.weeklyLogs = this.weeklyLogService.getWeeklyLogs();
+    this.loadUser();
   }
 
-  saveWeeklyLog() {
-    this.weeklyLogService.save(this.weeklyLog);
-    this.weeklyLog = {} as WeeklyLog;
+  loadUser(): void {
+    const userId = this.authService.getUserId();
+    if (userId) {
+      this.userService.getUserById(userId).subscribe({
+        next: user => {
+          this.user = user;
+          console.log('User loaded:', this.user); // Log de Depuração
+          this.loadWeeklyLogs();
+        },
+        error: err => console.error('Failed to load user', err)
+      });
+    }
   }
 
+  loadWeeklyLogs(): void {
+    if (this.user.id) {
+      this.weeklyLogService.getWeeklyLogs().subscribe({
+        next: data => {
+          this.weeklyLogs = data.filter(this.weeklyLog => this.weeklyLog.user.id === this.user.id);
+          console.log('WeeklyLogs loaded:', this.weeklyLogs); // Log de Depuração
+        },
+        error: err => console.error('Failed to load foods', err)
+      });
+    } else {
+      console.error('User ID not available');
+    }
+  }
 
-  // saveRealMeal(): void {
-  //   this.weeklyLogService.save(this.weeklyLog).subscribe({
-  //     next: (data) => {
-  //       this.weeklyLogs.push(data);
-  //       this.weeklyLog = {} as WeeklyLog;
-  //     },
-  //     error: (err) => {
-  //       console.error('Erro ao salvar o log semanal:', err);
-  //     }
-  //   });
-  // }
+  saveWeeklyLog(): void {
+    this.weeklyLogService.save(this.weeklyLog).subscribe({
+      next: (savedLog) => {
+        this.weeklyLogs.unshift(savedLog);
+        this.weeklyLog = {} as WeeklyLog;
+      },
+      error: (err) => console.error('Erro ao salvar o log semanal:', err)
+    });
+  }
 
 }

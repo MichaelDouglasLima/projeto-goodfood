@@ -1,4 +1,5 @@
 import { Diet } from "./Diet";
+import { User } from "./User";
 
 export interface WeeklyLog {
     id: number;
@@ -7,4 +8,5 @@ export interface WeeklyLog {
     endDate: string;
     description: string;
     diet: Diet;
+    user: User;
 }

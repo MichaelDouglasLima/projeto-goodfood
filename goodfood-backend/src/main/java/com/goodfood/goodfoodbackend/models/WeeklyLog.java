@@ -27,7 +27,11 @@ public class WeeklyLog {
     @Column(length = 1024)
     private String description;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name = "diet_id")
     private Diet diet;
+
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "user_id", nullable = true)
+    private User user;
 }
