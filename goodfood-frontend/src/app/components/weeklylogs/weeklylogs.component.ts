@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { WeeklyLog } from '../../interfaces/WeeklyLog';
 import { Diet } from '../../interfaces/Diet';
 import { User } from '../../interfaces/User';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { WeeklyLogService } from '../../services/weekly-log.service';
+import { WeeklylogFormComponent } from '../weeklylog-form/weeklylog-form.component';
 
 @Component({
   selector: 'app-weeklylogs',
@@ -12,6 +13,8 @@ import { WeeklyLogService } from '../../services/weekly-log.service';
   styleUrl: './weeklylogs.component.css'
 })
 export class WeeklylogsComponent {
+
+  @ViewChild(WeeklylogFormComponent) weeklylogFormComponent!: WeeklylogFormComponent;
 
   weeklyLog: WeeklyLog = {} as WeeklyLog;
   weeklyLogs: WeeklyLog[] = [];
@@ -45,7 +48,7 @@ export class WeeklylogsComponent {
     if (this.user.id) {
       this.weeklyLogService.getWeeklyLogs().subscribe({
         next: data => {
-          this.weeklyLogs = data.filter(this.weeklyLog => this.weeklyLog.user.id === this.user.id);
+          this.weeklyLogs = data.filter(weeklyLog => weeklyLog.user.id === this.user.id);
           console.log('WeeklyLogs loaded:', this.weeklyLogs); // Log de Depuração
         },
         error: err => console.error('Failed to load foods', err)
@@ -63,6 +66,13 @@ export class WeeklylogsComponent {
       },
       error: (err) => console.error('Erro ao salvar o log semanal:', err)
     });
+  }
+
+  resetForm(): void {
+    this.weeklyLog = {} as WeeklyLog;
+    if (this.weeklylogFormComponent) {
+      this.weeklylogFormComponent.resetForm();
+    }
   }
 
 }
