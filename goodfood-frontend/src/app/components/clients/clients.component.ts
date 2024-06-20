@@ -73,22 +73,22 @@ export class ClientsComponent {
     ];
 
     // Atualizando a lista de clientes
-    this.clients = exampleClientsData.map(clientData => ({
-      id: clientData.id,
-      height: clientData.height,
-      weight: clientData.weight,
-      user: {
-        id: clientData.user.id,
-        name: clientData.user.name,
-        email: clientData.user.email,
-        username: clientData.user.username,
-        password: clientData.user.password,
-        phoneNumber: clientData.user.phoneNumber,
-        description: clientData.user.description,
-        birthDate: clientData.user.birthDate,
-        gender: clientData.user.gender as Gender,
-        role: clientData.user.role as Role
-      }
-    }));
+  //   this.clients = exampleClientsData.map(clientData => ({
+  //     id: clientData.id,
+  //     height: clientData.height,
+  //     weight: clientData.weight,
+  //     user: {
+  //       id: clientData.user.id,
+  //       name: clientData.user.name,
+  //       email: clientData.user.email,
+  //       username: clientData.user.username,
+  //       password: clientData.user.password,
+  //       phoneNumber: clientData.user.phoneNumber,
+  //       description: clientData.user.description,
+  //       birthDate: clientData.user.birthDate,
+  //       gender: clientData.user.gender as Gender,
+  //       role: clientData.user.role as Role
+  //     }
+  //   }));
   }
 }

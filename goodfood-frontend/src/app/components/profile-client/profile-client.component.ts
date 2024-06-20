@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { User } from '../../interfaces/User';
+import { Client } from '../../interfaces/Client';
+import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
+import { ClientService } from '../../services/client.service';
+import { ProductService } from '../../services/product.service';
+import { Gender } from '../../interfaces/enums/Gender';
 
 @Component({
   selector: 'app-profile-client',
@@ -10,9 +17,16 @@ export class ProfileClientComponent {
   profileClientForm: FormGroup;
   imc: number = 0;
   isEditMode: boolean = false;
-  initialClientData: any;
+  initialUserData: any;
+  user: User = {} as User;
 
-  constructor(private formBuilder: FormBuilder) {
+  genderOptions = Object.values(Gender);
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private userService: UserService
+  ) {
     this.profileClientForm = this.formBuilder.group({
       name: [''],
       email: [''],
@@ -23,37 +37,39 @@ export class ProfileClientComponent {
       birthDate: [''],
       gender: [''],
       description: ['']
-    })
+    });
   }
 
   ngOnInit(): void {
-    // Simula a busca dos dados do cliente
-    this.getClientData();
-
-    // Calcula o IMC sempre que altura ou peso forem alterados
+    this.loadUser();
     this.profileClientForm.get('height')?.valueChanges.subscribe(() => this.calculateIMC());
     this.profileClientForm.get('weight')?.valueChanges.subscribe(() => this.calculateIMC());
-
     this.setFormReadonly(true);
   }
 
-  getClientData(): void {
-    // Aqui você substituiria por uma chamada de serviço para obter os dados reais do cliente
-    const clientData = {
-      name: 'João Silva',
-      email: 'joao.silva@example.com',
-      password: '123456',
-      phoneNumber: '999999999',
-      height: 1.75,
-      weight: 70,
-      birthDate: '1990-01-01',
-      gender: '1',
-      description: 'Desejo controlar minha alimentação para melhorar minha saúde.'
-    };
-
-    this.profileClientForm.patchValue(clientData);
-    this.initialClientData = this.profileClientForm.value;
-    this.calculateIMC();
+  loadUser(): void {
+    const userId = this.authService.getUserId();
+    if (userId) {
+      this.userService.getUserById(userId).subscribe({
+        next: user => {
+          this.user = user;
+          this.initialUserData = {
+            name: user.name,
+            email: user.email,
+            password: user.password, // Leave password empty for security reasons
+            phoneNumber: user.phoneNumber,
+            birthDate: user.birthDate,
+            gender: user.gender,
+            description: user.description,
+            height: user.height,
+            weight: user.weight 
+          };
+          this.profileClientForm.patchValue(this.initialUserData);
+          this.calculateIMC();
+        },
+        error: err => console.error('Failed to load user', err)
+      });
+    }
   }
 
   calculateIMC(): void {
@@ -80,16 +96,34 @@ export class ProfileClientComponent {
   }
 
   onSave(): void {
-    this.initialClientData = this.profileClientForm.value;
-    this.isEditMode = false;
-    this.setFormReadonly(true);
-    // Adicione aqui a lógica para salvar os dados atualizados do cliente
+    const updatedUserData = this.profileClientForm.value;
+    const updatedUser: User = {
+      ...this.user,
+      name: updatedUserData.name,
+      email: updatedUserData.email,
+      phoneNumber: updatedUserData.phoneNumber,
+      birthDate: updatedUserData.birthDate,
+      gender: updatedUserData.gender,
+      description: updatedUserData.description,
+      height: updatedUserData.height, // Altura comentada
+      weight: updatedUserData.weight, // Peso comentado
+    };
+
+    this.userService.update(updatedUser).subscribe({
+      next: () => {
+        // Aqui você pode adicionar qualquer lógica adicional após salvar os dados do usuário
+        console.log('User data saved successfully:', updatedUser);
+        this.initialUserData = this.profileClientForm.value;
+        this.isEditMode = false;
+        this.setFormReadonly(true);
+      },
+      error: err => console.error('Failed to update user data', err)
+    });
   }
 
   onCancel(): void {
-    this.profileClientForm.patchValue(this.initialClientData);
+    this.profileClientForm.patchValue(this.initialUserData);
     this.isEditMode = false;
     this.setFormReadonly(true);
   }
-
 }

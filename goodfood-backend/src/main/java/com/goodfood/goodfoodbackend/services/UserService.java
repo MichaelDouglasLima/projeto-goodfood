@@ -39,6 +39,9 @@ public class UserService {
         user.setPhoneNumber(userUpdate.getPhoneNumber());
         user.setBirthDate(userUpdate.getBirthDate());
         user.setGender(userUpdate.getGender());
+        user.setHeight(userUpdate.getHeight());
+        user.setWeight(userUpdate.getWeight());
+        user.setCfn(userUpdate.getCfn());
 
         userRepository.save(user);
     }

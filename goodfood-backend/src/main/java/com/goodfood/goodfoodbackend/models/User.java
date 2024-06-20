@@ -47,4 +47,10 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
+    private Double height;
+    
+    private Double weight;
+
+    private String cfn;
 }

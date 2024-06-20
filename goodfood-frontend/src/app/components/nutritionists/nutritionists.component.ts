@@ -70,22 +70,22 @@ export class NutritionistsComponent {
     ];
 
     // Atualizando a lista de nutricionistas
-    this.nutritionists = fakeNutritionistsData.map(nutritionistData => ({
-      id: nutritionistData.id,
-      cfm: nutritionistData.cfm,
-      user: {
-        id: nutritionistData.user.id,
-        name: nutritionistData.user.name,
-        email: nutritionistData.user.email,
-        username: nutritionistData.user.username,
-        password: nutritionistData.user.password,
-        phoneNumber: nutritionistData.user.phoneNumber,
-        description: nutritionistData.user.description,
-        birthDate: nutritionistData.user.birthDate,
-        gender: nutritionistData.user.gender as Gender,
-        role: nutritionistData.user.role as Role
-      }
-    }));
+    // this.nutritionists = fakeNutritionistsData.map(nutritionistData => ({
+    //   id: nutritionistData.id,
+    //   cfm: nutritionistData.cfm,
+    //   user: {
+    //     id: nutritionistData.user.id,
+    //     name: nutritionistData.user.name,
+    //     email: nutritionistData.user.email,
+    //     username: nutritionistData.user.username,
+    //     password: nutritionistData.user.password,
+    //     phoneNumber: nutritionistData.user.phoneNumber,
+    //     description: nutritionistData.user.description,
+    //     birthDate: nutritionistData.user.birthDate,
+    //     gender: nutritionistData.user.gender as Gender,
+    //     role: nutritionistData.user.role as Role
+    //   }
+    // }));
   }
 
 }

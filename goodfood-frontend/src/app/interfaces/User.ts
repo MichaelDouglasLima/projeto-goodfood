@@ -12,4 +12,7 @@ export interface User {
     birthDate: string;
     gender: Gender;
     role: Role;
+    height: number;
+    weight: number;
+    cfn: string;
 }

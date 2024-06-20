@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Gender } from '../../interfaces/enums/Gender';
+import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
+import { User } from '../../interfaces/User';
 
 @Component({
   selector: 'app-profile-nutritionist',
@@ -9,45 +13,55 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ProfileNutritionistComponent {
   profileNutritionistForm: FormGroup;
   isEditMode: boolean = false;
-  initialNutritionistData: any;
+  initialUserData: any;
+  user: User = {} as User;
 
-  constructor(private formBuilder: FormBuilder) {
+
+  genderOptions = Object.values(Gender);
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private userService: UserService
+  ) {
     this.profileNutritionistForm = this.formBuilder.group({
-      name: ['',],
-      email: ['',],
-      password: ['',],
-      phoneNumber: ['',],
-      cfm: ['',],
-      birthDate: ['',],
-      gender: ['',],
-      description: ['']
+      name: [''],
+      email: [''],
+      password: [''],
+      phoneNumber: [''],
+      birthDate: [''],
+      gender: [''],
+      description: [''],
+      cfn: ['']
     });
-
-    this.profileNutritionistForm.disable();
   }
 
-
   ngOnInit(): void {
-    //Inicializando os valores do formulário.
-    this.getNutritionistData();
+    this.loadUser();
     this.setFormReadonly(true);
   }
 
-  getNutritionistData(): void {
-    // Simula a carga de dados do perfil do nutricionista
-    const nutritionistData = {
-      name: 'Dr. Gabriel',
-      email: 'dr.gabriel@example.com',
-      password: 'password123',
-      phoneNumber: '999999999',
-      cfm: 'CFM12345',
-      birthDate: '1980-01-01',
-      gender: '1',
-      description: 'Nutricionista experiente com foco em dietas personalizadas.'
-    };
-
-    this.profileNutritionistForm.setValue(nutritionistData);
-    this.initialNutritionistData = this.profileNutritionistForm.value;
+  loadUser(): void {
+    const userId = this.authService.getUserId();
+    if (userId) {
+      this.userService.getUserById(userId).subscribe({
+        next: user => {
+          this.user = user;
+          this.initialUserData = {
+            name: user.name,
+            email: user.email,
+            password: user.password, // Leave password empty for security reasons
+            phoneNumber: user.phoneNumber,
+            birthDate: user.birthDate,
+            gender: user.gender,
+            description: user.description,
+            cfn: user.cfn,
+          };
+          this.profileNutritionistForm.patchValue(this.initialUserData);
+        },
+        error: err => console.error('Failed to load user', err)
+      });
+    }
   }
 
   setFormReadonly(readonly: boolean): void {
@@ -64,13 +78,32 @@ export class ProfileNutritionistComponent {
   }
 
   onSave(): void {
-    this.initialNutritionistData = this.profileNutritionistForm.value;
-    this.isEditMode = false;
-    this.setFormReadonly(true);
+    const updatedUserData = this.profileNutritionistForm.value;
+    const updatedUser: User = {
+      ...this.user,
+      name: updatedUserData.name,
+      email: updatedUserData.email,
+      phoneNumber: updatedUserData.phoneNumber,
+      birthDate: updatedUserData.birthDate,
+      gender: updatedUserData.gender,
+      description: updatedUserData.description,
+      cfn: updatedUserData.cfn,
+    };
+
+    this.userService.update(updatedUser).subscribe({
+      next: () => {
+        // Aqui você pode adicionar qualquer lógica adicional após salvar os dados do usuário
+        console.log('User data saved successfully:', updatedUser);
+        this.initialUserData = this.profileNutritionistForm.value;
+        this.isEditMode = false;
+        this.setFormReadonly(true);
+      },
+      error: err => console.error('Failed to update user data', err)
+    });
   }
 
   onCancel(): void {
-    this.profileNutritionistForm.patchValue(this.initialNutritionistData);
+    this.profileNutritionistForm.patchValue(this.initialUserData);
     this.isEditMode = false;
     this.setFormReadonly(true);
   }
