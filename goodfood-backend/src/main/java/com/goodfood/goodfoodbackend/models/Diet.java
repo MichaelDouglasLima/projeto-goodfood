@@ -41,10 +41,11 @@ public class Diet {
     @JoinColumn(name = "nutritionist_client_id")
     private NutritionistClient nutritionistClient;
 
+    //TODO Esse atributo seria a Entidade POSSUI?
     @ManyToMany
     @JoinTable(
             name = "diet_meal",
             joinColumns = @JoinColumn(name = "diet_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "meal_id", referencedColumnName = "id"))
-    private List<Meal> meals; // Esse atributo seria a Entidade POSSUI?
+    private List<Meal> meals;
 }

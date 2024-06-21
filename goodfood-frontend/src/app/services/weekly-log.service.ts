@@ -14,6 +14,7 @@ export class WeeklyLogService {
   }
 
   save(weeklyLog: WeeklyLog) {
+    console.log('Estrutura do Log Semanal', weeklyLog);
     return this.http.post<WeeklyLog>(this.apiUrl, weeklyLog);
   }
 

@@ -21,4 +21,6 @@ public class Nutritionist {
     @OneToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
+
+    //TODO como fazer para recuperar os clientes deste nutricionista?
 }

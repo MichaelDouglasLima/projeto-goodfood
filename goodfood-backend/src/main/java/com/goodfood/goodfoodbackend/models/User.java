@@ -48,6 +48,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    //TODO gambiarra para recuperar atributos
+
     private Double height;
     
     private Double weight;

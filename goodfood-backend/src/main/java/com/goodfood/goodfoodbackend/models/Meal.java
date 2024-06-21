@@ -32,6 +32,12 @@ public class Meal {
     @Enumerated(EnumType.STRING)
     private Period period;
 
+    //TODO Não entendi o papel deste atributo
     @ManyToMany(mappedBy = "meals")
-    private List<Diet> diets; // Não entendi o papel deste atributo
+    private List<Diet> diets;
+
+    //TODO acho que o correto seria uma lista disso aqui.
+    //TODO cada refeição sugerida teria vários desse aqui, que seria cada item da tabela.
+    // @ManyToMany(mappedBy = "meals")
+    // private List<MealProduct> mealProducts;
 }

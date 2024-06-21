@@ -25,12 +25,15 @@ public class Client {
     @JoinColumn(name = "user_id")
     private User user;
 
+    //TODO Esse atributo seria a Entidade LISTA_PRODUTOS_DESPENSA?
+    //TODO Esse atributo impede de fazer um GET no endpoint de clients por algum motivo
     @ManyToMany
     @JoinTable(
             name = "client_product",
             joinColumns = @JoinColumn(name = "client_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"))
-    private List<Product> products; // Esse atributo seria a Entidade LISTA_PRODUTOS_DESPENSA?
+    private List<Product> products;
+    
 
     // Testando como recuperar alimentos
     // @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)

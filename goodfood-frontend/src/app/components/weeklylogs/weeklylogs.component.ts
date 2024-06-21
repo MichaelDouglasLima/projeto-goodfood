@@ -58,14 +58,19 @@ export class WeeklylogsComponent {
     }
   }
 
-  saveWeeklyLog(): void {
-    this.weeklyLogService.save(this.weeklyLog).subscribe({
-      next: (savedLog) => {
-        this.weeklyLogs.unshift(savedLog);
-        this.weeklyLog = {} as WeeklyLog;
-      },
-      error: (err) => console.error('Erro ao salvar o log semanal:', err)
-    });
+  saveWeeklyLog(weeklyLog: WeeklyLog | false): void {
+    if (weeklyLog) {
+        this.weeklyLogService.save(weeklyLog).subscribe({
+          next: weeklyLog => {
+            this.weeklyLogs.push(weeklyLog);
+            this.resetForm();
+            this.loadWeeklyLogs();
+          },
+          error: err => console.error('Failed to save weeklyLog', err)
+        });
+    } else {
+      this.resetForm();
+    }
   }
 
   resetForm(): void {
