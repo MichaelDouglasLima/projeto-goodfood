@@ -35,6 +35,7 @@ import { RequestClientCardComponent } from './components/request-client-card/req
 import { ClientsComponent } from './components/clients/clients.component';
 import { ClientCardComponent } from './components/client-card/client-card.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { PhonePipe } from './pipes/phone.pipe';
 
 export function tokenGetter() {
   return localStorage.getItem('authToken');
@@ -67,7 +68,8 @@ export function tokenGetter() {
     RequestsComponent,
     RequestClientCardComponent,
     ClientsComponent,
-    ClientCardComponent
+    ClientCardComponent,
+    PhonePipe
   ],
   imports: [
     BrowserModule,

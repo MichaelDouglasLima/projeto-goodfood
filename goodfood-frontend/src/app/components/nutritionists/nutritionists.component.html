@@ -24,9 +24,15 @@
                 Nutricionistas Disponíveis:
             </div>
 
-            <div class="row" id="nutritionistCards">
+            <!-- <div class="row" id="nutritionistCards">
                 <div class="col-4" *ngFor="let nutritionist of nutritionists">
                     <app-nutritionist-card [nutritionist]="nutritionist"></app-nutritionist-card>
+                </div>
+            </div> -->
+
+            <div class="row" id="nutritionistCards">
+                <div class="col-sm-12 col-md-6 col-lg-4 mb-4" *ngFor="let nutritionist of nutritionists">
+                  <app-nutritionist-card [nutritionist]="nutritionist"></app-nutritionist-card>
                 </div>
             </div>
         </div>
