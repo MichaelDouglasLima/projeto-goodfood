@@ -8,12 +8,14 @@
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h2 class="card-title">{{client.user.name}}</h2>
+                <h2 class="card-title">{{client.name}}</h2>
                 <p class="card-text">
-                    {{client.user.description}}
+                    {{client.description}}
                 </p>
                 <p class="card-text">
-                    <button class="btn btn-success"><i class="bi bi-whatsapp"> {{client.user.phoneNumber}}</i></button>
+                    <button class="btn btn-success" (click)="callClient(client.phoneNumber)">
+                        <i class="bi bi-whatsapp"> {{client.phoneNumber | phone}}</i>
+                    </button>
                 </p>
             </div>
         </div>
@@ -21,10 +23,49 @@
         <div class="col-md-2 d-flex flex-column justify-content-center">
             <div class="d-grid gap-2 p-2 ">
                 <button class="btn btn-success btn-sm">Dieta</button>
-                <button class="btn btn-success btn-sm">Despensa</button>
-                <button class="btn btn-success btn-sm">Histórico</button>
-                <button class="btn btn-success btn-sm">Experiência</button>
+                <button class="btn btn-success btn-sm" (click)="open(despensaModal)">Despensa</button>
+                <button class="btn btn-success btn-sm" (click)="open(historicoModal)">Histórico</button>
+                <button class="btn btn-success btn-sm" (click)="open(experienciaModal)">Experiência</button>
             </div>
         </div>
     </div>
 </div>
+
+<ng-template #despensaModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Despensa</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>Conteúdo da despensa...</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fechar</button>
+    </div>
+</ng-template>
+
+<ng-template #historicoModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Histórico</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>Conteúdo do histórico...</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fechar</button>
+    </div>
+</ng-template>
+
+<ng-template #experienciaModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Experiência</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>Conteúdo da experiência...</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fechar</button>
+    </div>
+</ng-template>

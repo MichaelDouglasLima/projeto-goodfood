@@ -1,0 +1,122 @@
+<app-navbar-nutritionist></app-navbar-nutritionist>
+<header class="bg-light p-4">
+    <h1 class="text-center fs-1">Dieta</h1>
+</header>
+<main class="container">
+    <div class="row mb-3 mt-3">
+        <div class="col-sm-4">
+            <a class="btn btn-success" routerLink="/clients">Voltar</a>
+        </div>
+    </div>
+
+    <!-- Informações do Cliente -->
+    <section>
+        <h2 class="mb-4 mt-4 fs-3">Dieta do Cliente: <span id="nomeCliente">Nome_Do_Cliente</span></h2>
+
+        <form id="formInformacoesDieta">
+            <div class="row mb-3 mt-3">
+                <label for="inputTypeDiet" class="col-sm-2 col-form-label">Tipo da Dieta:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="typeDiet" id="inputTypeDiet">
+                </div>
+            </div>
+
+            <div class="row mb-3 mt-3">
+                <label for="inputStartDate" class="col-sm-2 col-form-label">Data de Início:</label>
+                <div class="col-sm-4">
+                    <input type="date" class="form-control" id="inputStartDate" name="startDate">
+                </div>
+
+                <label for="inputEndDate" class="col-sm-2 col-form-label">Data de Fim:</label>
+                <div class="col-sm-4">
+                    <input type="date" class="form-control" id="inputEndDate" name="endDate">
+                </div>
+            </div>
+
+            <div class="row mb-3 mt-3">
+                <label class="col-sm-2 col-form-label">Situação:</label>
+                <div class="col-sm-4">
+                    <select class="form-select" aria-label="Situação da Dieta">
+                        <option selected>Escolha</option>
+                        <option value="1">Em Progresso</option>
+                        <option value="2">Terminada</option>
+                        <option value="3">Interrompida</option>
+                    </select>
+                </div>
+
+                <label for="inputTotalMeals" class="col-sm-2 col-form-label">Refeições Diárias:</label>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" id="inputTotalMeals" name="totalMeals">
+                </div>
+            </div>
+
+            <div class="row mb-3 mt-3">
+                <label for="txtAreaObservation" class="col-sm-2 col-form-label">Observação:</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="txtAreaObservation" name="observation" rows="4"></textarea>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col text-end">
+                    <button type="button" class="btn btn-success" id="btnSalvarDieta">Salvar</button>
+                    <button type="button" class="btn btn-primary ms-2" id="btnEditarDieta">Editar</button>
+                    <button type="button" class="btn btn-warning text-white ms-2"
+                        id="btnCancelarDieta">Cancelar</button>
+                    <button type="button" class="btn btn-danger ms-2" id="btnExcluirDieta">Excluir</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <hr>
+
+    <!-- Adicionar Refeições -->
+    <section>
+        <h2 class="mb-4 text-center fs-3">Adicionar Refeições</h2>
+
+        <form id="formAdicionarRefeicao">
+            <div class="row mb-3">
+                <label for="selectPeriodo" class="col-sm-3 col-form-label">Período da Refeição:</label>
+                <div class="col-sm-3">
+                    <select class="form-select" id="selectPeriodo" name="periodo">
+                        <option value="">Escolha:</option>
+                        <option value="Café Da Manhã">Café da Manhã</option>
+                        <option value="Almoço">Almoço</option>
+                        <option value="Lanche">Lanche</option>
+                        <option value="Jantar">Jantar</option>
+                    </select>
+                </div>
+
+                <label for="inputHorario" class="col-sm-3 col-form-label">Horário da Refeição:</label>
+                <div class="col-sm-3">
+                    <input type="time" class="form-control" id="inputHorario" name="horario">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="txtAreaComentario" class="col-sm-2 col-form-label">Comentário:</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="txtAreaComentario" name="comentario" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col text-end">
+                    <button type="button" class="btn btn-success" id="btnAdicionarRefeicao">Adicionar</button>
+                    <button type="button" class="btn btn-warning text-white ms-2"
+                        id="btnCancelarAdicao">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <hr>
+
+    <!-- Refeições do Cliente -- As refeições são carregadas nesta seção -->
+    <section>
+        <h2 class="mb-4 text-center fs-3">Gerenciar Refeições</h2>
+
+    </section>
+
+</main>

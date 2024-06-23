@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Gender } from '../../interfaces/enums/Gender';
 import { Role } from '../../interfaces/enums/Role';
 import { Client } from '../../interfaces/Client';
+import { User } from '../../interfaces/User';
 
 @Component({
   selector: 'app-clients',
@@ -10,7 +11,9 @@ import { Client } from '../../interfaces/Client';
 })
 export class ClientsComponent {
   
-  clients: Client[] = [];
+  // clients: Client[] = [];
+
+  clients: User[] = [];
 
   constructor() {
     this.loadClients();
