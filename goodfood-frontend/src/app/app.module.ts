@@ -37,6 +37,7 @@ import { ClientCardComponent } from './components/client-card/client-card.compon
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { PhonePipe } from './pipes/phone.pipe';
 import { DietNutritionistComponent } from './components/diet-nutritionist/diet-nutritionist.component';
+import { MealFormComponent } from './components/meal-form/meal-form.component';
 
 export function tokenGetter() {
   return localStorage.getItem('authToken');
@@ -71,7 +72,8 @@ export function tokenGetter() {
     ClientsComponent,
     ClientCardComponent,
     PhonePipe,
-    DietNutritionistComponent
+    DietNutritionistComponent,
+    MealFormComponent
   ],
   imports: [
     BrowserModule,

@@ -76,7 +76,7 @@
         <h2 class="mb-4 text-center fs-3">Adicionar Refeições</h2>
 
         <form id="formAdicionarRefeicao">
-            <div class="row mb-3">
+            <div class="row mb-3 mt-3">
                 <label for="selectPeriodo" class="col-sm-3 col-form-label">Período da Refeição:</label>
                 <div class="col-sm-3">
                     <select class="form-select" id="selectPeriodo" name="periodo">
@@ -94,14 +94,14 @@
                 </div>
             </div>
 
-            <div class="row mb-3">
+            <div class="row mb-3 mt-3">
                 <label for="txtAreaComentario" class="col-sm-2 col-form-label">Comentário:</label>
                 <div class="col-sm-10">
                     <textarea class="form-control" id="txtAreaComentario" name="comentario" rows="3"></textarea>
                 </div>
             </div>
 
-            <div class="row mb-3">
+            <div class="row mb-3 mt-3">
                 <div class="col text-end">
                     <button type="button" class="btn btn-success" id="btnAdicionarRefeicao">Adicionar</button>
                     <button type="button" class="btn btn-warning text-white ms-2"
@@ -116,6 +116,8 @@
     <!-- Refeições do Cliente -- As refeições são carregadas nesta seção -->
     <section>
         <h2 class="mb-4 text-center fs-3">Gerenciar Refeições</h2>
+
+        <app-meal-form></app-meal-form>
 
     </section>
 
