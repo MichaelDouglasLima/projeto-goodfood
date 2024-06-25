@@ -5,8 +5,8 @@
     </header>
 
     <div class="row" id="clientRequestCards">
-        <div class="col-4" *ngFor="let client of clients">
-            <app-request-client-card [client]="client"></app-request-client-card>
+        <div class="col-4" *ngFor="let clientRequest of clientRequests">
+            <app-request-client-card [clientRequest]="clientRequest" (requestDeleted)="onClientRequestDeleted($event)"></app-request-client-card>
         </div>
     </div>
 </div>

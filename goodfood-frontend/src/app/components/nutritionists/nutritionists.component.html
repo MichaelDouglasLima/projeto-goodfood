@@ -32,7 +32,7 @@
 
             <div class="row" id="nutritionistCards">
                 <div class="col-sm-12 col-md-6 col-lg-4 mb-4" *ngFor="let nutritionist of nutritionists">
-                  <app-nutritionist-card [nutritionist]="nutritionist"></app-nutritionist-card>
+                  <app-nutritionist-card [nutritionist]="nutritionist" [client]="client"></app-nutritionist-card>
                 </div>
             </div>
         </div>
@@ -40,3 +40,16 @@
     </main>
 
 </div>
+
+<!-- <ng-template #experienciaModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Experiência</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>Conteúdo da experiência...</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fechar</button>
+    </div>
+</ng-template> -->

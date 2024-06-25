@@ -1,95 +1,62 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Client } from '../../interfaces/Client';
 import { Gender } from '../../interfaces/enums/Gender';
 import { Role } from '../../interfaces/enums/Role';
+import { User } from '../../interfaces/User';
+import { RequestService } from '../../services/request.service';
+import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
+import { Request } from '../../interfaces/Request';
 
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.component.html',
   styleUrl: './requests.component.css'
 })
-export class RequestsComponent {
+export class RequestsComponent implements OnInit {
 
-  clients: Client[] = [];
+  clientRequests: Request[] = [];
+  nutritionist: User = {} as User;
 
-  constructor() {
-    this.loadClients();
+  constructor(
+    private requestService: RequestService,
+    private userService: UserService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    this.loadNutritionist();
   }
 
-  loadClients() {
-    // Simulando dados de clientes do backend
-    const exampleClientsData = [
-      {
-        id: 1,
-        height: 1.79,
-        weight: 85,
-        user: {
-          id: 1,
-          name: 'Michael',
-          email: 'michael@example.com',
-          username: 'michaell123',
-          password: 'senha123',
-          phoneNumber: '(15) 98800-8800',
-          description: 'Busco por uma dieta para perder peso e ganhar massa muscular',
-          birthDate: '1999-04-04',
-          gender: Gender.MALE,
-          role: Role.CLIENT
-        }
-      },
-      {
-        id: 2,
-        height: 1.89,
-        weight: 85,
-        user: {
-          id: 2,
-          name: 'Bruno',
-          email: 'bruno@example.com',
-          username: 'bruno456',
-          password: 'senha123',
-          phoneNumber: '(15) 98800-8801',
-          description: 'Busco um treino para melhoria ergonâmica',
-          birthDate: '1999-05-15',
-          gender: Gender.MALE,
-          role: Role.CLIENT
-        }
-      },
-      {
-        id: 3,
-        height: 1.79,
-        weight: 85,
-        user: {
-          id: 3,
-          name: 'Luan',
-          email: 'luan@example.com',
-          username: 'luan789',
-          password: 'senha123',
-          phoneNumber: '(15) 98800-8802',
-          description: 'Busco por uma dieta para me manter em forma',
-          birthDate: '1992-12-10',
-          gender: Gender.MALE,
-          role: Role.NUTRITIONIST
-        }
-      }
-    ];
-
-    //Atualizando a lista de clientes
-    // this.clients = exampleClientsData.map(clientData => ({
-    //   id: clientData.id,
-    //   height: clientData.height,
-    //   weight: clientData.weight,
-    //   user: {
-    //     id: clientData.user.id,
-    //     name: clientData.user.name,
-    //     email: clientData.user.email,
-    //     username: clientData.user.username,
-    //     password: clientData.user.password,
-    //     phoneNumber: clientData.user.phoneNumber,
-    //     description: clientData.user.description,
-    //     birthDate: clientData.user.birthDate,
-    //     gender: clientData.user.gender as Gender,
-    //     role: clientData.user.role as Role,
-    //   }
-    // }));
+  loadNutritionist(): void {
+    const userId = this.authService.getUserId();
+    if (userId) {
+      this.userService.getUserById(userId).subscribe({
+        next: nutritionist => {
+          this.nutritionist = nutritionist;
+          console.log('Nutritionist loaded:', this.nutritionist); // Log de Depuração
+          this.loadClientRequests();
+        },
+        error: err => console.error('Failed to load nutritionist', err)
+      });
+    }
   }
-  
+
+  loadClientRequests() {
+    if (this.nutritionist.id) {
+      this.requestService.getRequests().subscribe({
+        next: data => {
+          this.clientRequests = data.filter(clientRequest => clientRequest.nutritionist.id === this.nutritionist.id);
+          console.log('Client Requests loaded:', this.clientRequests); // Log de Depuração
+        },
+        error: err => console.error('Failed to load Client Requests', err)
+      });
+    } else {
+      console.error('Nutritionist ID not available');
+    }
+  }
+    
+  onClientRequestDeleted(deletedRequest: Request) {
+    this.clientRequests = this.clientRequests.filter(request => request.id !== deletedRequest.id);
+  }
 }

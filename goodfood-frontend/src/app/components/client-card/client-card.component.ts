@@ -4,6 +4,7 @@ import { User } from '../../interfaces/User';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Gender } from '../../interfaces/enums/Gender';
 import { Role } from '../../interfaces/enums/Role';
+import { Diet } from '../../interfaces/Diet';
 
 @Component({
   selector: 'app-client-card',
@@ -16,23 +17,10 @@ export class ClientCardComponent {
   // client!: Client;
 
   @Input()
-  client!: User;
+  clientByDiet!: Diet;
 
-  // client: User = {
-  //   id: 1,
-  //   name: 'Alan',
-  //   email: 'alan@example.com',
-  //   username: 'alan123',
-  //   password: 'password',
-  //   phoneNumber: '1532385263',
-  //   description: 'Description about Alan',
-  //   birthDate: '1990-01-01',
-  //   gender: Gender.MALE,
-  //   role: Role.CLIENT,
-  //   height: 175,
-  //   weight: 70,
-  //   cfn: '123456789'
-  // };
+  @Input()
+  client!: User;
 
   constructor(private modalService: NgbModal) {}
 

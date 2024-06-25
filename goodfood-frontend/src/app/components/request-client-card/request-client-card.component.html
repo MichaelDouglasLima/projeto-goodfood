@@ -1,15 +1,30 @@
-<!-- <div class="card m-auto mt-4 p-3 pt-1" style="width: 300px; height: 300px;"> -->
 <div class="card m-auto mt-4 p-3 pt-1" style="width: 18rem;">
     <div class="card-body text-center">
         <i class="bi bi-person-circle fs-1"></i>
-        <h2 class="card-title">{{client.user.name}}</h2>
-        <p>{{client.user.description}}</p>
+        <h2 class="card-title">{{clientRequest.client.name}}</h2>
+        <p>{{clientRequest.client.description}}</p>
         <p class="card-text">
-            <button class="btn btn-success"><i class="bi bi-whatsapp"> {{client.user.phoneNumber}}</i></button>
+            <button class="btn btn-success" (click)="callClient(clientRequest.client.phoneNumber)">
+                <i class="bi bi-whatsapp"> {{clientRequest.client.phoneNumber | phone}}</i>
+            </button>
         </p>
         <div class="mt-2">
             <button type="button" class="btn btn-success">Aceitar</button>
-            <button type="button" class="btn btn-danger ms-2">Recusar</button>
+            <button type="button" class="btn btn-danger ms-2" (click)="openRejectModal(rejectModal)">Recusar</button>
         </div>
     </div>
 </div>
+
+<ng-template #rejectModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Confirmação</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>Tem certeza de que deseja recusar o pedido?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="rejectRequest(modal)">Recusar</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.close()">Cancelar</button>
+    </div>
+</ng-template>

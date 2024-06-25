@@ -1,97 +1,63 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Gender } from '../../interfaces/enums/Gender';
 import { Role } from '../../interfaces/enums/Role';
 import { Client } from '../../interfaces/Client';
 import { User } from '../../interfaces/User';
+import { RequestService } from '../../services/request.service';
+import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
+import { DietService } from '../../services/diet.service';
+import { Diet } from '../../interfaces/Diet';
 
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.css'
 })
-export class ClientsComponent {
+export class ClientsComponent implements OnInit{
   
   // clients: Client[] = [];
 
+  clientsByDiet: Diet[] = [];
   clients: User[] = [];
+  nutritionist: User = {} as User;
 
-  constructor() {
-    this.loadClients();
+  constructor(
+    private requestService: RequestService,
+    private userService: UserService,
+    private authService: AuthService,
+    private dietService: DietService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadNutritionist();
   }
 
-  loadClients() {
-    // Simulando dados de clientes do backend
-    const exampleClientsData = [
-      {
-        id: 1,
-        height: 1.79,
-        weight: 85,
-        user: {
-          id: 1,
-          name: 'Michael',
-          email: 'michael@example.com',
-          username: 'michaell123',
-          password: 'senha123',
-          phoneNumber: '(15) 98800-8800',
-          description: 'Busco por uma dieta para perder peso e ganhar massa muscular',
-          birthDate: '1999-04-04',
-          gender: Gender.MALE,
-          role: Role.CLIENT
-        }
-      },
-      {
-        id: 2,
-        height: 1.89,
-        weight: 85,
-        user: {
-          id: 2,
-          name: 'Bruno',
-          email: 'bruno@example.com',
-          username: 'bruno456',
-          password: 'senha123',
-          phoneNumber: '(15) 98800-8801',
-          description: 'Busco um treino para melhoria ergonâmica',
-          birthDate: '1999-05-15',
-          gender: Gender.MALE,
-          role: Role.CLIENT
-        }
-      },
-      {
-        id: 3,
-        height: 1.79,
-        weight: 85,
-        user: {
-          id: 3,
-          name: 'Luan',
-          email: 'luan@example.com',
-          username: 'luan789',
-          password: 'senha123',
-          phoneNumber: '(15) 98800-8802',
-          description: 'Busco por uma dieta para me manter em forma',
-          birthDate: '1992-12-10',
-          gender: Gender.MALE,
-          role: Role.NUTRITIONIST
-        }
-      }
-    ];
-
-    // Atualizando a lista de clientes
-  //   this.clients = exampleClientsData.map(clientData => ({
-  //     id: clientData.id,
-  //     height: clientData.height,
-  //     weight: clientData.weight,
-  //     user: {
-  //       id: clientData.user.id,
-  //       name: clientData.user.name,
-  //       email: clientData.user.email,
-  //       username: clientData.user.username,
-  //       password: clientData.user.password,
-  //       phoneNumber: clientData.user.phoneNumber,
-  //       description: clientData.user.description,
-  //       birthDate: clientData.user.birthDate,
-  //       gender: clientData.user.gender as Gender,
-  //       role: clientData.user.role as Role
-  //     }
-  //   }));
+  loadNutritionist(): void {
+    const userId = this.authService.getUserId();
+    if (userId) {
+      this.userService.getUserById(userId).subscribe({
+        next: nutritionist => {
+          this.nutritionist = nutritionist;
+          console.log('Nutritionist loaded:', this.nutritionist); // Log de Depuração
+          // this.loadClientsByDiet();
+        },
+        error: err => console.error('Failed to load nutritionist', err)
+      });
+    }
   }
+
+  // loadClientsByDiet() {
+  //   if (this.nutritionist.id) {
+  //     this.dietService.getDiets().subscribe({
+  //       next: data => {
+  //         this.clientsByDiet = data.filter(diet => diet.nutritionist.id === this.nutritionist.id);
+  //         console.log('ClientsByDiet loaded:', this.clientsByDiet); // Log de Depuração
+  //       },
+  //       error: err => console.error('Failed to load ClientByDiet', err)
+  //     });
+  //   } else {
+  //     console.error('Nutritionist ID not available');
+  //   }
+  // }
 }
