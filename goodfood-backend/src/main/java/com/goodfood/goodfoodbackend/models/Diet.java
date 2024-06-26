@@ -40,7 +40,7 @@ public class Diet {
     @OneToOne(optional = true)
     private User client;
 
-    @OneToOne(optional = true)
+    @ManyToOne(optional = true)
     private User nutritionist;
 
     // @ManyToOne(optional = false)

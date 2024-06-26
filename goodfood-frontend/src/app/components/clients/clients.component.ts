@@ -19,7 +19,7 @@ export class ClientsComponent implements OnInit{
   // clients: Client[] = [];
 
   clientsByDiet: Diet[] = [];
-  clients: User[] = [];
+  // clients: User[] = [];
   nutritionist: User = {} as User;
 
   constructor(
@@ -40,24 +40,24 @@ export class ClientsComponent implements OnInit{
         next: nutritionist => {
           this.nutritionist = nutritionist;
           console.log('Nutritionist loaded:', this.nutritionist); // Log de Depuração
-          // this.loadClientsByDiet();
+          this.loadClientsByDiet();
         },
         error: err => console.error('Failed to load nutritionist', err)
       });
     }
   }
 
-  // loadClientsByDiet() {
-  //   if (this.nutritionist.id) {
-  //     this.dietService.getDiets().subscribe({
-  //       next: data => {
-  //         this.clientsByDiet = data.filter(diet => diet.nutritionist.id === this.nutritionist.id);
-  //         console.log('ClientsByDiet loaded:', this.clientsByDiet); // Log de Depuração
-  //       },
-  //       error: err => console.error('Failed to load ClientByDiet', err)
-  //     });
-  //   } else {
-  //     console.error('Nutritionist ID not available');
-  //   }
-  // }
+  loadClientsByDiet() {
+    if (this.nutritionist.id) {
+      this.dietService.getDiets().subscribe({
+        next: data => {
+          this.clientsByDiet = data.filter(diet => diet.nutritionist.id === this.nutritionist.id);
+          console.log('ClientsByDiet loaded:', this.clientsByDiet); // Log de Depuração
+        },
+        error: err => console.error('Failed to load ClientByDiet', err)
+      });
+    } else {
+      console.error('Nutritionist ID not available');
+    }
+  }
 }

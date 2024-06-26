@@ -8,11 +8,20 @@
         <div class="row justify-content-center">
             <div class="col-6 p-4" style="background-color: #D1E7DD;">
                 <div>
-                    <p class="display-2 text-center fw-bold p-4"><br></p>
-                    <p class="display-5 text-center">Seu Nutricionista:</p>
-                </div>
-                <div class="display-6 text-center">
-                    Atualmente você não têm um Nutricionista
+                    <p class="display-1 text-center fw-bold p-4">
+                        <i class="bi bi-person-circle display-4" *ngIf="clientDiet && clientDiet.nutritionist"></i>
+                        <br>
+                    </p>
+                    <p class="fs-2 text-center">Seu Nutricionista:</p>
+                    <div class="display-6 text-center mt-3" *ngIf="clientDiet && clientDiet.nutritionist">
+                        <div class="fs-2">{{ clientDiet.nutritionist.name }} </div><!-- Exibir nome do nutricionista -->
+                        <button class="btn btn-success" (click)="callNutri(clientDiet.nutritionist.phoneNumber)">
+                            <i class="bi bi-whatsapp"></i> {{ clientDiet.nutritionist.phoneNumber | phone }}
+                        </button>
+                    </div>
+                    <div class="display-6 text-center" *ngIf="!clientDiet || !clientDiet.nutritionist">
+                        Atualmente você não tem um Nutricionista.
+                    </div>
                 </div>
             </div>
         </div>

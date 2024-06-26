@@ -16,6 +16,7 @@ import { SuggestedMealComponent } from './components/suggested-meal/suggested-me
 import { NutritionistsComponent } from './components/nutritionists/nutritionists.component';
 import { RequestsComponent } from './components/requests/requests.component';
 import { ClientsComponent } from './components/clients/clients.component';
+import { DietNutritionistComponent } from './components/diet-nutritionist/diet-nutritionist.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'requests', component: RequestsComponent },
   { path: 'clients', component: ClientsComponent },
   { path: 'diet-client', component: SuggestedMealComponent },
+  { path: 'diet-nutritionist', component: DietNutritionistComponent },
   { path: 'profile-client', component: ProfileClientComponent },
   { path: 'profile-nutritionist', component: ProfileNutritionistComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full'},

@@ -5,7 +5,9 @@
     </header>
 
     <div class="row" id="clientCards">
-        <app-client-card *ngFor="let client of clients" [client]="client"></app-client-card>
+        <div *ngFor="let clientByDiet of clientsByDiet">
+            <app-client-card  [clientByDiet]="clientByDiet"></app-client-card>
+        </div>
     </div>
 
 </div>

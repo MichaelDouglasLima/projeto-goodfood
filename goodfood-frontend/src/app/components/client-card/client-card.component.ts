@@ -1,17 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Client } from '../../interfaces/Client';
 import { User } from '../../interfaces/User';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Gender } from '../../interfaces/enums/Gender';
 import { Role } from '../../interfaces/enums/Role';
 import { Diet } from '../../interfaces/Diet';
+import { FoodService } from '../../services/food.service';
+import { Food } from '../../interfaces/Food';
 
 @Component({
   selector: 'app-client-card',
   templateUrl: './client-card.component.html',
   styleUrl: './client-card.component.css'
 })
-export class ClientCardComponent {
+export class ClientCardComponent  implements OnInit {
 
   // @Input()
   // client!: Client;
@@ -19,13 +21,40 @@ export class ClientCardComponent {
   @Input()
   clientByDiet!: Diet;
 
-  @Input()
-  client!: User;
+  foods: Food[] = [];
 
-  constructor(private modalService: NgbModal) {}
+  // @Input()
+  // client!: User;
+
+  constructor(
+    private modalService: NgbModal,
+    private foodService: FoodService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadClientFoods();
+  }
 
   open(content: any) {
+    if (content === 'despensaModal') {
+      this.loadClientFoods();
+    }
     this.modalService.open(content, { size: 'lg' });
+  }
+
+  loadClientFoods() {
+    const clientId = this.clientByDiet?.client?.id;
+    if (clientId) {
+      this.foodService.getFoods().subscribe({
+        next: (foods) => {
+          this.foods = foods.filter(food => food.user.id === clientId);
+          console.log('Foods loaded:', this.foods); // Log de depuração
+        },
+        error: (err) => console.error('Failed to load foods', err)
+      });
+    } else {
+      console.error('Client ID not available');
+    }
   }
 
   callClient(phoneNumber: string) {

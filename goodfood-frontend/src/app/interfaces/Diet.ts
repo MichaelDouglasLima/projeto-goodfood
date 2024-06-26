@@ -1,11 +1,16 @@
 import { NutritionistClient } from "./NutritionistClient";
+import { User } from "./User";
+import { DietStatus } from "./enums/DietStatus";
 
 export interface Diet {
-    id: number;
+    id?: number;
     dietType: string;
     startDate: string;
     endDate: string;
-    dietStatus: number;
+    dietStatus: DietStatus;
     totalMeals: number;
-    nutritionistClient: NutritionistClient;
+    observation: string;
+    client: User;
+    nutritionist: User;
+    // nutritionistClient: NutritionistClient;
 }

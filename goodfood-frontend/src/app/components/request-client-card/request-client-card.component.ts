@@ -3,6 +3,9 @@ import { Client } from '../../interfaces/Client';
 import { Request } from '../../interfaces/Request';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RequestService } from '../../services/request.service';
+import { DietService } from '../../services/diet.service';
+import { Diet } from '../../interfaces/Diet';
+import { DietStatus } from '../../interfaces/enums/DietStatus';
 
 @Component({
   selector: 'app-request-client-card',
@@ -19,7 +22,8 @@ export class RequestClientCardComponent {
 
   constructor(
     private modalService: NgbModal,
-    private requestService: RequestService
+    private requestService: RequestService,
+    private dietService: DietService
   ) {}
 
   callClient(phoneNumber: string) {
@@ -27,10 +31,68 @@ export class RequestClientCardComponent {
     window.open(whatsappUrl, '_blank');
   }
 
+  openAcceptModal(modal: any) {
+    this.modalService.open(modal, { size: 'lg' });
+  }
+
   openRejectModal(modal: any) {
     this.modalService.open(modal, { size: 'lg' });
   }
 
+  acceptRequest(modal: any) {
+    const clientId = this.clientRequest.client.id;
+    const nutritionistId = this.clientRequest.nutritionist.id;
+  
+    // Verifica se o cliente já possui uma dieta
+    this.dietService.getDiets().subscribe(diets => {
+      const existingDiet = diets.find(diet => diet.client.id === clientId);
+  
+      if (existingDiet) {
+        // Atualiza a dieta existente
+        existingDiet.nutritionist.id = nutritionistId; // Atualiza com os dados do nutricionista
+        this.dietService.update(existingDiet).subscribe({
+          next: response => {
+            console.log('Diet updated successfully:', response);
+            this.deleteRequestAfterAccepting(modal);
+          },
+          error: err => {
+            console.error('Failed to update diet:', err);
+            modal.dismiss();
+          }
+        });
+      } else {
+        // Cria uma nova dieta apenas se não existir uma para o cliente
+        const newDiet: Diet = {
+         //  id: 0, // Será ignorado pelo backend ao criar
+          dietType: '', // Defina o tipo de dieta apropriado
+          startDate: new Date().toISOString().split('T')[0], // Data atual no formato YYYY-MM-DD
+          endDate: new Date().toISOString().split('T')[0], // Defina um valor apropriado ou deixe como null se não for obrigatório
+          dietStatus: DietStatus.IN_PROGRESS, // ou outro status padrão
+          totalMeals: 0,
+          observation: '',
+          client: this.clientRequest.client,
+          nutritionist: this.clientRequest.nutritionist
+        };
+  
+        this.dietService.save(newDiet).subscribe({
+          next: response => {
+            console.log('Diet created successfully:', response);
+            this.deleteRequestAfterAccepting(modal);
+          },
+          error: err => {
+            console.error('Failed to create diet:', err);
+            modal.dismiss();
+          }
+        });
+      }
+    }, error => {
+      console.error('Failed to fetch diets:', error);
+      modal.dismiss();
+    });
+  }
+  
+  
+  
   rejectRequest(modal: any) {
     if (this.clientRequest) {
       this.requestService.delete(this.clientRequest).subscribe({
@@ -48,6 +110,20 @@ export class RequestClientCardComponent {
       console.error('No client request to delete');
       modal.dismiss();
     }
+  }
+
+  private deleteRequestAfterAccepting(modal: any) {
+    this.requestService.delete(this.clientRequest).subscribe({
+      next: response => {
+        console.log('Request deleted successfully after accepting:', response);
+        this.requestDeleted.emit(this.clientRequest);
+        modal.close();
+      },
+      error: err => {
+        console.error('Failed to delete request after accepting:', err);
+        modal.dismiss();
+      }
+    });
   }
 
 }

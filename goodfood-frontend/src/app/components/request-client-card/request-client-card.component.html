@@ -9,11 +9,25 @@
             </button>
         </p>
         <div class="mt-2">
-            <button type="button" class="btn btn-success">Aceitar</button>
+            <button type="button" class="btn btn-success" (click)="openAcceptModal(acceptModal)">Aceitar</button>
             <button type="button" class="btn btn-danger ms-2" (click)="openRejectModal(rejectModal)">Recusar</button>
         </div>
     </div>
 </div>
+
+<ng-template #acceptModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Confirmação</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <p>Tem certeza de que deseja aceitar o pedido?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="acceptRequest(modal)">Aceitar</button>
+      <button type="button" class="btn btn-secondary" (click)="modal.close()">Cancelar</button>
+    </div>
+  </ng-template>
 
 <ng-template #rejectModal let-modal>
     <div class="modal-header">
