@@ -37,11 +37,11 @@ public class DietService {
     public void update(long id, Diet dietUpdate) {
         Diet diet = getById(id);
 
-        if (dietUpdate.getNutritionistClient() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "NutritionistClient can not be empty");
-        }
+        // if (dietUpdate.getNutritionistClient() == null) {
+        //     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "NutritionistClient can not be empty");
+        // }
 
-        NutritionistClient nutritionistClient = nutritionistClientService.getById(dietUpdate.getNutritionistClient().getId());
+        // NutritionistClient nutritionistClient = nutritionistClientService.getById(dietUpdate.getNutritionistClient().getId());
 
 
         // if (dietUpdate.getNutritionistClient().getNutritionist() == null) {
@@ -62,7 +62,9 @@ public class DietService {
         diet.setStatus(dietUpdate.getStatus());
         diet.setTotalMeals(dietUpdate.getTotalMeals());
         diet.setObservation(dietUpdate.getObservation());
-        diet.setNutritionistClient(nutritionistClient);
+        diet.setClient(dietUpdate.getClient());
+        diet.setNutritionist(dietUpdate.getNutritionist());
+        // diet.setNutritionistClient(nutritionistClient);
 
         dietRepository.save(diet);
     }

@@ -35,7 +35,7 @@ public class MealService {
         meal.setEstimatedTime(mealUpdate.getEstimatedTime());
         meal.setComment(mealUpdate.getComment());
         meal.setPeriod(mealUpdate.getPeriod());
-        meal.setDiets(mealUpdate.getDiets()); // Ainda não entendi este atributo
+        // meal.setDiets(mealUpdate.getDiets()); // Ainda não entendi este atributo
 
         mealRepository.save(meal);
     }

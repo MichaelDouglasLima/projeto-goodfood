@@ -32,9 +32,12 @@ public class Meal {
     @Enumerated(EnumType.STRING)
     private Period period;
 
+    @OneToOne(optional = true)
+    private Diet diet;
+
     //TODO Não entendi o papel deste atributo
-    @ManyToMany(mappedBy = "meals")
-    private List<Diet> diets;
+    // @ManyToMany(mappedBy = "meals")
+    // private List<Diet> diets;
 
     //TODO acho que o correto seria uma lista disso aqui.
     //TODO cada refeição sugerida teria vários desse aqui, que seria cada item da tabela.

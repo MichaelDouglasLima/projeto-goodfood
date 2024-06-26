@@ -1,5 +1,7 @@
 package com.goodfood.goodfoodbackend.services;
 
+import com.goodfood.goodfoodbackend.models.Category;
+import com.goodfood.goodfoodbackend.models.Food;
 import com.goodfood.goodfoodbackend.models.Meal;
 import com.goodfood.goodfoodbackend.models.MealProduct;
 import com.goodfood.goodfoodbackend.models.Product;
@@ -17,6 +19,8 @@ import java.util.List;
 @AllArgsConstructor
 @Service
 public class MealProductService {
+
+    private final CategoryService categoryService;
 
     private final MealProductRepository mealProductRepository;
 
@@ -40,22 +44,30 @@ public class MealProductService {
     public void update(long id, MealProduct mealProductUpdate) {
         MealProduct mealProduct = getById(id);
 
-        if (mealProductUpdate.getMeal() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Meal can not be empty");
+        if (mealProductUpdate.getCategory() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category can not be empty");
         }
 
-        if (mealProductUpdate.getProduct() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product can not be empty");
-        }
+        Category category = categoryService.getById(mealProductUpdate.getCategory().getId());
 
-        Meal meal = mealService.getById(mealProductUpdate.getMeal().getId());
+        // if (mealProductUpdate.getMeal() == null) {
+        //     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Meal can not be empty");
+        // }
 
-        Product product = productService.getById(mealProductUpdate.getProduct().getId());
+        // if (mealProductUpdate.getProduct() == null) {
+        //     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product can not be empty");
+        // }
+
+        // Meal meal = mealService.getById(mealProductUpdate.getMeal().getId());
+
+        // Product product = productService.getById(mealProductUpdate.getProduct().getId());
 
         mealProduct.setQuantity(mealProductUpdate.getQuantity());
         mealProduct.setUnit(mealProductUpdate.getUnit());
-        mealProduct.setMeal(meal);
-        mealProduct.setProduct(product);
+        mealProduct.setDescription(mealProductUpdate.getDescription());
+        mealProduct.setCalories(mealProductUpdate.getCalories());
+        mealProduct.setMeal(mealProductUpdate.getMeal());
+        mealProduct.setCategory(category);
 
         mealProductRepository.save(mealProduct);
     }
