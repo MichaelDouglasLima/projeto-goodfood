@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'requests', component: RequestsComponent },
   { path: 'clients', component: ClientsComponent },
   { path: 'diet-client', component: SuggestedMealComponent },
-  { path: 'diet-nutritionist', component: DietNutritionistComponent },
+  { path: 'diet-nutritionist/:id', component: DietNutritionistComponent },
   { path: 'profile-client', component: ProfileClientComponent },
   { path: 'profile-nutritionist', component: ProfileNutritionistComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full'},

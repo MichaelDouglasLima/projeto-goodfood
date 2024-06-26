@@ -7,6 +7,7 @@ import { Role } from '../../interfaces/enums/Role';
 import { Diet } from '../../interfaces/Diet';
 import { FoodService } from '../../services/food.service';
 import { Food } from '../../interfaces/Food';
+import { Router } from '@angular/router'; // Certifique-se de importar o Router
 
 @Component({
   selector: 'app-client-card',
@@ -28,7 +29,8 @@ export class ClientCardComponent  implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private foodService: FoodService
+    private foodService: FoodService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -62,4 +64,10 @@ export class ClientCardComponent  implements OnInit {
     window.open(whatsappUrl, '_blank');
   }
 
+  navigateToClientDiet() {
+    if (this.clientByDiet && this.clientByDiet.client) {
+      const clientId = this.clientByDiet.client.id;
+      this.router.navigate(['/diet-nutritionist', clientId]);
+    }
+  }
 }
