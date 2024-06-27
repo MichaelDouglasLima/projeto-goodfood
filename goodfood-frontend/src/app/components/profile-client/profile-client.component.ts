@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { User } from '../../interfaces/User';
-import { Client } from '../../interfaces/Client';
-import { AuthService } from '../../services/auth.service';
-import { UserService } from '../../services/user.service';
-import { ClientService } from '../../services/client.service';
-import { ProductService } from '../../services/product.service';
 import { Gender } from '../../interfaces/enums/Gender';
+import { User } from '../../interfaces/User';
+import { AuthService } from '../../services/auth.service';
+import { ClientService } from '../../services/client.service';
+import { UserService } from '../../services/user.service';
+import { Client } from '../../interfaces/Client';
+import { ClientPutDto } from '../../interfaces/dtos/ClientPutDto';
+import { UserPutDto } from '../../interfaces/dtos/UserPutDto';
 
 @Component({
   selector: 'app-profile-client',
@@ -14,23 +15,23 @@ import { Gender } from '../../interfaces/enums/Gender';
   styleUrl: './profile-client.component.css'
 })
 export class ProfileClientComponent {
+
   profileClientForm: FormGroup;
   imc: number = 0;
   isEditMode: boolean = false;
   initialUserData: any;
   user: User = {} as User;
-
+  client: Client = {} as Client;
   genderOptions = Object.values(Gender);
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private userService: UserService
+    private clientService: ClientService
   ) {
     this.profileClientForm = this.formBuilder.group({
       name: [''],
       email: [''],
-      password: [''],
       phoneNumber: [''],
       height: [''],
       weight: [''],
@@ -49,21 +50,24 @@ export class ProfileClientComponent {
 
   loadUser(): void {
     const userId = this.authService.getUserId();
+
     if (userId) {
-      this.userService.getUserById(userId).subscribe({
-        next: user => {
-          this.user = user;
+      this.clientService.getByUserId(userId).subscribe({
+        next: (client: Client) => {
+          this.user = client.user;
+          this.client = client;
+
           this.initialUserData = {
-            name: user.name,
-            email: user.email,
-            password: user.password, // Leave password empty for security reasons
-            phoneNumber: user.phoneNumber,
-            birthDate: user.birthDate,
-            gender: user.gender,
-            description: user.description,
-            height: user.height,
-            weight: user.weight 
+            name: this.user.name,
+            email: this.user.email,
+            phoneNumber: this.user.phoneNumber,
+            birthDate: this.user.birthDate,
+            gender: this.user.gender,
+            description: this.user.description,
+            height: this.client.height,
+            weight: this.client.weight
           };
+
           this.profileClientForm.patchValue(this.initialUserData);
           this.calculateIMC();
         },
@@ -97,22 +101,25 @@ export class ProfileClientComponent {
 
   onSave(): void {
     const updatedUserData = this.profileClientForm.value;
-    const updatedUser: User = {
-      ...this.user,
+
+    const updatedUser: UserPutDto = {
       name: updatedUserData.name,
       email: updatedUserData.email,
       phoneNumber: updatedUserData.phoneNumber,
       birthDate: updatedUserData.birthDate,
       gender: updatedUserData.gender,
       description: updatedUserData.description,
-      height: updatedUserData.height, // Altura comentada
-      weight: updatedUserData.weight, // Peso comentado
     };
 
-    this.userService.update(updatedUser).subscribe({
+    const updatedClient: ClientPutDto = {
+      weight: updatedUserData.weight,
+      height: updatedUserData.height,
+      user: updatedUser,
+    };
+
+    this.clientService.update(this.client.id, updatedClient).subscribe({
       next: () => {
-        // Aqui você pode adicionar qualquer lógica adicional após salvar os dados do usuário
-        console.log('User data saved successfully:', updatedUser);
+        console.log('User data saved successfully:', updatedClient);
         this.initialUserData = this.profileClientForm.value;
         this.isEditMode = false;
         this.setFormReadonly(true);
