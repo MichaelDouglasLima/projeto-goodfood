@@ -1,13 +1,23 @@
 package com.goodfood.goodfoodbackend.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
@@ -21,21 +31,7 @@ public class Client {
     private Double height;
     private Double weight;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
-
-    //TODO Esse atributo seria a Entidade LISTA_PRODUTOS_DESPENSA?
-    //TODO Esse atributo impede de fazer um GET no endpoint de clients por algum motivo
-    @ManyToMany
-    @JoinTable(
-            name = "client_product",
-            joinColumns = @JoinColumn(name = "client_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"))
-    private List<Product> products;
-    
-
-    // Testando como recuperar alimentos
-    // @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
-    // private List<Food> foods;
 }
