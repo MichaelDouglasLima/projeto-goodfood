@@ -1,15 +1,16 @@
 package com.goodfood.goodfoodbackend.services;
 
+import com.goodfood.goodfoodbackend.dto.ClientPutDto;
+import com.goodfood.goodfoodbackend.dto.UserPutDto;
 import com.goodfood.goodfoodbackend.models.Client;
-import com.goodfood.goodfoodbackend.repositories.ClientRepository;
 import com.goodfood.goodfoodbackend.models.User;
+import com.goodfood.goodfoodbackend.repositories.ClientRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+
 import lombok.AllArgsConstructor;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,14 +20,13 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
 
-    private final UserService userService;
-
     public Client save(Client client) {
         return clientRepository.save(client);
     }
 
     public Client getById(long id) {
-        return clientRepository.findById(id)
+        return clientRepository
+                .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Client not found"));
     }
 
@@ -34,18 +34,19 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public void update(long id, Client clientUpdate) {
+    public void update(long id, ClientPutDto putDto) {
         Client client = getById(id);
+        client.setHeight(putDto.getHeight());
+        client.setWeight(putDto.getWeight());
 
-        if (clientUpdate.getUser() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User can not be empty");
-        }
-
-        User user = userService.getById(clientUpdate.getUser().getId());
-
-        client.setHeight(clientUpdate.getHeight());
-        client.setWeight(clientUpdate.getWeight());
-        client.setUser(user);
+        User user = client.getUser();
+        UserPutDto userDto = putDto.getUser();
+        user.setName(userDto.getName());
+        user.setEmail(userDto.getEmail());
+        user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setBirthDate(userDto.getBirthDate());
+        user.setGender(userDto.getGender());
+        user.setDescription(userDto.getDescription());
 
         clientRepository.save(client);
     }
@@ -53,5 +54,9 @@ public class ClientService {
     public void deleteById(long id) {
         Client client = getById(id);
         clientRepository.delete(client);
+    }
+
+    public Client findByUserId(long id) {
+        return clientRepository.findByUserId(id);
     }
 }
