@@ -8,5 +8,5 @@ export interface WeeklyLog {
     endDate: string;
     description: string;
     diet: Diet;
-    user: User;
+    // user: User;
 }

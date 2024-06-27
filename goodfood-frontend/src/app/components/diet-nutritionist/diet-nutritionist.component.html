@@ -13,57 +13,63 @@
     <section>
         <h2 class="mb-4 mt-4 fs-3">Dieta do Cliente: <span id="nomeCliente">{{ clientByDiet?.client?.name }}</span></h2>
 
-        <form id="formInformacoesDieta">
+        <form [formGroup]="dietForm" id="formInformacoesDieta">
             <div class="row mb-3 mt-3">
-                <label for="inputTypeDiet" class="col-sm-2 col-form-label">Tipo da Dieta:</label>
+                <label for="inputDietType" class="col-sm-2 col-form-label">Tipo da Dieta:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="typeDiet" id="inputTypeDiet">
+                    <input type="text" class="form-control" name="dietType" formControlName="dietType"
+                        id="inputDietType">
                 </div>
             </div>
 
             <div class="row mb-3 mt-3">
                 <label for="inputStartDate" class="col-sm-2 col-form-label">Data de Início:</label>
                 <div class="col-sm-4">
-                    <input type="date" class="form-control" id="inputStartDate" name="startDate">
+                    <input type="date" class="form-control" name="startDate" formControlName="startDate"
+                        id="inputStartDate">
                 </div>
 
                 <label for="inputEndDate" class="col-sm-2 col-form-label">Data de Fim:</label>
                 <div class="col-sm-4">
-                    <input type="date" class="form-control" id="inputEndDate" name="endDate">
+                    <input type="date" class="form-control" name="endDate" formControlName="endDate" id="inputEndDate">
                 </div>
             </div>
 
             <div class="row mb-3 mt-3">
                 <label class="col-sm-2 col-form-label">Situação:</label>
                 <div class="col-sm-4">
-                    <select class="form-select" aria-label="Situação da Dieta">
-                        <option selected>Escolha</option>
-                        <option value="1">Em Progresso</option>
-                        <option value="2">Terminada</option>
-                        <option value="3">Interrompida</option>
+                    <select class="form-select" name="status" formControlName="status" aria-label="Situação da Dieta">
+                        <option value="" selected>Escolha:</option>
+                        <option value="IN_PROGRESS">Em Progresso</option>
+                        <option value="FINISHED">Terminada</option>
+                        <option value="INTERRUPTED">Interrompida</option>
                     </select>
                 </div>
 
                 <label for="inputTotalMeals" class="col-sm-2 col-form-label">Refeições Diárias:</label>
                 <div class="col-sm-4">
-                    <input type="number" class="form-control" id="inputTotalMeals" name="totalMeals">
+                    <input type="number" class="form-control" name="totalMeals" formControlName="totalMeals"
+                        id="inputTotalMeals">
                 </div>
             </div>
 
             <div class="row mb-3 mt-3">
                 <label for="txtAreaObservation" class="col-sm-2 col-form-label">Observação:</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" id="txtAreaObservation" name="observation" rows="4"></textarea>
+                    <textarea class="form-control" id="txtAreaObservation" name="observation"
+                        formControlName="observation" rows="4"></textarea>
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col text-end">
-                    <button type="button" class="btn btn-success" id="btnSalvarDieta">Salvar</button>
-                    <button type="button" class="btn btn-primary ms-2" id="btnEditarDieta">Editar</button>
-                    <button type="button" class="btn btn-warning text-white ms-2"
-                        id="btnCancelarDieta">Cancelar</button>
-                    <button type="button" class="btn btn-danger ms-2" id="btnExcluirDieta">Excluir</button>
+                    <button type="button" class="btn btn-success" (click)="onSave()"
+                        [disabled]="!isEditMode">Salvar</button>
+                    <button type="button" class="btn btn-primary ms-2" (click)="onEdit()"
+                        [disabled]="isEditMode">Editar</button>
+                    <button type="button" class="btn btn-warning text-white ms-2" (click)="onCancel()"
+                        [disabled]="!isEditMode">Cancelar</button>
+                    <button type="button" class="btn btn-danger ms-2">Excluir</button>
                 </div>
             </div>
         </form>

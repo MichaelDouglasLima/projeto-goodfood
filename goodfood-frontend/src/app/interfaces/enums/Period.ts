@@ -1,6 +1,6 @@
 export enum Period {
-    CafeDaManha = 'Café da Manhã',
-    Almoco = 'Almoço',
-    Jantar = 'Jantar',
-    Lanche = 'Lanche'
+    BREAKFAST = 'Café da Manhã',
+    LUNCH = 'Almoço',
+    DINNER = 'Jantar',
+    SNACK = 'Lanche'
 }

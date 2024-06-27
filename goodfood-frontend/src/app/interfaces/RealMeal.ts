@@ -8,5 +8,7 @@ export interface RealMeal {
     registerTime: string;
     followedDiet: boolean;
     comment: string;
+    dietType: string;
+    nutritionist: string;
     diet: Diet;
 }

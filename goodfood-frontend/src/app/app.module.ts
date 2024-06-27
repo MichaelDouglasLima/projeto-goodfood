@@ -38,6 +38,9 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { PhonePipe } from './pipes/phone.pipe';
 import { DietNutritionistComponent } from './components/diet-nutritionist/diet-nutritionist.component';
 import { MealFormComponent } from './components/meal-form/meal-form.component';
+import { DietClientComponent } from './components/diet-client/diet-client.component';
+import { DietStatusPipe } from './pipes/diet-status.pipe';
+import { HistoryCardComponent } from './components/history-card/history-card.component';
 
 export function tokenGetter() {
   return localStorage.getItem('authToken');
@@ -73,7 +76,10 @@ export function tokenGetter() {
     ClientCardComponent,
     PhonePipe,
     DietNutritionistComponent,
-    MealFormComponent
+    MealFormComponent,
+    DietClientComponent,
+    DietStatusPipe,
+    HistoryCardComponent
   ],
   imports: [
     BrowserModule,

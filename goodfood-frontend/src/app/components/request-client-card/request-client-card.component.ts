@@ -24,7 +24,7 @@ export class RequestClientCardComponent {
     private modalService: NgbModal,
     private requestService: RequestService,
     private dietService: DietService
-  ) {}
+  ) { }
 
   callClient(phoneNumber: string) {
     const whatsappUrl = `https://wa.me/55${phoneNumber}`;
@@ -42,11 +42,11 @@ export class RequestClientCardComponent {
   acceptRequest(modal: any) {
     const clientId = this.clientRequest.client.id;
     const nutritionistId = this.clientRequest.nutritionist.id;
-  
+
     // Verifica se o cliente já possui uma dieta
     this.dietService.getDiets().subscribe(diets => {
       const existingDiet = diets.find(diet => diet.client.id === clientId);
-  
+
       if (existingDiet) {
         // Atualiza a dieta existente
         existingDiet.nutritionist.id = nutritionistId; // Atualiza com os dados do nutricionista
@@ -63,17 +63,17 @@ export class RequestClientCardComponent {
       } else {
         // Cria uma nova dieta apenas se não existir uma para o cliente
         const newDiet: Diet = {
-         //  id: 0, // Será ignorado pelo backend ao criar
-          dietType: '', // Defina o tipo de dieta apropriado
+          //  id: 0
+          dietType: '',
           startDate: new Date().toISOString().split('T')[0], // Data atual no formato YYYY-MM-DD
-          endDate: new Date().toISOString().split('T')[0], // Defina um valor apropriado ou deixe como null se não for obrigatório
-          dietStatus: DietStatus.IN_PROGRESS, // ou outro status padrão
+          // endDate: new Date().toISOString().split('T')[0], // Defina um valor apropriado ou deixe como null se não for obrigatório
+          // status: DietStatus.IN_PROGRESS
           totalMeals: 0,
           observation: '',
           client: this.clientRequest.client,
           nutritionist: this.clientRequest.nutritionist
         };
-  
+
         this.dietService.save(newDiet).subscribe({
           next: response => {
             console.log('Diet created successfully:', response);
@@ -90,9 +90,7 @@ export class RequestClientCardComponent {
       modal.dismiss();
     });
   }
-  
-  
-  
+
   rejectRequest(modal: any) {
     if (this.clientRequest) {
       this.requestService.delete(this.clientRequest).subscribe({

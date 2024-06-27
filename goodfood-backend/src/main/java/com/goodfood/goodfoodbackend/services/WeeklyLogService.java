@@ -48,7 +48,7 @@ public class WeeklyLogService {
         weeklyLog.setEndDate(weeklyLogUpdate.getEndDate());
         weeklyLog.setDescription(weeklyLogUpdate.getDescription());
         weeklyLog.setDiet(diet);
-        weeklyLog.setUser(weeklyLogUpdate.getUser());
+        // weeklyLog.setUser(weeklyLogUpdate.getUser());
 
         weeklyLogRepository.save(weeklyLog);
     }

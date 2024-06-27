@@ -8,13 +8,19 @@
         Registre sua experiência diariamente e mantenha o seu nutricionista atualizado sobre a sua dieta
     </div>
 
-    <app-history-form></app-history-form>
+    <app-history-form [realMeal]="realMeal" [clientByDiet]="clientByDiet" (saveEmitter)="saveRealMeal($event)"></app-history-form>
 
     <div class="display-6">
         Registros:
     </div>
 
-    <div class="row p-3 mt-3 mb-3 border border-2 rounded-2" id="registersClient">
+    <!-- <div class="row p-3 mt-3 mb-3 border border-2 rounded-2" id="registersClient">
 
+    </div> -->
+
+    <div class="row">
+        <div class="mt-3 mb-3 p-3 border border-2 rounded-2" id="realMealRegisters">
+            <app-history-card *ngFor="let realMeal of realMeals" [realMeal]="realMeal"></app-history-card>
+        </div>
     </div>
 </div>

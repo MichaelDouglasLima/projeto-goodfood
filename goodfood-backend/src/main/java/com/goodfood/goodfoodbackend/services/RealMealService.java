@@ -46,6 +46,10 @@ public class RealMealService {
         realMeal.setRegisterDate(realMealUpdate.getRegisterDate());
         realMeal.setRegisterTime(realMealUpdate.getRegisterTime());
         realMeal.setFollowedDiet(realMealUpdate.getFollowedDiet());
+        realMeal.setComment(realMealUpdate.getComment());
+        realMeal.setDietType(realMealUpdate.getDietType());
+        realMeal.setNutritionist(realMealUpdate.getNutritionist());
+        realMeal.setPeriod(realMealUpdate.getPeriod());
         realMeal.setDiet(diet);
 
         realMealRepository.save(realMeal);

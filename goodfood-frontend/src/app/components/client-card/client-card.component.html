@@ -67,7 +67,16 @@
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-        <p>Conteúdo do histórico...</p>
+        <div class="row">
+            <div class="col-md-12">
+                <div *ngFor="let log of realMeals">
+                    <app-history-card [realMeal]="log"></app-history-card>
+                </div>
+                <div *ngIf="realMeals.length === 0" class="text-center mt-3">
+                    <p>Nenhum registro de histórico encontrado.</p>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fechar</button>
@@ -76,11 +85,20 @@
 
 <ng-template #experienciaModal let-modal>
     <div class="modal-header">
-        <h4 class="modal-title">Experiência</h4>
+        <h4 class="modal-title">Experiência Semanal</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-        <p>Conteúdo da experiência...</p>
+        <div class="row">
+            <div class="col-md-12">
+                <div *ngFor="let log of weeklyLogs">
+                    <app-weeklylog-card [weeklyLog]="log"></app-weeklylog-card>
+                </div>
+                <div *ngIf="weeklyLogs.length === 0" class="text-center mt-3">
+                    <p>Nenhum registro semanal encontrado.</p>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fechar</button>

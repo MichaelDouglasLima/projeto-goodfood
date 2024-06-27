@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { WeeklyLog } from '../../interfaces/WeeklyLog';
 import { Diet } from '../../interfaces/Diet';
 import { User } from '../../interfaces/User';
@@ -6,55 +6,76 @@ import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { WeeklyLogService } from '../../services/weekly-log.service';
 import { WeeklylogFormComponent } from '../weeklylog-form/weeklylog-form.component';
+import { DietService } from '../../services/diet.service';
 
 @Component({
   selector: 'app-weeklylogs',
   templateUrl: './weeklylogs.component.html',
   styleUrl: './weeklylogs.component.css'
 })
-export class WeeklylogsComponent {
+export class WeeklylogsComponent implements OnInit{
 
   @ViewChild(WeeklylogFormComponent) weeklylogFormComponent!: WeeklylogFormComponent;
 
-  weeklyLog: WeeklyLog = {} as WeeklyLog;
   weeklyLogs: WeeklyLog[] = [];
-  user: User = {} as User;
+  weeklyLog: WeeklyLog = {} as WeeklyLog;
+  clientByDiet: Diet = {} as Diet;
+  client: User = {} as User;
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private dietService: DietService,
     private weeklyLogService: WeeklyLogService
   ) { }
 
   ngOnInit(): void {
-    this.loadUser();
+    this.loadClient();
   }
 
-  loadUser(): void {
-    const userId = this.authService.getUserId();
-    if (userId) {
-      this.userService.getUserById(userId).subscribe({
-        next: user => {
-          this.user = user;
-          console.log('User loaded:', this.user); // Log de Depuração
-          this.loadWeeklyLogs();
+  loadClient(): void {
+    const clientId = this.authService.getUserId();
+    if (clientId) {
+      this.userService.getUserById(clientId).subscribe({
+        next: client => {
+          this.client = client;
+          console.log('Client loaded:', this.client); // Log de Depuração
+          this.loadDietByClientId(clientId);
         },
         error: err => console.error('Failed to load user', err)
       });
     }
   }
 
+  loadDietByClientId(clientId: number): void {
+    this.dietService.getDiets().subscribe({
+      next: diets => {
+        const clientDiet = diets.find(diet => diet.client.id === +clientId);
+        if (clientDiet) {
+          this.clientByDiet = clientDiet;
+          console.log('Client Diet loaded:', this.clientByDiet);
+          this.loadWeeklyLogs();
+        } else {
+          console.error('Client Diet not found for client ID:', clientId);
+        }
+      },
+      error: err => {
+        console.error('Failed to load diets', err);
+      }
+    });
+  }
+
   loadWeeklyLogs(): void {
-    if (this.user.id) {
+    if (this.clientByDiet.id) {
       this.weeklyLogService.getWeeklyLogs().subscribe({
         next: data => {
-          this.weeklyLogs = data.filter(weeklyLog => weeklyLog.user.id === this.user.id);
+          this.weeklyLogs = data.filter(weeklyLog => weeklyLog.diet.id === this.clientByDiet.id);
           console.log('WeeklyLogs loaded:', this.weeklyLogs); // Log de Depuração
         },
-        error: err => console.error('Failed to load foods', err)
+        error: err => console.error('Failed to load weeklylogs', err)
       });
     } else {
-      console.error('User ID not available');
+      console.error('ClientByDiet ID not available');
     }
   }
 

@@ -8,6 +8,10 @@ import { Diet } from '../../interfaces/Diet';
 import { FoodService } from '../../services/food.service';
 import { Food } from '../../interfaces/Food';
 import { Router } from '@angular/router'; // Certifique-se de importar o Router
+import { WeeklyLogService } from '../../services/weekly-log.service';
+import { WeeklyLog } from '../../interfaces/WeeklyLog';
+import { RealMealService } from '../../services/real-meal.service';
+import { RealMeal } from '../../interfaces/RealMeal';
 
 @Component({
   selector: 'app-client-card',
@@ -23,6 +27,8 @@ export class ClientCardComponent  implements OnInit {
   clientByDiet!: Diet;
 
   foods: Food[] = [];
+  weeklyLogs: WeeklyLog[] = [];
+  realMeals: RealMeal[] = [];
 
   // @Input()
   // client!: User;
@@ -30,18 +36,26 @@ export class ClientCardComponent  implements OnInit {
   constructor(
     private modalService: NgbModal,
     private foodService: FoodService,
+    private weeklyLogService: WeeklyLogService,
+    private realMealService: RealMealService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.loadClientFoods();
+    this.loadClientWeeklyLogs();
+    this.loadClientRealMeals();
   }
 
   open(content: any) {
     if (content === 'despensaModal') {
       this.loadClientFoods();
-    }
-    this.modalService.open(content, { size: 'lg' });
+    } else if (content === 'experienciaModal') {
+      this.loadClientWeeklyLogs();
+    } else if (content === 'historicoModal') {
+      this.loadClientRealMeals();
+  }
+    this.modalService.open(content, { size: 'xl' });
   }
 
   loadClientFoods() {
@@ -53,6 +67,36 @@ export class ClientCardComponent  implements OnInit {
           console.log('Foods loaded:', this.foods); // Log de depuração
         },
         error: (err) => console.error('Failed to load foods', err)
+      });
+    } else {
+      console.error('Client ID not available');
+    }
+  }
+
+  loadClientRealMeals() {
+    const clientId = this.clientByDiet?.client?.id;
+    if (clientId) {
+      this.realMealService.getRealMeals().subscribe({
+        next: (logs) => {
+          this.realMeals = logs.filter(log => log.diet.client.id === clientId);
+          console.log('RealMeals Logs loaded:', this.realMeals); // Log de depuração
+        },
+        error: (err) => console.error('Failed to load realMeals logs', err)
+      });
+    } else {
+      console.error('Client ID not available');
+    }
+  }
+
+  loadClientWeeklyLogs() {
+    const clientId = this.clientByDiet?.client?.id;
+    if (clientId) {
+      this.weeklyLogService.getWeeklyLogs().subscribe({
+        next: (logs) => {
+          this.weeklyLogs = logs.filter(log => log.diet.client.id === clientId);
+          console.log('Weekly Logs loaded:', this.weeklyLogs); // Log de depuração
+        },
+        error: (err) => console.error('Failed to load weekly logs', err)
       });
     } else {
       console.error('Client ID not available');

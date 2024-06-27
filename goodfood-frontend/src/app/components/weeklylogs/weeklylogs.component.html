@@ -5,7 +5,8 @@
     Experiência Semanal
   </header>
 
-  <app-weeklylog-form [weeklyLog]="weeklyLog" [user]="user" (saveEmitter)="saveWeeklyLog($event)"></app-weeklylog-form>
+  <app-weeklylog-form [weeklyLog]="weeklyLog" [clientByDiet]="clientByDiet"
+    (saveEmitter)="saveWeeklyLog($event)"></app-weeklylog-form>
 
   <div class="display-6 mt-2">
     Registros Semanais:

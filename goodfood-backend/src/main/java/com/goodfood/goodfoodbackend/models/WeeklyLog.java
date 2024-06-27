@@ -32,7 +32,7 @@ public class WeeklyLog {
     private Diet diet;
 
     // TODO tentando recuperar um weeklyLog pelo Usuário
-    @ManyToOne(optional = true)
-    @JoinColumn(name = "user_id", nullable = true)
-    private User user;
+    // @ManyToOne(optional = true)
+    // @JoinColumn(name = "user_id", nullable = true)
+    // private User user;
 }

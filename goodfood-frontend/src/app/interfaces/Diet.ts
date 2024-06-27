@@ -6,8 +6,8 @@ export interface Diet {
     id?: number;
     dietType: string;
     startDate: string;
-    endDate: string;
-    dietStatus: DietStatus;
+    endDate?: string;
+    status?: DietStatus;
     totalMeals: number;
     observation: string;
     client: User;

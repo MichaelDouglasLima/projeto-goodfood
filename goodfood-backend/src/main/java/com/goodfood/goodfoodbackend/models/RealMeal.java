@@ -3,7 +3,11 @@ package com.goodfood.goodfoodbackend.models;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.goodfood.goodfoodbackend.models.enums.Period;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,6 +40,15 @@ public class RealMeal {
     private LocalTime registerTime;
 
     private Boolean followedDiet; //TODO Não sei se posso por um booleano aqui, acho que sim
+
+    private String comment;
+
+    private String dietType;
+
+    private String nutritionist;
+
+    @Enumerated(EnumType.STRING)
+    private Period period;
 
     //TODO Rever este relacionamento
     @ManyToOne(optional = false)
