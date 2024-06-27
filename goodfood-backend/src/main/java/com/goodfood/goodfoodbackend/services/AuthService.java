@@ -8,7 +8,9 @@ import com.goodfood.goodfoodbackend.repositories.UserRepository;
 import com.goodfood.goodfoodbackend.security.jwt.JwtResponse;
 import com.goodfood.goodfoodbackend.security.jwt.JwtUtils;
 import com.goodfood.goodfoodbackend.security.services.UserDetailsImpl;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,9 +28,11 @@ public class AuthService {
     private final PasswordEncoder encoder;
 
     public JwtResponse authenticateUser(LoginRequestDto dto) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        dto.getUsername().substring(0, dto.getUsername().indexOf("@")), dto.getPassword()));
+        Authentication authentication =
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                dto.getEmail().substring(0, dto.getEmail().indexOf("@")),
+                                dto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
@@ -54,5 +58,4 @@ public class AuthService {
                         .role(dto.getRole())
                         .build());
     }
-
 }

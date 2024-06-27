@@ -2,8 +2,11 @@ package com.goodfood.goodfoodbackend.services;
 
 import com.goodfood.goodfoodbackend.models.User;
 import com.goodfood.goodfoodbackend.repositories.UserRepository;
+
 import jakarta.persistence.EntityNotFoundException;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +22,8 @@ public class UserService {
     }
 
     public User getById(long id) {
-        return userRepository.findById(id)
+        return userRepository
+                .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 
@@ -32,16 +36,12 @@ public class UserService {
 
         user.setName(userUpdate.getName());
         user.setEmail(userUpdate.getEmail());
-        user.setPassword(userUpdate.getPassword());
         user.setDescription(userUpdate.getDescription());
         user.setUsername(userUpdate.getUsername());
         user.setRole(userUpdate.getRole());
         user.setPhoneNumber(userUpdate.getPhoneNumber());
         user.setBirthDate(userUpdate.getBirthDate());
         user.setGender(userUpdate.getGender());
-        user.setHeight(userUpdate.getHeight());
-        user.setWeight(userUpdate.getWeight());
-        user.setCfn(userUpdate.getCfn());
 
         userRepository.save(user);
     }

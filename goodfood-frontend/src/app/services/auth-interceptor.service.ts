@@ -6,17 +6,17 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthInterceptorService implements HttpInterceptor{
+export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const authToken = this.authService.getToken();
+    const authToken: string | null = this.authService.getToken();
 
     // URLs ou padrões que não devem incluir o token
     const excludedUrls = [
-      '/api/login',         // URL de login que não precisa de autenticação
-      '/api/signup'         // URL de registro de usuário
+      '/api/auth/login',         // URL de login que não precisa de autenticação
+      '/api/auth/signup'         // URL de registro de usuário
     ];
 
     // Verificar se a URL da requisição está na lista de exclusões
@@ -30,10 +30,11 @@ export class AuthInterceptorService implements HttpInterceptor{
           'Authorization': `Bearer ${authToken}`,
         },
       });
+
+      console.log('O Token foi Adicionado na Requisição');
     }
 
-    console.log('O Token foi Adicionado na Requisição');
     return next.handle(req);
   }
-  
+
 }

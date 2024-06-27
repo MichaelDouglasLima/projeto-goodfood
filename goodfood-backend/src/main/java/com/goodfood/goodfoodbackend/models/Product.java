@@ -1,11 +1,10 @@
 package com.goodfood.goodfoodbackend.models;
 
 import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -26,7 +25,4 @@ public class Product {
     @ManyToOne(optional = false)
     @JoinColumn(name = "category_id")
     private Category category;
-
-    @ManyToMany(mappedBy = "products")
-    private List<Client> clients; // Não entendi o papel deste atributo.
 }

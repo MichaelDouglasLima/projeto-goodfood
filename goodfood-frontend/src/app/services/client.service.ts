@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Client } from '../interfaces/Client';
 import { Observable } from 'rxjs';
+import { ClientPutDto } from '../interfaces/dtos/ClientPutDto';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,12 @@ export class ClientService {
     return this.http.get<Client[]>(this.apiUrl);
   }
 
-  update(client: Client) {
-    return this.http.put<Client>(`${this.apiUrl}/${client.id}`, client);
+  getByUserId(userId: number): Observable<Client> {
+    return this.http.get<Client>(`${this.apiUrl}/user/${userId}`);
+  }
+
+  update(id: number, putDto: ClientPutDto) {
+    return this.http.put<ClientPutDto>(`${this.apiUrl}/${id}`, putDto);
   }
 
   delete(client: Client) {

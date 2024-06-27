@@ -1,9 +1,15 @@
 package com.goodfood.goodfoodbackend.resources;
 
+import com.goodfood.goodfoodbackend.dto.ClientPutDto;
 import com.goodfood.goodfoodbackend.models.Client;
 import com.goodfood.goodfoodbackend.services.ClientService;
+
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import jakarta.validation.Valid;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -24,11 +30,11 @@ public class ClientController {
     public ResponseEntity<Client> save(@RequestBody Client client) {
         client = clientService.save(client);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(client.getId())
-                .toUri();
+        URI location =
+                ServletUriComponentsBuilder.fromCurrentRequest()
+                        .path("/{id}")
+                        .buildAndExpand(client.getId())
+                        .toUri();
 
         return ResponseEntity.created(location).build();
     }
@@ -45,8 +51,9 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateClient(@PathVariable long id, @RequestBody Client clientUpdate) {
-        clientService.update(id, clientUpdate);
+    public ResponseEntity<Void> updateClient(
+            @PathVariable long id, @Valid @RequestBody ClientPutDto putDto) {
+        clientService.update(id, putDto);
         return ResponseEntity.noContent().build();
     }
 
@@ -54,5 +61,10 @@ public class ClientController {
     public ResponseEntity<Void> removeClient(@PathVariable long id) {
         clientService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<Client> getByUserId(@PathVariable long id) {
+        return ResponseEntity.ok(clientService.findByUserId(id));
     }
 }
