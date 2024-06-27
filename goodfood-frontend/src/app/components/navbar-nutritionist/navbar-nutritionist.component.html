@@ -2,13 +2,13 @@
     <div class="container-fluid">
         <img src="../assets/goodfoodlogo.png" alt="Logo da GoodFood" width="70" class="me-2">
         <a class="navbar-brand" href="#">Nutricionista</a>
-        <button 
+        <button
             class="navbar-toggler"
-            type="button" 
-            data-bs-toggle="collapse" 
+            type="button"
+            data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" 
-            aria-expanded="false" 
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
             aria-label="Toggle navigation"
             [attr.aria-expanded]="!collapsed"
             (click)="collapsed = !collapsed"
@@ -29,7 +29,7 @@
             </ul>
             <form class="d-flex" role="search">
                 <a class="btn btn-light" routerLink="/profile-nutritionist">Perfil</a>
-                <a class="btn btn-light ms-2" routerLink="/login">Sair</a>
+                <a class="btn btn-light ms-2" routerLink="/login" (click)=logout()>Sair</a>
             </form>
         </div>
     </div>
