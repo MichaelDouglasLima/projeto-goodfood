@@ -6,13 +6,13 @@
                     <img src="../assets/goodfoodlogo.png" class="img-fluid" alt="Logo GoodFood" height="100%">
                 </figure>
             </div>
-    
+
             <div class="col-12 col-md-6">
                 <form class="bg-light rounded-4 p-4 mb-3" (ngSubmit)="login()">
                     <div class="mb-3">
                         <label for="inputEmail" class="form-label">Email:</label>
                         <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
-                            placeholder="Seu email" name="username" required [(ngModel)]="username">
+                            placeholder="Seu email" name="email" required [(ngModel)]="email">
                     </div>
                     <div class="mb-3">
                         <label for="inputPassword" class="form-label">Senha:</label>
@@ -21,7 +21,7 @@
                     <div class="text-center">
                         <button class="btn btn-success col-4" type="submit">Entrar</button>
                         <div class="text-danger mt-2" id="msgError">{{ errorMessage }}</div>
-                        
+
                         <div class="mt-4">
                             <span>Ainda não tem uma conta? <a routerLink="/register">Cadastre-se!</a></span>
                         </div>
