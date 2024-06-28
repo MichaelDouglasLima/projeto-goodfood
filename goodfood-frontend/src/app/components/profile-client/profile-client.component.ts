@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Client } from '../../interfaces/Client';
+import { ClientPutDto } from '../../interfaces/dtos/ClientPutDto';
+import { UserPutDto } from '../../interfaces/dtos/UserPutDto';
 import { Gender } from '../../interfaces/enums/Gender';
 import { User } from '../../interfaces/User';
 import { AuthService } from '../../services/auth.service';
 import { ClientService } from '../../services/client.service';
-import { UserService } from '../../services/user.service';
-import { Client } from '../../interfaces/Client';
-import { ClientPutDto } from '../../interfaces/dtos/ClientPutDto';
-import { UserPutDto } from '../../interfaces/dtos/UserPutDto';
 
 @Component({
   selector: 'app-profile-client',
@@ -100,31 +99,31 @@ export class ProfileClientComponent {
   }
 
   onSave(): void {
-    const updatedUserData = this.profileClientForm.value;
+    const formData = this.profileClientForm.value;
 
     const updatedUser: UserPutDto = {
-      name: updatedUserData.name,
-      email: updatedUserData.email,
-      phoneNumber: updatedUserData.phoneNumber,
-      birthDate: updatedUserData.birthDate,
-      gender: updatedUserData.gender,
-      description: updatedUserData.description,
+      name: formData.name,
+      email: formData.email,
+      phoneNumber: formData.phoneNumber,
+      birthDate: formData.birthDate,
+      gender: formData.gender,
+      description: formData.description,
     };
 
     const updatedClient: ClientPutDto = {
-      weight: updatedUserData.weight,
-      height: updatedUserData.height,
+      weight: formData.weight,
+      height: formData.height,
       user: updatedUser,
     };
 
     this.clientService.update(this.client.id, updatedClient).subscribe({
       next: () => {
-        console.log('User data saved successfully:', updatedClient);
+        console.log('Client data saved successfully:', updatedClient);
         this.initialUserData = this.profileClientForm.value;
         this.isEditMode = false;
         this.setFormReadonly(true);
       },
-      error: err => console.error('Failed to update user data', err)
+      error: err => console.error('Failed to update client data', err)
     });
   }
 
