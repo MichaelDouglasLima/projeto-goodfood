@@ -1,13 +1,8 @@
 <div class="mb-2 mt-2 p-2 bg-secondary-subtle border border-2 rounded-2">
     <div class="row mb-3 mt-3">
         <span class="col-sm-2 col-form-label">Tipo da Dieta:</span>
-        <div class="col-sm-4">
+        <div class="col-sm-10">
             <input type="text" class="form-control" [value]="realMeal.dietType" readonly>
-        </div>
-
-        <span class="col-sm-2 col-form-label">Período da Refeição:</span>
-        <div class="col-sm-4">
-            <input type="text" class="form-control" [value]="realMeal.period" readonly>
         </div>
     </div>
 
@@ -34,6 +29,11 @@
         <span class="col-sm-2 col-form-label">Seguiu a Dieta?</span>
         <div class="col-sm-4">
             <input type="text" class="form-control" [value]="realMeal.followedDiet ? 'Sim' : 'Não'" readonly>
+        </div>
+
+        <span class="col-sm-2 col-form-label">Período da Refeição:</span>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" [value]="realMeal.period" readonly>
         </div>
     </div>
 
