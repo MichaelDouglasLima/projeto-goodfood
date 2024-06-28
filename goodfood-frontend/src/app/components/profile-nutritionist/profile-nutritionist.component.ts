@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { NutritionistPutDto } from '../../interfaces/dtos/NutritionistPutDto';
+import { UserPutDto } from '../../interfaces/dtos/UserPutDto';
 import { Gender } from '../../interfaces/enums/Gender';
-import { AuthService } from '../../services/auth.service';
-import { UserService } from '../../services/user.service';
+import { Nutritionist } from '../../interfaces/Nutritionist';
 import { User } from '../../interfaces/User';
+import { AuthService } from '../../services/auth.service';
+import { NutritionistService } from '../../services/nutritionist.service';
 
 @Component({
   selector: 'app-profile-nutritionist',
@@ -11,23 +14,22 @@ import { User } from '../../interfaces/User';
   styleUrl: './profile-nutritionist.component.css'
 })
 export class ProfileNutritionistComponent {
+
   profileNutritionistForm: FormGroup;
   isEditMode: boolean = false;
   initialUserData: any;
-  user: User = {} as User;
-
-
   genderOptions = Object.values(Gender);
+  user: User = {} as User;
+  nutritionist: Nutritionist = {} as Nutritionist;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private userService: UserService
+    private nutritionistService: NutritionistService
   ) {
     this.profileNutritionistForm = this.formBuilder.group({
       name: [''],
       email: [''],
-      password: [''],
       phoneNumber: [''],
       birthDate: [''],
       gender: [''],
@@ -43,20 +45,23 @@ export class ProfileNutritionistComponent {
 
   loadUser(): void {
     const userId = this.authService.getUserId();
+
     if (userId) {
-      this.userService.getUserById(userId).subscribe({
-        next: user => {
-          this.user = user;
+      this.nutritionistService.getByUserId(userId).subscribe({
+        next: (nutritionist: Nutritionist) => {
+          this.user = nutritionist.user;
+          this.nutritionist = nutritionist;
+
           this.initialUserData = {
-            name: user.name,
-            email: user.email,
-            password: user.password, // Leave password empty for security reasons
-            phoneNumber: user.phoneNumber,
-            birthDate: user.birthDate,
-            gender: user.gender,
-            description: user.description,
-            cfn: user.cfn,
+            name: this.user.name,
+            email: this.user.email,
+            phoneNumber: this.user.phoneNumber,
+            birthDate: this.user.birthDate,
+            gender: this.user.gender,
+            description: this.user.description,
+            cfn: this.nutritionist.cfn,
           };
+
           this.profileNutritionistForm.patchValue(this.initialUserData);
         },
         error: err => console.error('Failed to load user', err)
@@ -78,27 +83,30 @@ export class ProfileNutritionistComponent {
   }
 
   onSave(): void {
-    const updatedUserData = this.profileNutritionistForm.value;
-    const updatedUser: User = {
-      ...this.user,
-      name: updatedUserData.name,
-      email: updatedUserData.email,
-      phoneNumber: updatedUserData.phoneNumber,
-      birthDate: updatedUserData.birthDate,
-      gender: updatedUserData.gender,
-      description: updatedUserData.description,
-      cfn: updatedUserData.cfn,
+    const formData = this.profileNutritionistForm.value;
+
+    const updatedUser: UserPutDto = {
+      name: formData.name,
+      email: formData.email,
+      phoneNumber: formData.phoneNumber,
+      birthDate: formData.birthDate,
+      gender: formData.gender,
+      description: formData.description,
     };
 
-    this.userService.update(updatedUser).subscribe({
+    const updatedNutritionist: NutritionistPutDto = {
+      cfn: formData.cfn,
+      user: updatedUser,
+    };
+
+    this.nutritionistService.update(this.nutritionist.id, updatedNutritionist).subscribe({
       next: () => {
-        // Aqui você pode adicionar qualquer lógica adicional após salvar os dados do usuário
-        console.log('User data saved successfully:', updatedUser);
+        console.log('Nutritionist data saved successfully:', updatedUser);
         this.initialUserData = this.profileNutritionistForm.value;
         this.isEditMode = false;
         this.setFormReadonly(true);
       },
-      error: err => console.error('Failed to update user data', err)
+      error: err => console.error('Failed to update nutritionist data', err)
     });
   }
 
