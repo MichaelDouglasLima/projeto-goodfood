@@ -1,9 +1,13 @@
 package com.goodfood.goodfoodbackend.resources;
 
+import com.goodfood.goodfoodbackend.dto.UserPutDto;
 import com.goodfood.goodfoodbackend.models.User;
 import com.goodfood.goodfoodbackend.services.UserService;
+
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -24,11 +28,11 @@ public class UserController {
     public ResponseEntity<User> save(@RequestBody User user) {
         user = userService.save(user);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(user.getId())
-                .toUri();
+        URI location =
+                ServletUriComponentsBuilder.fromCurrentRequest()
+                        .path("/{id}")
+                        .buildAndExpand(user.getId())
+                        .toUri();
 
         return ResponseEntity.created(location).build();
     }
@@ -45,8 +49,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateUser(@PathVariable long id, @RequestBody User userUpdate) {
-        userService.update(id, userUpdate);
+    public ResponseEntity<Void> updateUser(@PathVariable long id, @RequestBody UserPutDto putDto) {
+        userService.updateById(id, putDto);
         return ResponseEntity.ok().build();
     }
 

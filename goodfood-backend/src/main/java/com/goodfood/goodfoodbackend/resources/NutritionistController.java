@@ -1,9 +1,13 @@
 package com.goodfood.goodfoodbackend.resources;
 
+import com.goodfood.goodfoodbackend.dto.NutritionistPutDto;
 import com.goodfood.goodfoodbackend.models.Nutritionist;
 import com.goodfood.goodfoodbackend.services.NutritionistService;
+
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -24,11 +28,11 @@ public class NutritionistController {
     public ResponseEntity<Nutritionist> save(@RequestBody Nutritionist nutritionist) {
         nutritionist = nutritionistService.save(nutritionist);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(nutritionist.getId())
-                .toUri();
+        URI location =
+                ServletUriComponentsBuilder.fromCurrentRequest()
+                        .path("/{id}")
+                        .buildAndExpand(nutritionist.getId())
+                        .toUri();
 
         return ResponseEntity.created(location).build();
     }
@@ -45,8 +49,9 @@ public class NutritionistController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateNutritionist(@PathVariable long id, @RequestBody Nutritionist nutritionistUpdate) {
-        nutritionistService.update(id, nutritionistUpdate);
+    public ResponseEntity<Void> updateNutritionist(
+            @PathVariable long id, @RequestBody NutritionistPutDto putDto) {
+        nutritionistService.update(id, putDto);
         return ResponseEntity.noContent().build();
     }
 
@@ -56,4 +61,8 @@ public class NutritionistController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Nutritionist> getByUserId(@PathVariable long userId) {
+        return ResponseEntity.ok(nutritionistService.getByUserId(userId));
+    }
 }
