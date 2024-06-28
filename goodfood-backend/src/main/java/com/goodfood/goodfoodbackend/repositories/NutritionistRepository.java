@@ -1,9 +1,10 @@
 package com.goodfood.goodfoodbackend.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.goodfood.goodfoodbackend.models.Nutritionist;
 
-public interface NutritionistRepository extends JpaRepository <Nutritionist, Long> {
-    
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface NutritionistRepository extends JpaRepository<Nutritionist, Long> {
+
+    Nutritionist findByUserId(long userId);
 }

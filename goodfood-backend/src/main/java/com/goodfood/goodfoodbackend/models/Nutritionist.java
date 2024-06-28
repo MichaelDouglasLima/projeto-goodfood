@@ -23,7 +23,7 @@ public class Nutritionist {
 
     private String cfn;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
