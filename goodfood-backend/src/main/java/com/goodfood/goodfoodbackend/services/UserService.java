@@ -1,5 +1,6 @@
 package com.goodfood.goodfoodbackend.services;
 
+import com.goodfood.goodfoodbackend.dto.UserPutDto;
 import com.goodfood.goodfoodbackend.models.User;
 import com.goodfood.goodfoodbackend.repositories.UserRepository;
 
@@ -31,19 +32,19 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void update(long id, User userUpdate) {
+    public void updateById(long id, UserPutDto putDto) {
         User user = getById(id);
-
-        user.setName(userUpdate.getName());
-        user.setEmail(userUpdate.getEmail());
-        user.setDescription(userUpdate.getDescription());
-        user.setUsername(userUpdate.getUsername());
-        user.setRole(userUpdate.getRole());
-        user.setPhoneNumber(userUpdate.getPhoneNumber());
-        user.setBirthDate(userUpdate.getBirthDate());
-        user.setGender(userUpdate.getGender());
-
+        updateUser(putDto, user);
         userRepository.save(user);
+    }
+
+    public void updateUser(UserPutDto putDto, User user) {
+        user.setName(putDto.getName());
+        user.setEmail(putDto.getEmail());
+        user.setDescription(putDto.getDescription());
+        user.setPhoneNumber(putDto.getPhoneNumber());
+        user.setBirthDate(putDto.getBirthDate());
+        user.setGender(putDto.getGender());
     }
 
     public void deleteById(long id) {

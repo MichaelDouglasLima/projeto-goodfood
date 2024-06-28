@@ -1,9 +1,7 @@
 package com.goodfood.goodfoodbackend.services;
 
 import com.goodfood.goodfoodbackend.dto.ClientPutDto;
-import com.goodfood.goodfoodbackend.dto.UserPutDto;
 import com.goodfood.goodfoodbackend.models.Client;
-import com.goodfood.goodfoodbackend.models.User;
 import com.goodfood.goodfoodbackend.repositories.ClientRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -19,6 +17,7 @@ import java.util.List;
 public class ClientService {
 
     private final ClientRepository clientRepository;
+    private final UserService userService;
 
     public Client save(Client client) {
         return clientRepository.save(client);
@@ -39,15 +38,7 @@ public class ClientService {
         client.setHeight(putDto.getHeight());
         client.setWeight(putDto.getWeight());
 
-        User user = client.getUser();
-        UserPutDto userDto = putDto.getUser();
-        user.setName(userDto.getName());
-        user.setEmail(userDto.getEmail());
-        user.setPhoneNumber(userDto.getPhoneNumber());
-        user.setBirthDate(userDto.getBirthDate());
-        user.setGender(userDto.getGender());
-        user.setDescription(userDto.getDescription());
-
+        userService.updateUser(putDto.getUser(), client.getUser());
         clientRepository.save(client);
     }
 

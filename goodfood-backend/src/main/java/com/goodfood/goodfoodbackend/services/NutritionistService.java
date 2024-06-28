@@ -1,15 +1,14 @@
 package com.goodfood.goodfoodbackend.services;
 
+import com.goodfood.goodfoodbackend.dto.NutritionistPutDto;
 import com.goodfood.goodfoodbackend.models.Nutritionist;
 import com.goodfood.goodfoodbackend.repositories.NutritionistRepository;
-import com.goodfood.goodfoodbackend.models.User;
 
 import jakarta.persistence.EntityNotFoundException;
+
 import lombok.AllArgsConstructor;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -18,7 +17,6 @@ import java.util.List;
 public class NutritionistService {
 
     private final NutritionistRepository nutritionistRepository;
-
     private final UserService userService;
 
     public Nutritionist save(Nutritionist nutritionist) {
@@ -26,7 +24,8 @@ public class NutritionistService {
     }
 
     public Nutritionist getById(long id) {
-        return nutritionistRepository.findById(id)
+        return nutritionistRepository
+                .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Nutritionist not found"));
     }
 
@@ -34,25 +33,11 @@ public class NutritionistService {
         return nutritionistRepository.findAll();
     }
 
-    // public void update(long id, Nutritionist nutritionistUpdate) {
-    //     Nutritionist nutritionist = getById(id);
-    //     nutritionist.setUser(nutritionistUpdate.getUser());
-    //     nutritionist.setCfn(nutritionistUpdate.getCfn());
-    //     nutritionistRepository.save(nutritionist);
-    // }
-
-    public void update(long id, Nutritionist nutritionistUpdate) {
+    public void update(long id, NutritionistPutDto putDto) {
         Nutritionist nutritionist = getById(id);
+        nutritionist.setCfn(putDto.getCfn());
 
-        if (nutritionistUpdate.getUser() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User can not be empty");
-        }
-
-        User user = userService.getById(nutritionistUpdate.getUser().getId());
-
-        nutritionist.setCfn(nutritionistUpdate.getCfn());
-        nutritionist.setUser(user);
-
+        userService.updateUser(putDto.getUser(), nutritionist.getUser());
         nutritionistRepository.save(nutritionist);
     }
 
@@ -61,4 +46,7 @@ public class NutritionistService {
         nutritionistRepository.delete(nutritionist);
     }
 
+    public Nutritionist getByUserId(long userId) {
+        return nutritionistRepository.findByUserId(userId);
+    }
 }
