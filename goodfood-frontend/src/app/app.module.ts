@@ -41,6 +41,8 @@ import { MealFormComponent } from './components/meal-form/meal-form.component';
 import { DietClientComponent } from './components/diet-client/diet-client.component';
 import { DietStatusPipe } from './pipes/diet-status.pipe';
 import { HistoryCardComponent } from './components/history-card/history-card.component';
+import { DietMealCardComponent } from './components/diet-meal-card/diet-meal-card.component';
+import { PeriodPipe } from './pipes/period.pipe';
 
 export function tokenGetter() {
   return localStorage.getItem('authToken');
@@ -79,7 +81,9 @@ export function tokenGetter() {
     MealFormComponent,
     DietClientComponent,
     DietStatusPipe,
-    HistoryCardComponent
+    HistoryCardComponent,
+    DietMealCardComponent,
+    PeriodPipe
   ],
   imports: [
     BrowserModule,

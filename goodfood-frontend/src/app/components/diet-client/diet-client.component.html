@@ -61,10 +61,10 @@
     <div class="col-md-10 offset-md-1">
         <hr>
         <div class="display-6 mt-2 mb-4">
-            Refeição Sugerida:
+            Refeições Sugeridas:
         </div>
         <div id="mealsList">
-            <!-- <app-meal-card></app-meal-card> -->
+            <app-meal-card *ngFor="let meal of meals" [meal]="meal"></app-meal-card>
         </div>
     </div>
 </div>

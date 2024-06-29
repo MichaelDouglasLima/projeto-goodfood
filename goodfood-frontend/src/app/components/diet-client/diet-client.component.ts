@@ -6,6 +6,8 @@ import { DietService } from '../../services/diet.service';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../interfaces/User';
+import { Meal } from '../../interfaces/Meal';
+import { MealService } from '../../services/meal.service';
 
 @Component({
   selector: 'app-diet-client',
@@ -17,6 +19,7 @@ export class DietClientComponent implements OnInit{
   clientByDiet: Diet | null = null;
   dietForm: FormGroup;
   client: User = {} as User;
+  meals: Meal[] = [];
 
   statusOptions = Object.values(DietStatus);
 
@@ -24,6 +27,7 @@ export class DietClientComponent implements OnInit{
     private dietService: DietService,
     private userService: UserService,
     private authService: AuthService,
+    private mealService: MealService,
     private formBuilder: FormBuilder
   ) {
     this.dietForm = this.formBuilder.group({
@@ -70,6 +74,7 @@ export class DietClientComponent implements OnInit{
             observation: this.clientByDiet.observation
           });
           console.log('Form values after patchValue:', this.dietForm.value);
+          this.loadMealsByClientDietId();
         } else {
           console.error('Client Diet not found for client ID:', clientId);
         }
@@ -78,6 +83,20 @@ export class DietClientComponent implements OnInit{
         console.error('Failed to load diets', err);
       }
     });
+  }
+
+  loadMealsByClientDietId() {
+    if (this.clientByDiet?.id) {
+      this.mealService.getMeals().subscribe({
+        next: data => {
+          this.meals = data.filter(meal => meal.diet.id === this.clientByDiet?.id);
+          console.log('Foods loaded:', this.meals); // Log de Depuração
+        },
+        error: err => console.error('Failed to load meals', err)
+      });
+    } else {
+      console.error('ClientById ID not available');
+    }
   }
 
 }

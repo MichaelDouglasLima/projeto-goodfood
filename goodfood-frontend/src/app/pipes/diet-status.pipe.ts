@@ -6,16 +6,12 @@ import { DietStatus } from '../interfaces/enums/DietStatus';
 })
 export class DietStatusPipe implements PipeTransform {
 
-  transform(status: DietStatus | undefined): string {
-    switch (status) {
-      case DietStatus.IN_PROGRESS:
-        return 'Em Progresso';
-      case DietStatus.FINISHED:
-        return 'Terminada';
-      case DietStatus.INTERRUPTED:
-        return 'Interrompida';
-      default:
-        return '';
+  transform(value: string): string {
+    switch (value) {
+      case 'IN_PROGRESS': return 'Em Progresso';
+      case 'FINISHED': return 'Terminada';
+      case 'INTERRUPTED': return 'Interrompida';
+      default: return value;
     }
   }
 

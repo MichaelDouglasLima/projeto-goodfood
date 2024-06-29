@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Diet } from '../../interfaces/Diet';
 import { DietService } from '../../services/diet.service';
@@ -7,23 +7,28 @@ import { UserService } from '../../services/user.service';
 import { DietStatus } from '../../interfaces/enums/DietStatus';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Meal } from '../../interfaces/Meal';
+import { MealService } from '../../services/meal.service';
+import { MealFormComponent } from '../meal-form/meal-form.component';
 
 @Component({
   selector: 'app-diet-nutritionist',
   templateUrl: './diet-nutritionist.component.html',
   styleUrl: './diet-nutritionist.component.css'
 })
-export class DietNutritionistComponent implements OnInit{
+export class DietNutritionistComponent implements OnInit {
 
-  clientByDiet: Diet | null = null; 
+  @ViewChild(MealFormComponent)  mealFormComponent!: MealFormComponent;
 
-  // clientByDiet: Diet = {} as Diet;
-
-  
+  // clientByDiet: Diet | null = null; 
+  clientByDiet: Diet = {} as Diet;
   dietForm: FormGroup;
   isEditMode: boolean = false;
   initialDietData: any;
   nutritionist: User = {} as User;
+
+  meals: Meal[] = []; 
+  meal: Meal = {} as Meal;
 
   statusOptions = Object.values(DietStatus);
 
@@ -32,6 +37,7 @@ export class DietNutritionistComponent implements OnInit{
     private dietService: DietService,
     private userService: UserService,
     private authService: AuthService,
+    private mealService: MealService,
     private formBuilder: FormBuilder
   ) {
     this.dietForm = this.formBuilder.group({
@@ -88,6 +94,8 @@ export class DietNutritionistComponent implements OnInit{
   
           this.dietForm.patchValue(this.initialDietData); // Certifique-se de que dietStatus está sendo patchado corretamente
           console.log('Form values after patchValue:', this.dietForm.value);
+
+          this.loadMeals();
         } else {
           console.error('Client Diet not found for client ID:', clientId);
           // Handle scenario where diet for client is not found
@@ -95,38 +103,9 @@ export class DietNutritionistComponent implements OnInit{
       },
       error: err => {
         console.error('Failed to load diets', err);
-        // Handle error scenario as needed
       }
     });
   }
-
-  // loadClientByDietId(clientId: string): void {
-  //   this.dietService.getDiets().subscribe({
-  //     next: diets => {
-  //       const clientDiet = diets.find(diet => diet.client.id === +clientId);
-  //       if (clientDiet) {
-  //         this.clientByDiet = clientDiet;
-  //         this.initialDietData = {
-  //           dietType: clientDiet.dietType,
-  //           startDate: clientDiet.startDate,
-  //           endDate: clientDiet.endDate,
-  //           dietStatus: clientDiet.dietStatus,
-  //           totalMeals: clientDiet.totalMeals,
-  //           observation: clientDiet.observation,
-  //         };
-  //         this.dietForm.patchValue(this.initialDietData);
-  //         console.log('Client Diet loaded:', this.clientByDiet); // For debugging purposes
-  //       } else {
-  //         console.error('Client Diet not found for client ID:', clientId);
-  //         // Handle scenario where diet for client is not found
-  //       }
-  //     },
-  //     error: err => {
-  //       console.error('Failed to load diets', err);
-  //       // Handle error scenario as needed
-  //     }
-  //   });
-  // }
 
   setFormReadonly(readonly: boolean): void {
     if (readonly) {
@@ -140,27 +119,6 @@ export class DietNutritionistComponent implements OnInit{
     this.isEditMode = true;
     this.setFormReadonly(false);
   }
-
-  // onSave(): void {
-  //   if (this.clientByDiet) {
-  //     const updatedDietData = this.dietForm.value;
-  //     const updatedDiet: Diet = {
-  //       ...this.clientByDiet,
-  //       ...updatedDietData
-  //     };
-
-  //     // imprimir a dieta atualizada aqui
-  //     this.dietService.update(updatedDiet).subscribe({
-  //       next: () => {
-  //         console.log('Diet data saved successfully:', updatedDiet);
-  //         this.initialDietData = this.dietForm.value;
-  //         this.isEditMode = false;
-  //         this.setFormReadonly(true);
-  //       },
-  //       error: err => console.error('Failed to update diet data', err)
-  //     });
-  //   }
-  // }
 
   onSave(): void {
     if (this.clientByDiet) {
@@ -194,4 +152,63 @@ export class DietNutritionistComponent implements OnInit{
     this.isEditMode = false;
     this.setFormReadonly(true);
   }
+
+  loadMeals(): void {
+    if (this.clientByDiet && this.clientByDiet.id) {
+      this.mealService.getMeals().subscribe({
+        next: meals => {
+          this.meals = meals.filter(meal => meal.diet && meal.diet.id === this.clientByDiet!.id);
+        },
+        error: err => console.error('Failed to load meals', err)
+      });
+    } else {
+      console.error('ClientByDiet or clientByDiet.id is null or undefined');
+    }
+  }
+  
+  saveMeal(meal: Meal | false): void {
+    if (meal) {
+        this.mealService.save(meal).subscribe({
+          next: meal => {
+            this.meals.push(meal);
+            this.resetForm();
+            this.loadMeals();
+          },
+          error: err => console.error('Failed to save weeklyLog', err)
+        });
+    } else {
+      this.resetForm();
+    }
+  }
+
+  resetForm(): void {
+    this.meal = {} as Meal;
+    if (this.mealFormComponent) {
+      this.mealFormComponent.resetForm();
+    }
+  }
+
+  resetMealForm(): void {
+    this.meal = {} as Meal;
+    if (this.mealFormComponent) {
+      this.mealFormComponent.resetForm();
+    }
+  }
+
+  editMeal(meal: Meal): void {
+    this.meal = { ...meal };
+  }
+
+  deleteMeal(meal: Meal): void {
+    this.mealService.delete(meal).subscribe({
+      next: () => {
+        this.meals = this.meals.filter(m => m.id !== meal.id);
+        if (meal.id === this.meal.id) {
+          this.resetMealForm();
+        }
+      },
+      error: err => console.error('Failed to delete meal', err)
+    });
+  }
+
 }

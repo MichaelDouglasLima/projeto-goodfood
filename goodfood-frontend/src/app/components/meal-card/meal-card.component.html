@@ -1,25 +1,19 @@
-<div class="mb-3 mt-3 p-3 border rounded-2" [formGroup]="formGroupMealCard">
+<div class="mb-3 mt-3 p-2 border border-2 rounded-2">
+  <h2 class="mb-3 mt-3 text-center fs-4">Informações da Refeição</h2>
   <div class="row mb-3 mt-3">
-    <span class="col-sm-2 col-form-label">Período da Refeição:</span>
-    <div class="col-sm-4">
-      <select class="form-select" formControlName="period" aria-label="Select Period">
-        <option value="" selected>Escolha:</option>
-        <!-- <option *ngFor="let period of periods" [value]="period">{{ period }}</option> -->
-      </select>
+    <span class="col-sm-3 col-form-label">Período da Refeição:</span>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" [value]="meal.period | period" readonly>
     </div>
-
-    <label for="inputEstimatedTime" class="col-sm-2 col-form-label">Horário da Refeição:</label>
-    <div class="col-sm-4">
-      <input type="time" class="form-control" formControlName="estimatedTime" name="estimatedTime" id="inputEstimatedTime">
+    <span class="col-sm-3 col-form-label">Horário da Refeição:</span>
+    <div class="col-sm-3">
+      <input type="time" class="form-control" [value]="meal.estimatedTime" readonly>
     </div>
   </div>
-
   <div class="row mb-3 mt-3">
-    <label for="txtAreaComment" class="col-sm-2 col-form-label">Comentário:</label>
+    <span class="col-sm-2 col-form-label">Comentário:</span>
     <div class="col-sm-10">
-      <textarea class="form-control" formControlName="comment" name="comment" id="txtAreaComment" cols="30" rows="3"></textarea>
+      <textarea class="form-control" rows="8" readonly>{{meal.comment}}</textarea>
     </div>
   </div>
-
-  <app-meal-table></app-meal-table>
 </div>

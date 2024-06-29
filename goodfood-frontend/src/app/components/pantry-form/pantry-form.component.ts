@@ -11,7 +11,7 @@ import { User } from '../../interfaces/User';
 })
 export class PantryFormComponent {
 
-  @Input() categories: Category[] = [];
+  @Input() categories: Category[] = []; 
   @Input() food: Food = {} as Food;
   @Input() user: User = {} as User;
   @Output() saveEmitter = new EventEmitter<Food | false>();

@@ -1,136 +1,36 @@
-<div class="container border border-2 rounded">
-
+<div class="container border border-2 rounded mb-3 mt-3">
     <h2 class="mb-3 mt-3 text-center fs-4">Informações da Refeição</h2>
-
-    <form id="formInformacoesDieta">
+    <form [formGroup]="formGroupMeal" (ngSubmit)="save()">
         <div class="row mb-3 mt-3">
-            <label for="inputTypeDiet" class="col-sm-2 col-form-label">Tipo da Dieta:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="typeDiet" id="inputTypeDiet">
-            </div>
-        </div>
-
-        <div class="row mb-3 mt-3">
-            <label for="inputStartDate" class="col-sm-2 col-form-label">Data de Início:</label>
-            <div class="col-sm-4">
-                <input type="date" class="form-control" id="inputStartDate" name="startDate">
-            </div>
-
-            <label for="inputEndDate" class="col-sm-2 col-form-label">Data de Fim:</label>
-            <div class="col-sm-4">
-                <input type="date" class="form-control" id="inputEndDate" name="endDate">
-            </div>
-        </div>
-
-        <div class="row mb-3 mt-3">
-            <label class="col-sm-2 col-form-label">Situação:</label>
-            <div class="col-sm-4">
-                <select class="form-select" aria-label="Situação da Dieta">
-                    <option selected>Escolha</option>
-                    <option value="1">Em Progresso</option>
-                    <option value="2">Terminada</option>
-                    <option value="3">Interrompida</option>
+            <label for="selectPeriod" class="col-sm-3 col-form-label">Período da Refeição:</label>
+            <div class="col-sm-3">
+                <select class="form-select" id="selectPeriod" formControlName="period">
+                    <option value="">Escolha:</option>
+                    <option value="BREAKFAST">Café da Manhã</option>
+                    <option value="LUNCH">Almoço</option>
+                    <option value="DINNER">Jantar</option>
+                    <option value="SNACK">Lanche</option>
                 </select>
             </div>
-
-            <label for="inputTotalMeals" class="col-sm-2 col-form-label">Refeições Diárias:</label>
-            <div class="col-sm-4">
-                <input type="number" class="form-control" id="inputTotalMeals" name="totalMeals">
+            <label for="inputEstimatedTime" class="col-sm-3 col-form-label">Horário da Refeição:</label>
+            <div class="col-sm-3">
+                <input type="time" class="form-control" id="inputEstimatedTime" formControlName="estimatedTime">
             </div>
         </div>
-
         <div class="row mb-3 mt-3">
-            <label for="txtAreaObservation" class="col-sm-2 col-form-label">Observação:</label>
+            <label for="txtAreaComentario" class="col-sm-2 col-form-label">Comentário:</label>
             <div class="col-sm-10">
-                <textarea class="form-control" id="txtAreaObservation" name="observation" rows="4"></textarea>
+                <textarea class="form-control" id="txtAreaComentario" formControlName="comment" rows="8"></textarea>
             </div>
         </div>
-
         <div class="row mb-3">
             <div class="col text-end">
-                <button type="button" class="btn btn-success" id="btnSalvarDieta">Salvar</button>
-                <button type="button" class="btn btn-primary ms-2" id="btnEditarDieta">Editar</button>
-                <button type="button" class="btn btn-warning text-white ms-2" id="btnCancelarDieta">Cancelar</button>
-                <button type="button" class="btn btn-danger ms-2" id="btnExcluirDieta">Excluir</button>
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <button type="button" class="btn btn-warning text-white ms-2" (click)="cancel()">Cancelar</button>
+                <!-- <button type="button" class="btn btn-primary ms-2" (click)="onEditMeal()" [disabled]="isMealEditMode">Editar</button>
+                <button type="button" class="btn btn-warning text-white ms-2" (click)="onCancelMeal()" [disabled]="!isMealEditMode">Cancelar</button>
+                <button type="button" class="btn btn-danger ms-2">Excluir</button> -->
             </div>
         </div>
     </form>
-
-    <hr>
-
-    <h2 class="mb-4 text-center fs-4">Adicionar Alimentos</h2>
-
-    <form>
-        <div class="row mb-3 mt-3">
-            <label for="inputDescription" class="col-sm-2 col-form-label">Nome:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputDescription">
-            </div>
-        </div>
-
-        <div class="row mb-3 mt-3">
-            <label for="inputQuantiti" class="col-sm-2 col-form-label">Quantidade:</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" id="inputQuantiti">
-            </div>
-
-            <label for="inputCalories" class="col-sm-2 col-form-label">Calorias:</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" id="inputCalories">
-            </div>
-        </div>
-
-        <div class="row mb-3 mt-3">
-            <span class="col-sm-2 col-form-label">Categoria:</span>
-            <div class="col-sm-4" id="selectCategories">
-                <select class="form-select" aria-label="Select Categories">
-                    <option value="" selected>Escolha:</option>
-                    <option value="1">Legume</option>
-                    <option value="2">Vegetal</option>
-                    <option value="3">Fruta</option>
-                    <option value="3">Carne</option>
-                </select>
-            </div>
-
-            <span class="col-sm-2 col-form-label">Unidade:</span>
-            <div class="col-sm-4">
-                <select class="form-select" aria-label="Select Uniti">
-                    <option value="" selected>Escolha:</option>
-                    <option value="1">G</option>
-                    <option value="2">ML</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="row mb-3 mt-3">
-            <div class="col text-end">
-                <button type="button" class="btn btn-success me-2" id="btnSalvarDieta">Salvar</button>
-                <button class="btn btn-warning text-white" type="button">Cancelar</button>
-                <!-- <button type="button" class="btn btn-success" id="btnSalvarDieta">Salvar</button>
-                <button type="button" class="btn btn-primary ms-2" id="btnEditarDieta">Editar</button>
-                <button type="button" class="btn btn-warning text-white ms-2" id="btnCancelarDieta">Cancelar</button>
-                <button type="button" class="btn btn-danger ms-2" id="btnExcluirDieta">Excluir</button> -->
-            </div>
-        </div>
-    </form>
-
-    <h2 class="mb-4 mt-4 text-center fs-4">Alimentos da Refeição</h2>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Categoria</th>
-                <th scope="col">Calorias</th>
-                <th scope="col">Unidade</th>
-                <th scope="col">Quantidade</th>
-                <th scope="col">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-    </table>
-
 </div>

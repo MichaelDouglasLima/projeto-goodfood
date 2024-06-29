@@ -1,0 +1,40 @@
+<div class="mb-3 mt-3 p-2 bg-secondary-subtle border border-2 rounded-2">
+  <h2 class="mb-3 mt-3 text-center fs-4">Informações da Refeição</h2>
+  <div class="row mb-3 mt-3">
+    <span class="col-sm-3 col-form-label">Período da Refeição:</span>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" [value]="meal.period | period" readonly>
+    </div>
+    <span class="col-sm-3 col-form-label">Horário da Refeição:</span>
+    <div class="col-sm-3">
+      <input type="time" class="form-control" [value]="meal.estimatedTime" readonly>
+    </div>
+  </div>
+  <div class="row mb-3 mt-3">
+    <span class="col-sm-2 col-form-label">Comentário:</span>
+    <div class="col-sm-10">
+      <textarea class="form-control" rows="8" readonly>{{meal.comment}}</textarea>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-end">
+      <button class="btn btn-primary me-2" (click)="editMeal()">Editar</button>
+      <button class="btn btn-danger me-2" (click)="openConfirmModal(confirmModal)">Excluir</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<ng-template #confirmModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Confirmação de Exclusão</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.close()"></button>
+  </div>
+  <div class="modal-body">
+    Deseja realmente excluir a refeição {{meal.period | period}}?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close()">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('confirm')">Excluir</button>
+  </div>
+</ng-template>

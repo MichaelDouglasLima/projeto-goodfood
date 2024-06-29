@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Period } from '../../interfaces/enums/Period';
+import { Meal } from '../../interfaces/Meal';
 
 @Component({
   selector: 'app-meal-card',
@@ -9,13 +10,7 @@ import { Period } from '../../interfaces/enums/Period';
 })
 export class MealCardComponent {
 
-  formGroupMealCard: FormGroup;
-
-  constructor (private formBuilder: FormBuilder) {
-    this.formGroupMealCard = this.formBuilder.group({
-      estimatedTime: [''],
-      comment: [''],
-      period: ['']
-    })
-  }
+  @Input()
+  meal!: Meal;
+  
 }

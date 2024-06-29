@@ -32,7 +32,7 @@ public class Meal {
     @Enumerated(EnumType.STRING)
     private Period period;
 
-    @OneToOne(optional = true)
+    @ManyToOne(optional = false)
     private Diet diet;
 
     //TODO Não entendi o papel deste atributo
