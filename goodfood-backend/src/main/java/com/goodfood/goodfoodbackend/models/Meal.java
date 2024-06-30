@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalTime;
-import java.util.List;
-
 import com.goodfood.goodfoodbackend.models.enums.Period;
 
 @NoArgsConstructor
@@ -35,12 +33,9 @@ public class Meal {
     @ManyToOne(optional = false)
     private Diet diet;
 
-    //TODO Não entendi o papel deste atributo
     // @ManyToMany(mappedBy = "meals")
     // private List<Diet> diets;
 
-    //TODO acho que o correto seria uma lista disso aqui.
-    //TODO cada refeição sugerida teria vários desse aqui, que seria cada item da tabela.
     // @ManyToMany(mappedBy = "meals")
     // private List<MealProduct> mealProducts;
 }

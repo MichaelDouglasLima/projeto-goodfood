@@ -39,7 +39,7 @@ public class RealMeal {
 
     private LocalTime registerTime;
 
-    private Boolean followedDiet; //TODO Não sei se posso por um booleano aqui, acho que sim
+    private Boolean followedDiet;
 
     private String comment;
 
@@ -50,7 +50,6 @@ public class RealMeal {
     @Enumerated(EnumType.STRING)
     private Period period;
 
-    //TODO Rever este relacionamento
     @ManyToOne(optional = false)
     @JoinColumn(name = "diet_id")
     private Diet diet;

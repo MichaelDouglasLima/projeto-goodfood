@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -20,7 +19,6 @@ public class Diet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // TODO: mudar para enum com os possíveis valores -- DietType é um nome mesmo.
     @Column(nullable = false)
     private String dietType;
 
@@ -47,7 +45,6 @@ public class Diet {
     // @JoinColumn(name = "nutritionist_client_id")
     // private NutritionistClient nutritionistClient;
 
-    //TODO Esse atributo seria a Entidade POSSUI?
     // @ManyToMany
     // @JoinTable(
     //         name = "diet_meal",

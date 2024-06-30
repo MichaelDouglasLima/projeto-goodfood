@@ -2,15 +2,10 @@ package com.goodfood.goodfoodbackend.services;
 
 import com.goodfood.goodfoodbackend.models.Diet;
 import com.goodfood.goodfoodbackend.repositories.DietRepository;
-import com.goodfood.goodfoodbackend.models.NutritionistClient;
-
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
 
 @AllArgsConstructor
@@ -19,7 +14,7 @@ public class DietService {
 
     private final DietRepository dietRepository;
 
-    private final NutritionistClientService nutritionistClientService;
+    // private final NutritionistClientService nutritionistClientService;
 
     public Diet save(Diet diet) {
         return dietRepository.save(diet);

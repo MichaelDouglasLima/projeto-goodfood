@@ -1,10 +1,7 @@
 package com.goodfood.goodfoodbackend.services;
 
 import com.goodfood.goodfoodbackend.models.Category;
-import com.goodfood.goodfoodbackend.models.Food;
-import com.goodfood.goodfoodbackend.models.Meal;
 import com.goodfood.goodfoodbackend.models.MealProduct;
-import com.goodfood.goodfoodbackend.models.Product;
 import com.goodfood.goodfoodbackend.repositories.MealProductRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -24,9 +21,9 @@ public class MealProductService {
 
     private final MealProductRepository mealProductRepository;
 
-    private final MealService mealService;
+    // private final MealService mealService;
 
-    private final ProductService productService;
+    // private final ProductService productService;
 
     public MealProduct save(MealProduct mealProduct) {
         return mealProductRepository.save(mealProduct);

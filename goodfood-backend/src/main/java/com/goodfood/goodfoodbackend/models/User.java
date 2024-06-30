@@ -29,7 +29,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    private String username; // Este atributo não aparece no DER, mas tudo bem.
+    private String username;
 
     @Column(nullable = false)
     private String password;
@@ -47,8 +47,6 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
-    //TODO gambiarra para recuperar atributos
 
     private Double height;
     

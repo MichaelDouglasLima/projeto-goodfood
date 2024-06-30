@@ -36,20 +36,8 @@ public class MealProduct {
     @JoinColumn(name = "meal_id")
     private Meal meal;
 
-    //TODO deixar um produto aqui vai deixar a lógica mais complicada
     // @ManyToOne(optional = false)
     // @JoinColumn(name = "product_id")
     // private Product product;
 
-    //TODO Poderiamos deixar apenas os atributos de Product aqui
-    // @Column(length = 1024)
-    // private String description;
-
-    // private Double calories;
-
-    // @ManyToOne(optional = false)
-    // @JoinColumn(name = "category_id")
-    // private Category category;
-
-    //TODO desse jeito cada MealProduct já seria um item da tabela
 }
