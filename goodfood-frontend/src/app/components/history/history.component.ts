@@ -71,6 +71,7 @@ export class HistoryComponent implements OnInit {
         next: data => {
           this.realMeals = data.filter(realMeal => realMeal.diet.id === this.clientByDiet.id);
           console.log('RealMeal loaded:', this.realMeals); // Log de Depuração
+          this.realMeals = this.sortRealMealsByDate(this.realMeals);
         },
         error: err => console.error('Failed to load realMeals', err)
       });
@@ -100,5 +101,13 @@ export class HistoryComponent implements OnInit {
       this.historyFormComponent.resetForm();
     }
   }
+
+  sortRealMealsByDate(realMeals: RealMeal[]): RealMeal[] {
+    return realMeals.sort((a, b) => {
+      if (!a.registerDate) return 1;  // a.registerDate é nulo, coloca no final
+      if (!b.registerDate) return -1; // b.registerDate é nulo, coloca no final
+      return new Date(b.registerDate).getTime() - new Date(a.registerDate).getTime(); // ordem decrescente
+    });
+  }  
 
 }

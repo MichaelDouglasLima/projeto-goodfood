@@ -71,6 +71,7 @@ export class WeeklylogsComponent implements OnInit{
         next: data => {
           this.weeklyLogs = data.filter(weeklyLog => weeklyLog.diet.id === this.clientByDiet.id);
           console.log('WeeklyLogs loaded:', this.weeklyLogs); // Log de Depuração
+          this.sortWeeklyLogs();
         },
         error: err => console.error('Failed to load weeklylogs', err)
       });
@@ -99,6 +100,14 @@ export class WeeklylogsComponent implements OnInit{
     if (this.weeklylogFormComponent) {
       this.weeklylogFormComponent.resetForm();
     }
+  }
+
+  sortWeeklyLogs(): void {
+    this.weeklyLogs.sort((a, b) => {
+      if (!a.endDate) return 1;  // Registros com data nula vão para o final
+      if (!b.endDate) return -1; // Registros com data nula vão para o final
+      return new Date(b.endDate).getTime() - new Date(a.endDate).getTime(); // Ordena do mais recente para o mais antigo
+    });
   }
 
 }

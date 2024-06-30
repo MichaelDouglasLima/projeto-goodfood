@@ -20,18 +20,12 @@ import { RealMeal } from '../../interfaces/RealMeal';
 })
 export class ClientCardComponent  implements OnInit {
 
-  // @Input()
-  // client!: Client;
-
   @Input()
   clientByDiet!: Diet;
 
   foods: Food[] = [];
   weeklyLogs: WeeklyLog[] = [];
   realMeals: RealMeal[] = [];
-
-  // @Input()
-  // client!: User;
 
   constructor(
     private modalService: NgbModal,
@@ -80,6 +74,7 @@ export class ClientCardComponent  implements OnInit {
         next: (logs) => {
           this.realMeals = logs.filter(log => log.diet.client.id === clientId);
           console.log('RealMeals Logs loaded:', this.realMeals); // Log de depuração
+          this.realMeals = this.sortRealMealsByDate(this.realMeals);
         },
         error: (err) => console.error('Failed to load realMeals logs', err)
       });
@@ -95,6 +90,7 @@ export class ClientCardComponent  implements OnInit {
         next: (logs) => {
           this.weeklyLogs = logs.filter(log => log.diet.client.id === clientId);
           console.log('Weekly Logs loaded:', this.weeklyLogs); // Log de depuração
+          this.weeklyLogs = this.sortWeeklyLogsByDate(this.weeklyLogs);
         },
         error: (err) => console.error('Failed to load weekly logs', err)
       });
@@ -114,4 +110,21 @@ export class ClientCardComponent  implements OnInit {
       this.router.navigate(['/diet-nutritionist', clientId]);
     }
   }
+
+  sortWeeklyLogsByDate(weeklyLogs: WeeklyLog[]): WeeklyLog[] {
+    return weeklyLogs.sort((a, b) => {
+      if (!a.endDate) return 1;  // a.endDate é nulo, coloca no final
+      if (!b.endDate) return -1; // b.endDate é nulo, coloca no final
+      return new Date(b.endDate).getTime() - new Date(a.endDate).getTime(); // ordem decrescente
+    });
+  }
+  
+  sortRealMealsByDate(realMeals: RealMeal[]): RealMeal[] {
+    return realMeals.sort((a, b) => {
+      if (!a.registerDate) return 1;  // a.registerDate é nulo, coloca no final
+      if (!b.registerDate) return -1; // b.registerDate é nulo, coloca no final
+      return new Date(b.registerDate).getTime() - new Date(a.registerDate).getTime(); // ordem decrescente
+    });
+  }
+  
 }
