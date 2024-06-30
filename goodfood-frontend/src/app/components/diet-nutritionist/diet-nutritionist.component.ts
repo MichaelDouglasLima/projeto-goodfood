@@ -174,7 +174,7 @@ export class DietNutritionistComponent implements OnInit {
             this.resetForm();
             this.loadMeals();
           },
-          error: err => console.error('Failed to save weeklyLog', err)
+          error: err => console.error('Failed to save meal', err)
         });
     } else {
       this.resetForm();

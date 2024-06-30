@@ -1,10 +1,17 @@
 <div class="container border border-2 rounded mb-3 mt-3">
     <h2 class="mb-3 mt-3 text-center fs-4">Informações da Refeição</h2>
     <form [formGroup]="formGroupMeal" (ngSubmit)="save()">
+        <div *ngIf="meal.id" class="row mb-3 mt-3">
+            <label for="inputId" class="col-sm-2 col-form-label">Id:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputId" formControlName="id">
+            </div>
+        </div>
+
         <div class="row mb-3 mt-3">
             <label for="selectPeriod" class="col-sm-3 col-form-label">Período da Refeição:</label>
             <div class="col-sm-3">
-                <select class="form-select" id="selectPeriod" formControlName="period">
+                <select class="form-select" id="selectPeriod" name="period" formControlName="period">
                     <option value="">Escolha:</option>
                     <option value="BREAKFAST">Café da Manhã</option>
                     <option value="LUNCH">Almoço</option>
@@ -14,22 +21,21 @@
             </div>
             <label for="inputEstimatedTime" class="col-sm-3 col-form-label">Horário da Refeição:</label>
             <div class="col-sm-3">
-                <input type="time" class="form-control" id="inputEstimatedTime" formControlName="estimatedTime">
+                <input type="time" class="form-control" id="inputEstimatedTime" name="estimatedTime"
+                    formControlName="estimatedTime">
             </div>
         </div>
         <div class="row mb-3 mt-3">
             <label for="txtAreaComentario" class="col-sm-2 col-form-label">Comentário:</label>
             <div class="col-sm-10">
-                <textarea class="form-control" id="txtAreaComentario" formControlName="comment" rows="8"></textarea>
+                <textarea class="form-control" id="txtAreaComentario" name="comment" formControlName="comment"
+                    rows="8"></textarea>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col text-end">
                 <button type="submit" class="btn btn-success">Salvar</button>
                 <button type="button" class="btn btn-warning text-white ms-2" (click)="cancel()">Cancelar</button>
-                <!-- <button type="button" class="btn btn-primary ms-2" (click)="onEditMeal()" [disabled]="isMealEditMode">Editar</button>
-                <button type="button" class="btn btn-warning text-white ms-2" (click)="onCancelMeal()" [disabled]="!isMealEditMode">Cancelar</button>
-                <button type="button" class="btn btn-danger ms-2">Excluir</button> -->
             </div>
         </div>
     </form>

@@ -46,8 +46,8 @@ export class HistoryFormComponent {
   resetForm(): void {
     this.formGroupRealMeal.reset({
       id: { value: null, disabled: true },
-      registerDate: '',
-      registerTime: '',
+      registerDate: this.getCurrentDate(),
+      registerTime: this.getCurrentTime(),
       followedDiet:  null,
       comment: '',
       nutritionist: this.clientByDiet.nutritionist.name,
@@ -73,6 +73,16 @@ export class HistoryFormComponent {
   onFollowedDietChange(event: Event): void {
     const value = (event.target as HTMLSelectElement).value;
     this.formGroupRealMeal.patchValue({ followedDiet: value === 'true' });
+  }
+
+  getCurrentDate(): string {
+    const now = new Date();
+    return now.toISOString().substring(0, 10);  // Formato YYYY-MM-DD
+  }
+
+  getCurrentTime(): string {
+    const now = new Date();
+    return now.toTimeString().substring(0, 5);  // Formato HH:MM
   }
   
 }

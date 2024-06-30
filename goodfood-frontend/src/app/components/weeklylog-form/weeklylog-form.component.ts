@@ -46,7 +46,7 @@ export class WeeklylogFormComponent implements OnChanges {
       id: { value: null, disabled: true },
       rating: '',
       weight: '',
-      endDate: '',
+      endDate: this.getCurrentDate(),
       description: '',
       diet: this.clientByDiet,
     });
@@ -64,5 +64,10 @@ export class WeeklylogFormComponent implements OnChanges {
   cancel(): void {
     this.saveEmitter.emit(false);
     this.resetForm();
+  }
+
+  getCurrentDate(): string {
+    const now = new Date();
+    return now.toISOString().substring(0, 10);  // Formato YYYY-MM-DD
   }
 }

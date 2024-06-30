@@ -1,14 +1,17 @@
 <app-navbar-client></app-navbar-client>
 <div class="container">
-
-  <header class="display-4 text-center">
+  <div class="display-4 text-center">
     Experiência Semanal
-  </header>
+  </div>
+
+  <div class="text-center display-6 mt-2">
+    Registre sua experiência semanalmente e mantenha o seu nutricionista atualizado sobre a sua experiência da dieta.
+  </div>
 
   <app-weeklylog-form [weeklyLog]="weeklyLog" [clientByDiet]="clientByDiet"
     (saveEmitter)="saveWeeklyLog($event)"></app-weeklylog-form>
 
-  <div class="display-6 mt-2"> 
+  <div class="display-6">
     Registros Semanais:
   </div>
 

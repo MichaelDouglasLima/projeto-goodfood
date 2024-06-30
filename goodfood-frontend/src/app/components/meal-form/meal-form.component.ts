@@ -38,6 +38,10 @@ export class MealFormComponent implements OnChanges {
     } else {
       this.resetForm();
     }
+
+    if (changes['clientByDiet'] && changes['clientByDiet'].currentValue) {
+      this.formGroupMeal.get('diet')?.setValue(this.clientByDiet);
+    }
   }
 
   resetForm(): void {
@@ -53,7 +57,8 @@ export class MealFormComponent implements OnChanges {
   save(): void {
     if (this.formGroupMeal.valid) {
       const formValue = this.formGroupMeal.getRawValue();
-      const mealToSave = { ...this.meal, ...formValue };
+      const mealToSave = { ...this.meal, ...formValue, diet: this.clientByDiet };
+      console.log(mealToSave);
       this.saveEmitter.emit(mealToSave);
     }
     this.cancel();

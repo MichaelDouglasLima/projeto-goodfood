@@ -32,13 +32,19 @@
                 <div class="row mb-3 mt-3">
                     <label class="col-sm-2 col-form-label">Situação:</label>
                     <div class="col-sm-4">
+                        <input type="text" class="form-control" name="status" formControlName="status" id="inputStatus"
+                            [value]="dietForm.get('status')?.value | dietStatus" readonly>
+                    </div>
+
+                    <!-- O Input acima represta os estatus da Dieta abaixo -->
+                    <!-- <div class="col-sm-4">
                         <select class="form-select" name="status" formControlName="status" aria-label="Situação da Dieta">
                             <option value="" selected>Escolha:</option>
                             <option value="IN_PROGRESS">Em Progresso</option>
                             <option value="FINISHED">Terminada</option>
                             <option value="INTERRUPTED">Interrompida</option>
                         </select>
-                    </div>
+                    </div> -->
 
                     <label for="inputTotalMeals" class="col-sm-2 col-form-label">Refeições Diárias:</label>
                     <div class="col-sm-4">
