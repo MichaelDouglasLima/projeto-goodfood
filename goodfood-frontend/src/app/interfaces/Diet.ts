@@ -12,5 +12,4 @@ export interface Diet {
     observation: string;
     client: User;
     nutritionist: User;
-    // nutritionistClient: NutritionistClient;
 }

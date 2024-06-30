@@ -43,6 +43,7 @@ import { DietStatusPipe } from './pipes/diet-status.pipe';
 import { HistoryCardComponent } from './components/history-card/history-card.component';
 import { DietMealCardComponent } from './components/diet-meal-card/diet-meal-card.component';
 import { PeriodPipe } from './pipes/period.pipe';
+import { UnitPipe } from './pipes/unit.pipe';
 
 export function tokenGetter() {
   return localStorage.getItem('authToken');
@@ -83,7 +84,8 @@ export function tokenGetter() {
     DietStatusPipe,
     HistoryCardComponent,
     DietMealCardComponent,
-    PeriodPipe
+    PeriodPipe,
+    UnitPipe
   ],
   imports: [
     BrowserModule,

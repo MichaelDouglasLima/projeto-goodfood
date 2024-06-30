@@ -1,5 +1,7 @@
 package com.goodfood.goodfoodbackend.models;
 
+import com.goodfood.goodfoodbackend.models.enums.Unit;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,4 +33,9 @@ public class Food {
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @Enumerated(EnumType.STRING)
+    private Unit unit;
+
+    private Double quantity;
 }

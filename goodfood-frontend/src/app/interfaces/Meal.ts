@@ -7,5 +7,4 @@ export interface Meal {
     comment: string;
     period: Period;
     diet: Diet;
-    // diets: Diets[];
 }

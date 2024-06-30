@@ -23,6 +23,8 @@ export class PantryFormComponent {
       id: [{ value: null, disabled: true }],
       description: ['',],
       calories: ['', ],
+      unit: ['',],
+      quantity: [''],
       category: [null,],
       user: [null] // Incluindo o usuário no FormGroup
     });
@@ -44,6 +46,8 @@ export class PantryFormComponent {
       id: { value: null, disabled: true },
       description: '',
       calories: '',
+      unit: '',
+      quantity: '',
       category: null,
       user: this.user // Incluindo o usuário ao resetar o formulário
     });
@@ -79,4 +83,6 @@ export class PantryFormComponent {
   get ffgDescription() { return this.formGroupFood.get("description"); }
   get ffgCalories() { return this.formGroupFood.get("calories"); }
   get ffgCategory() { return this.formGroupFood.get("category"); }
+  get ffgUnit() { return this.formGroupFood.get("unit"); }
+  get ffgQuantity() { return this.formGroupFood.get("quantity"); }
 }

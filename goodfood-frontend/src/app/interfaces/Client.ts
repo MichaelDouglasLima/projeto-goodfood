@@ -6,5 +6,4 @@ export interface Client {
     height: number;
     weight: number;
     user: User;
-    // products: Product[];
 }

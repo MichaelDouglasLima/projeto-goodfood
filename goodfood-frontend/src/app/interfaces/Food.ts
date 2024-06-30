@@ -1,5 +1,6 @@
 import { Category } from "./Category";
 import { User } from "./User";
+import { Unit } from "./enums/Unit";
 
 export interface Food {
     id: number;
@@ -7,4 +8,6 @@ export interface Food {
     calories: number;
     category: Category;
     user: User;
+    unit: Unit;
+    quantity: number;
 }

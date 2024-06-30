@@ -5,5 +5,4 @@ export interface Product {
     description: string;
     calories: number;
     category: Category;
-    // client: Clients[];
 }

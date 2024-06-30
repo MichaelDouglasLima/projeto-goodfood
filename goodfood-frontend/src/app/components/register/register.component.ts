@@ -33,7 +33,7 @@ export class RegisterComponent {
       this.authService.register({ name, email, password, role }).subscribe({
         next: (response) => {
           console.log('Usuário registrado com sucesso', response);
-          alert('Conta cadastrada com sucesso!');
+          alert('Conta cadastrada com sucesso! Não esqueça de completar as informações do seu perfil para ter uma melhor experiência no nosso site.');
           this.router.navigate(['/login']);
         },
         error: (error) => {

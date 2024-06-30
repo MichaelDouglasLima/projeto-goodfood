@@ -46,6 +46,8 @@ public class FoodService {
         food.setDescription(foodUpdate.getDescription());
         food.setCalories(foodUpdate.getCalories());
         food.setCategory(category);
+        food.setUnit(foodUpdate.getUnit());
+        food.setQuantity(foodUpdate.getQuantity());
 
         foodRepository.save(food);
     }
