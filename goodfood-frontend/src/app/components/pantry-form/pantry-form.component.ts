@@ -23,11 +23,11 @@ export class PantryFormComponent {
     this.formGroupFood = this.formBuilder.group({
       id: [{ value: null, disabled: true }],
       description: ['',],
-      calories: ['', ],
+      calories: ['',],
       unit: ['',],
-      quantity: [''],
+      quantity: ['',],
       category: [null,],
-      user: [null] // Incluindo o usuário no FormGroup
+      user: [null,]
     });
   }
 
