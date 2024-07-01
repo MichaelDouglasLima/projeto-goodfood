@@ -87,7 +87,7 @@ export class DietNutritionistComponent implements OnInit {
             dietType: clientDiet.dietType,
             startDate: clientDiet.startDate,
             endDate: clientDiet.endDate,
-            status: clientDiet.status, // Verifique se dietStatus está sendo carregado corretamente
+            status: clientDiet.status,
             totalMeals: clientDiet.totalMeals,
             observation: clientDiet.observation,
           };
@@ -95,7 +95,7 @@ export class DietNutritionistComponent implements OnInit {
           console.log('Client Diet loaded:', this.clientByDiet);
           console.log('Initial Diet Data:', this.initialDietData);
 
-          this.dietForm.patchValue(this.initialDietData); // Certifique-se de que dietStatus está sendo patchado corretamente
+          this.dietForm.patchValue(this.initialDietData);
           console.log('Form values after patchValue:', this.dietForm.value);
 
           this.loadMeals();
@@ -228,7 +228,7 @@ export class DietNutritionistComponent implements OnInit {
   deleteDiet(): void {
     if (this.clientByDiet) {
       const currentDate = new Date().toISOString().split('T')[0]; // Formato YYYY-MM-DD
-
+  
       const updatedDiet: Diet = {
         ...this.clientByDiet,
         dietType: '',
@@ -238,10 +238,30 @@ export class DietNutritionistComponent implements OnInit {
         totalMeals: 0,
         observation: ''
       };
-
+  
       this.dietService.update(updatedDiet).subscribe({
         next: () => {
-          // Diet successfully "deleted" (re-written)
+          if (this.clientByDiet.id) {
+            this.mealService.getMeals().subscribe({
+              next: meals => {
+                const mealsToDelete = meals.filter(meal => meal.diet && meal.diet.id === this.clientByDiet.id);
+  
+                if (mealsToDelete.length > 0) {
+                  mealsToDelete.forEach(meal => {
+                    this.mealService.delete(meal).subscribe({
+                      next: () => {
+                        // Atualizando a lista de refeições após a exclusão
+                        this.meals = this.meals.filter(m => m.id !== meal.id);
+                      },
+                      error: err => console.error('Failed to delete meal', err)
+                    });
+                  });
+                }
+              },
+              error: err => console.error('Failed to load meals', err)
+            });
+          }
+  
           this.initialDietData = this.dietForm.value;
           this.dietForm.reset();
           this.dietForm.patchValue({ startDate: currentDate, status: 'INTERRUPTED' as DietStatus });
