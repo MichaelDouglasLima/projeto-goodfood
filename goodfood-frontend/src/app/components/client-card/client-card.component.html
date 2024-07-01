@@ -44,6 +44,8 @@
                     <th scope="col">Nome</th>
                     <th scope="col">Categoria</th>
                     <th scope="col">Calorias</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Unidade</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,6 +54,8 @@
                     <td>{{food?.description}}</td>
                     <td>{{food?.category?.description}}</td>
                     <td>{{food?.calories}}</td>
+                    <td>{{food?.quantity}}</td>
+                    <td>{{ food?.unit ? (food.unit | unit) : '' }}</td>
                 </tr>
             </tbody>
         </table>

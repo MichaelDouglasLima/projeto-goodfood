@@ -20,6 +20,7 @@ export class PantryComponent implements OnInit {
   @ViewChild(PantryFormComponent) pantryFormComponent!: PantryFormComponent;
 
   categories: Category[] = [];
+  allFoods: Food[] = [];
   foods: Food[] = [];
   food: Food = {} as Food;
   deleteFood: Food = {} as Food;
@@ -37,6 +38,7 @@ export class PantryComponent implements OnInit {
   ngOnInit(): void {
     this.loadCategories();
     this.loadUser();
+    this.loadAllFoods();
   }
 
   loadUser(): void {
@@ -56,10 +58,10 @@ export class PantryComponent implements OnInit {
   loadAllFoods(): void {
     this.foodService.getFoods().subscribe({
       next: data => {
-        this.foods = data;
-        console.log('Foods loaded:', this.foods); // Log de Depuração
+        this.allFoods = data;
+        console.log('Foods loaded:', this.allFoods); // Log de Depuração
       },
-      error: err => console.error('Failed to load foods', err)
+      error: err => console.error('Failed to load allFoods', err)
     });
   }
 

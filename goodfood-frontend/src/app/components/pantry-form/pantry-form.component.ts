@@ -12,6 +12,7 @@ import { User } from '../../interfaces/User';
 export class PantryFormComponent {
 
   @Input() categories: Category[] = []; 
+  @Input() allFoods: Food[] = [];
   @Input() food: Food = {} as Food;
   @Input() user: User = {} as User;
   @Output() saveEmitter = new EventEmitter<Food | false>();
@@ -85,4 +86,21 @@ export class PantryFormComponent {
   get ffgCategory() { return this.formGroupFood.get("category"); }
   get ffgUnit() { return this.formGroupFood.get("unit"); }
   get ffgQuantity() { return this.formGroupFood.get("quantity"); }
+
+  checkAndFillFood(): void {
+    const description = this.formGroupFood.get('description')?.value;
+
+    if (description) {
+      const foundFood = this.allFoods.find(allFoods => allFoods.description.toLowerCase() === description.toLowerCase());
+
+      if (foundFood) {
+        this.formGroupFood.patchValue({
+          calories: foundFood.calories,
+          unit: foundFood.unit,
+          quantity: foundFood.quantity,
+          category: foundFood.category
+        });
+      }
+    }
+  }
 }

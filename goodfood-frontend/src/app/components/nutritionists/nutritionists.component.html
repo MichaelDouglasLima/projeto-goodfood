@@ -6,7 +6,7 @@
 
     <main class="mb-3 mt-3">
         <div class="row justify-content-center">
-            <div class="col-6 p-4" style="background-color: #D1E7DD;">
+            <div class="col-4 p-4" style="background-color: #D1E7DD;">
                 <div>
                     <p class="display-1 text-center fw-bold p-4">
                         <i class="bi bi-person-circle display-4" *ngIf="clientDiet && clientDiet.nutritionist"></i>
@@ -19,7 +19,7 @@
                             <i class="bi bi-whatsapp"></i> {{ clientDiet.nutritionist.phoneNumber | phone }}
                         </button>
                     </div>
-                    <div class="display-6 text-center" *ngIf="!clientDiet || !clientDiet.nutritionist">
+                    <div class="text-center fs-5" *ngIf="!clientDiet || !clientDiet.nutritionist">
                         Atualmente você não tem um Nutricionista.
                     </div>
                 </div>
@@ -32,12 +32,6 @@
             <div class="display-6">
                 Nutricionistas Disponíveis:
             </div>
-
-            <!-- <div class="row" id="nutritionistCards">
-                <div class="col-4" *ngFor="let nutritionist of nutritionists">
-                    <app-nutritionist-card [nutritionist]="nutritionist"></app-nutritionist-card>
-                </div>
-            </div> -->
 
             <div class="row" id="nutritionistCards">
                 <div class="col-sm-12 col-md-6 col-lg-4 mb-4" *ngFor="let nutritionist of nutritionists">
