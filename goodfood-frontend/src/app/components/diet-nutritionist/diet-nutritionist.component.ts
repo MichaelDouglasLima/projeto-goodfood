@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Diet } from '../../interfaces/Diet';
 import { DietService } from '../../services/diet.service';
@@ -10,6 +10,7 @@ import { AuthService } from '../../services/auth.service';
 import { Meal } from '../../interfaces/Meal';
 import { MealService } from '../../services/meal.service';
 import { MealFormComponent } from '../meal-form/meal-form.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-diet-nutritionist',
@@ -18,7 +19,8 @@ import { MealFormComponent } from '../meal-form/meal-form.component';
 })
 export class DietNutritionistComponent implements OnInit {
 
-  @ViewChild(MealFormComponent)  mealFormComponent!: MealFormComponent;
+  @ViewChild(MealFormComponent) mealFormComponent!: MealFormComponent;
+  @ViewChild('confirmModal') confirmModal!: TemplateRef<any>;
 
   // clientByDiet: Diet | null = null; 
   clientByDiet: Diet = {} as Diet;
@@ -27,7 +29,7 @@ export class DietNutritionistComponent implements OnInit {
   initialDietData: any;
   nutritionist: User = {} as User;
 
-  meals: Meal[] = []; 
+  meals: Meal[] = [];
   meal: Meal = {} as Meal;
 
   statusOptions = Object.values(DietStatus);
@@ -38,6 +40,7 @@ export class DietNutritionistComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private mealService: MealService,
+    private modalService: NgbModal,
     private formBuilder: FormBuilder
   ) {
     this.dietForm = this.formBuilder.group({
@@ -88,10 +91,10 @@ export class DietNutritionistComponent implements OnInit {
             totalMeals: clientDiet.totalMeals,
             observation: clientDiet.observation,
           };
-  
+
           console.log('Client Diet loaded:', this.clientByDiet);
           console.log('Initial Diet Data:', this.initialDietData);
-  
+
           this.dietForm.patchValue(this.initialDietData); // Certifique-se de que dietStatus está sendo patchado corretamente
           console.log('Form values after patchValue:', this.dietForm.value);
 
@@ -165,17 +168,17 @@ export class DietNutritionistComponent implements OnInit {
       console.error('ClientByDiet or clientByDiet.id is null or undefined');
     }
   }
-  
+
   saveMeal(meal: Meal | false): void {
     if (meal) {
-        this.mealService.save(meal).subscribe({
-          next: meal => {
-            this.meals.push(meal);
-            this.resetForm();
-            this.loadMeals();
-          },
-          error: err => console.error('Failed to save meal', err)
-        });
+      this.mealService.save(meal).subscribe({
+        next: meal => {
+          this.meals.push(meal);
+          this.resetForm();
+          this.loadMeals();
+        },
+        error: err => console.error('Failed to save meal', err)
+      });
     } else {
       this.resetForm();
     }
@@ -209,6 +212,43 @@ export class DietNutritionistComponent implements OnInit {
       },
       error: err => console.error('Failed to delete meal', err)
     });
+  }
+
+  openDeleteConfirmModal(): void {
+    const modalRef = this.modalService.open(this.confirmModal);
+    modalRef.result.then((result) => {
+      if (result) {
+        this.deleteDiet();
+      }
+    }, (reason) => {
+      // Modal dismissed without confirmation
+    });
+  }
+
+  deleteDiet(): void {
+    if (this.clientByDiet) {
+      const currentDate = new Date().toISOString().split('T')[0]; // Formato YYYY-MM-DD
+
+      const updatedDiet: Diet = {
+        ...this.clientByDiet,
+        dietType: '',
+        startDate: currentDate, // Data atual
+        endDate: '',
+        status: 'INTERRUPTED' as DietStatus,
+        totalMeals: 0,
+        observation: ''
+      };
+
+      this.dietService.update(updatedDiet).subscribe({
+        next: () => {
+          // Diet successfully "deleted" (re-written)
+          this.initialDietData = this.dietForm.value;
+          this.dietForm.reset();
+          this.dietForm.patchValue({ startDate: currentDate, status: 'INTERRUPTED' as DietStatus });
+        },
+        error: err => console.error('Failed to delete diet', err)
+      });
+    }
   }
 
 }

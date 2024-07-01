@@ -69,7 +69,7 @@
                         [disabled]="isEditMode">Editar</button>
                     <button type="button" class="btn btn-warning text-white ms-2" (click)="onCancel()"
                         [disabled]="!isEditMode">Cancelar</button>
-                    <button type="button" class="btn btn-danger ms-2">Excluir</button>
+                    <button type="button" class="btn btn-danger ms-2" (click)="openDeleteConfirmModal()">Excluir</button>
                 </div>
             </div>
         </form>
@@ -97,3 +97,17 @@
     </section>
 
 </main>
+
+<ng-template #confirmModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Apagar Dieta</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.close()"></button>
+    </div>
+    <div class="modal-body">
+        <p>Deseja Apagar a Dieta do Cliente # {{ clientByDiet.client.name }}?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="modal.close(true)">Confirmar</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close()">Cancelar</button>
+    </div>
+</ng-template>
